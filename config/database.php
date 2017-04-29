@@ -1,5 +1,13 @@
 <?php
 
+
+
+ $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+ $host = $url["host"];
+ $username = $url["user"];
+ $password = $url["pass"];
+ $database = substr($url["path"], 1);
+
 /*
  *  HEROKU CONFIGURATION FOR CLEAR_DB MYSQL DATABASE
  *
@@ -51,11 +59,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'), //$host,
+            'host' => $host, //env('DB_HOST', '127.0.0.1'), //$host,
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'), //$database,
-            'username' => env('DB_USERNAME', 'forge'), // $username,
-            'password' => env('DB_PASSWORD', ''), //$password,
+            'database' => $database, // env('DB_DATABASE', 'forge'), //$database,
+            'username' => $username, //env('DB_USERNAME', 'forge'), // $username,
+            'password' => $database, //env('DB_PASSWORD', ''), //$password,
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
