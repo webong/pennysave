@@ -4,9 +4,6 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Group;
-use App\Payment;
-use App\Profile;
 
 class User extends Authenticatable
 {
@@ -34,17 +31,32 @@ class User extends Authenticatable
 
 	public function group()
 	{
-		return $this->belongsToMany('Group');
+		return $this->belongsToMany('\App\Group');
 	}
 
 	public function payment()
 	{
-		return $this->hasMany('Payment');
+		return $this->hasMany('\App\Payment');
 	}
 
-  public function profile()
-  {
-    return $this->hasOne('Profile');
-  }
+    public function account()
+    {
+        return $this->hasMany('\App\Account');
+    }
+
+    public function contribution()
+    {
+        return $this->hasMany('\App\Contribution');
+    }
+
+    public function payment_record()
+    {
+        return $this->hasMany('\App\PaymentRecord');
+    }
+
+    public function personal_save()
+    {
+        return $this->hasMany('\App\PersonalSave');
+    }
 
 }

@@ -3,9 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
 
-class Group extends Model
+class PaymentDetail extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -13,16 +12,17 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'amount', 'duration', 'start_date',
+        'user_id', 'account_name', 'account_no', 'bank_id',
     ];
 
     public function user()
-	{
-		return $this->hasMany('User');
-	}
-
-    public function contribution()
     {
-        return $this->hasMany('\App\Contribution');
+        return $this->belongsTo('\App\User');
+    }
+
+
+    public function bank()
+    {
+        return $this->belongsTo('\App\Bank');
     }
 }
