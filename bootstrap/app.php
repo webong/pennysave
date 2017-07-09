@@ -41,6 +41,9 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+// Require custom helpers function
+
+require realpath(__DIR__.'/../app/helpers.php');
 /*
 |--------------------------------------------------------------------------
 | Return The Application

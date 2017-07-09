@@ -19,8 +19,9 @@ class CreatePaymentsTable extends Migration
             $table->string('account_no');
             $table->integer('bank_id')->unsigned();
             $table->timestamps();
-	        $table->foreign('user_id')->references('id')->on('users');
-	        $table->foreign('bank_id')->references('id')->on('banks');
+  	        $table->foreign('user_id')->references('id')->on('users');
+  	        $table->foreign('bank_id')->references('id')->on('banks');
+            $table->primary(['user_id', 'bank_id']);
         });
     }
 

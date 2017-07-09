@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
-	        $table->primary('id');
+	          $table->primary('id');
         });
     }
 
