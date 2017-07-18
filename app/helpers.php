@@ -1,5 +1,8 @@
 <?php
 
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
+
 if (! function_exists('message')) {
     /**
      * Assign high numeric IDs to a config item to force appending.
@@ -46,5 +49,12 @@ if (! function_exists('read_more')) {
         }
 
         return $string;
+    }
+}
+
+if (! function_exists('gen_uuid')) {
+
+    function gen_uuid() {
+        return Uuid::uuid5(Uuid::NAMESPACE_DNS, str_random(20))->toString();
     }
 }

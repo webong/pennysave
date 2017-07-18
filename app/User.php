@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'email', 'phone', 'password', 'avatar',
+        'id', 'first_name', 'last_name', 'email', 'phone', 'password', 'avatar',
     ];
 
     /**
@@ -29,9 +30,21 @@ class User extends Authenticatable
 
 	public $incrementing = false;
 
+    public function full_name()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function role()
+    {
+        return $this->belongsToMany('\App\Role', 'group_user')
+            ->withPivot(['group_id', 'role_id', 'status'])->withTimestamps();
+    }
+
 	public function group()
 	{
-		return $this->belongsToMany('\App\Group');
+		return $this->belongsToMany('\App\Group', 'group_user')
+            ->withPivot(['role_id', 'group_id', 'status'])->withTimestamps();
 	}
 
 	public function payment()
@@ -57,6 +70,21 @@ class User extends Authenticatable
     public function personal_save()
     {
         return $this->hasMany('\App\PersonalSave');
+    }
+
+    public function savings_records()
+    {
+        return $this->hasMany('\App\SavingsRecord');
+    }
+
+    public function user_wallet()
+    {
+        return $this->hasMany('\App\UserWallet');
+    }
+
+    public function user_withdrawals()
+    {
+        return $this->hasMany('\App\UserWithdrawal');
     }
 
 }

@@ -12,9 +12,16 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/ionicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery-ui.structure.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery-ui.theme.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/politespace.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    @yield('added_css')
 
     <!-- Scripts -->
     <script>
@@ -22,7 +29,7 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
-    
+
 </head>
 <body>
     <div id="app">
@@ -39,7 +46,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="@if(Auth::user()){{ url('/home') }}@else{{ url('/') }}@endif">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
@@ -60,23 +67,34 @@
                             <li><a href="{{ url('/member') }}">Members</a></li>
                             <li><a href="{{ url('/payment') }}">Payment Hierarchy</a></li>
                             <li><a href="{{ url('/settings') }}">Settings</a></li>
-                            <li class="dropdown">
+                            <li class="dropdown user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    <img src="{{ asset(urldecode(Auth::user()->avatar)) }}" class="user-image" alt="User Image"> <span class="hidden-xs">{{ Auth::user()->first_name }}</span> <span class="caret"></span>
                                 </a>
+                                <ul class="dropdown-menu">
+                                  <!-- User image -->
+                                  <li class="user-header">
+                                      <a href="/profile">
+                                        <img src="{{ asset(urldecode(Auth::user()->avatar)) }}" class="img-circle img-header" alt="User Image">
+                                        <p class="text-center margin-top-sm">
+                                            {{ Auth::user()->full_name() }}
+                                        </p>
+                                      </a>
+                                  </li>
+                                  <!-- Menu Footer-->
+                                  <li class="user-footer">
+                                    <div class="list-group">
+                                      <a href="{{ url('/settings') }}" class="list-group-item"><i class="fa fa-fw fa-cog"></i> Settings</a>
+                                      <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="list-group-item">
+                                      <i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                                  </div>
+                                      <div class="pull-right">
 
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
+                                      </div>
+                                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                          {{ csrf_field() }}
+                                      </form>
+                                  </li>
                                 </ul>
                             </li>
                         @endif
@@ -85,10 +103,43 @@
             </div>
         </nav>
 
+        @include('partials._error')
+
         @yield('content')
+
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/modernizr-custom.js') }}"></script>
+    <script src="{{ asset('js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('js/politespace.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(document).trigger("enhance");
+            $( document ).tooltip();
+            $("select").select2({
+                minimumResultsForSearch: 20
+            });
+        });
+
+        // DataPicker for Date Input types
+        if (!Modernizr.touch || !Modernizr.inputtypes.date) {
+            $('input[type=date].date').datepicker({
+                // Consistent format with the HTML5 picker
+                minDate: 0,
+                dateFormat: 'yy-mm-dd',
+                numberOfMonths: 2
+            });
+            $('input[type=date]').datepicker({
+                // Consistent format with the HTML5 picker
+                minDate: 0,
+                dateFormat: 'yy-mm-dd'
+            });
+        }
+    </script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+    @yield('added_js')
 </body>
 </html>

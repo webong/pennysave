@@ -13,8 +13,10 @@ class CreatePaymentDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payment_details', function (Blueprint $table) {
-            $table->increments('id');
+        // Account Details for making payments to Users
+        Schema::create('user_payment_receipient_account', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->string('user_id');
             $table->string('account_name');
             $table->string('account_no');
@@ -22,6 +24,8 @@ class CreatePaymentDetailsTable extends Migration
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('bank_id')->references('id')->on('banks');
+
+            $table->primary(['user_id', 'bank_id']);
         });
     }
 
@@ -32,6 +36,6 @@ class CreatePaymentDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payment_details');
+        Schema::dropIfExists('user_payment_receipient_account');
     }
 }

@@ -22,9 +22,10 @@ class RegisterRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'email' => 'nullable|required_without:phone|max:255|unique:users',
-            'phone' => 'nullable|required_without:email|max:30|unique:users',
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'email' => 'nullable|email|max:255|unique:users',
+            'phone' => 'nullable|max:30|unique:users',
             'password' => 'required|min:6',
         ];
     }

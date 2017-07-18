@@ -14,4 +14,11 @@ class Recurrence extends Model
     protected $fillable = [
         'period',
     ];
+
+    protected $table = 'recurrences';
+
+    public function personal_save()
+    {
+        return $this->hasOne('\App\PersonalSave', 'recurrence');
+    }
 }

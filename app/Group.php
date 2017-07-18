@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
 
 class Group extends Model
 {
@@ -13,16 +12,28 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'amount', 'duration', 'start_date',
+        'name', 'amount', 'duration', 'recurrence', 'start_date',
     ];
 
+    public $incrementing = false;
+
+    protected $table = 'groups';
+
+    protected $dates = ['start_date'];
+
     public function user()
-	{
-		return $this->hasMany('User');
-	}
+  	{
+  		return $this->belongsToMany('\App\User', 'group_user')->withPivot(['user_id', 'role_id', 'status'])->withTimestamps();
+  	}
 
     public function contribution()
     {
         return $this->hasMany('\App\Contribution');
     }
+
+    public function role()
+    {
+        return $this->belongsToMany('\App\Role', 'group_user')->withPivot(['user_id', 'role_id', 'status'])->withTimestamps();
+    }
+
 }

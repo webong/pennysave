@@ -22,7 +22,7 @@ class LoginRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required|string',
+            'login' => 'required|string',
             'password' => 'required|string',
         ];
     }

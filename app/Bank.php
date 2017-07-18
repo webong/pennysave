@@ -15,6 +15,8 @@ class Bank extends Model
         'name', 'logo',
     ];
 
+    protected $table = 'banks';
+
     public function payment()
     {
         return $this->hasMany('\App\PaymentDetail');

@@ -15,6 +15,10 @@ class Contribution extends Model
         'user_id', 'amount', 'group_id', 'status',
     ];
 
+    protected $table = 'contributions';
+
+    public $incrementing = false;
+
     public function user()
     {
         return $this->belongsTo('\App\User');

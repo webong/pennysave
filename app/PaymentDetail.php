@@ -15,11 +15,12 @@ class PaymentDetail extends Model
         'user_id', 'account_name', 'account_no', 'bank_id',
     ];
 
+    protected $table = 'user_payment_receipient_account';
+
     public function user()
     {
         return $this->belongsTo('\App\User');
     }
-
 
     public function bank()
     {

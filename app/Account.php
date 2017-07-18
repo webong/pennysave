@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
 
 class Account extends Model
 {
@@ -16,8 +15,12 @@ class Account extends Model
         'user_id', 'token', 'four_digits', 'status'
     ];
 
+    public $incrementing = false;
+
+    protected $table = 'accounts';
+
     public function user()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('\App\User');
 	}
 }

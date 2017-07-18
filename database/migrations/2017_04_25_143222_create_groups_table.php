@@ -14,12 +14,19 @@ class CreateGroupsTable extends Migration
     public function up()
     {
         Schema::create('groups', function (Blueprint $table) {
-            $table->increments('id');
-      			$table->string('name');
-      			$table->float('amount', 9, 2);
-      			$table->string('duration');
-      			$table->date('start_date');
-      			$table->timestamps();
+            $table->engine = 'InnoDB';
+
+            $table->string('id');
+            $table->string('name');
+  			$table->float('amount', 12, 2);
+  			$table->integer('participants');
+  			$table->integer('recurrence')->unsigned();
+  			$table->date('start_date');
+  			$table->boolean('status')->default(false);
+  			$table->timestamps();
+            $table->foreign('recurrence')->references('id')->on('recurrences');
+
+            $table->primary('id');
         });
     }
 

@@ -15,16 +15,15 @@ class UserSeed extends Seeder
      */
     public function run()
     {
-		$faker = Faker::create();
-		for ($i = 0; $i < 10; $i++) {
-			$user = User::create(
-			[
-				'id'            => Uuid::uuid5(Uuid::NAMESPACE_DNS, str_random(20))->toString(),
-				'name'     		=> $faker->name,
-				'email'         => $faker->email,
-				'password'      => bcrypt('gentle1'.$i),
-				'auth_code'     => 'AUTH_' . str_random(5),
-			]);
+    		$faker = Faker::create();
+    		for ($i = 0; $i < 2; $i++) {
+    			$user = User::create([
+    				'id'            => $faker->uuid,
+    				'first_name'    => $faker->firstName,
+    				'last_name'     => $faker->lastName,
+    				'email'         => $faker->email,
+    				'password'      => bcrypt('gentle1'.$i),
+    			]);
         }
     }
 }
