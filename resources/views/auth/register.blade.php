@@ -10,7 +10,7 @@
                     <form role="form" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
-                        @if (! isset($invitationEmail) || isset($invitationPhone))
+                        @if (isset($invitationEmail) || isset($invitationPhone))
                             <div class="alert alert-info text-center col-md-10 col-md-offset-1 bold">Please Sign Up To Get Started</div>
                         @endif
 
