@@ -1,7 +1,5 @@
 /node_modules
-/public/storage/debugbar
-/public/storage/framework
-/public/storage/logs
+/public/storage/
 /public/hot
 /storage/*.key
 /vendor
