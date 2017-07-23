@@ -1,8 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
-<div class="container">
-    <div class="row">
+    <div class="row margin-top-xxxl">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
                 <h3 class="panel-heading text-center">Login</h3>
@@ -10,10 +9,14 @@
                     <form role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 
+                        @if (isset($emailOrPhone))
+                            <div class="alert alert-info text-center col-md-10 col-md-offset-1 bold">You Need To Login To Accept This Request</div>
+                        @endif
+                        
                         <div class="form-group{{ $errors->has('login') ? ' has-error' : '' }}">
                             <label for="login" class="control-label sr-only">E-Mail Address</label>
 
-                            <input id="login" type="text" class="form-control" name="login" value="{{ old('login') }}" placeholder="Email Address or Phone Number" required autofocus>
+                            <input id="login" type="text" class="form-control" name="login" value="@if(isset($emailOrPhone)){{ $emailOrPhone }}@else{{ old('email') }}@endif" placeholder="Email Address or Phone Number" required autofocus>
 
                             @if ($errors->has('login'))
                                 <span class="help-block">
@@ -59,5 +62,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection

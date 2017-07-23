@@ -22,7 +22,7 @@ class CreateGroupsTable extends Migration
   			$table->integer('participants');
   			$table->integer('recurrence')->unsigned();
   			$table->date('start_date');
-  			$table->boolean('status')->default(false);
+  			$table->string('status')->default('inactive');
   			$table->timestamps();
             $table->foreign('recurrence')->references('id')->on('recurrences');
 

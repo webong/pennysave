@@ -10,6 +10,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
@@ -17,8 +18,7 @@
     <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery-ui.structure.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery-ui.theme.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/politespace.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sweet-alert.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     @yield('added_css')
@@ -46,7 +46,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="@if(Auth::user()){{ url('/home') }}@else{{ url('/') }}@endif">
+                    <a class="navbar-brand" href="@if(Auth::check()){{ route('main-dashboard') }}@else{{ url('/') }}@endif">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
@@ -64,9 +64,6 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
-                            <li><a href="{{ url('/member') }}">Members</a></li>
-                            <li><a href="{{ url('/payment') }}">Payment Hierarchy</a></li>
-                            <li><a href="{{ url('/settings') }}">Settings</a></li>
                             <li class="dropdown user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     <img src="{{ asset(urldecode(Auth::user()->avatar)) }}" class="user-image" alt="User Image"> <span class="hidden-xs">{{ Auth::user()->first_name }}</span> <span class="caret"></span>
@@ -103,26 +100,27 @@
             </div>
         </nav>
 
-        @include('partials._error')
+        <div class="container">
 
-        @yield('content')
+            @include('partials._notices')
 
+            @yield('content')
+
+        </div>
+        <footer class="footer navbar-fixed-bottom">
+            <h5 class="padding-top-lg padding-bottom-lg text-center bg-primary text-white">
+                <strong>&copy; {{ date('Y') .' ' . config('app.name') }}</strong>
+            </h5>
+        </footer>        
     </div>
-
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/modernizr-custom.js') }}"></script>
     <script src="{{ asset('js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('js/politespace.js') }}"></script>
+    <script src="{{ asset('js/sweet-alert.min.js') }}"></script>
     <script type="text/javascript">
-        $(function () {
-            $(document).trigger("enhance");
-            $( document ).tooltip();
-            $("select").select2({
-                minimumResultsForSearch: 20
-            });
-        });
+        $( document ).tooltip();
 
         // DataPicker for Date Input types
         if (!Modernizr.touch || !Modernizr.inputtypes.date) {

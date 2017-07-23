@@ -2,6 +2,9 @@
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
+use Illuminate\Http\Request;
+use App\MessageAttachment as Attachment;
+use Carbon\Carbon;
 
 if (! function_exists('message')) {
     /**
@@ -58,3 +61,59 @@ if (! function_exists('gen_uuid')) {
         return Uuid::uuid5(Uuid::NAMESPACE_DNS, str_random(20))->toString();
     }
 }
+
+if (! function_exists('split_end')) {
+
+    function split_end($url) {
+        return array_map('strrev', explode('/', strrev($url), 2));
+    }
+}
+
+if (! function_exists('check_active')) {
+
+    function check_active($request, $url, $team_id) {
+        return (($request == $url) || (split_end($request)[1] == $url) && ($url == url('/teams/' . $team_id . 'messages'))) ? 'active' : null;
+    }
+}
+
+if (! function_exists('getAttachment')) {
+
+    function getAttachment($attachment_id) {
+        return Attachment::find($attachment_id);
+    }
+}
+
+if (! function_exists('getAttachmentType')) {
+
+    function getAttachmentType($attachment_id) {
+        return Attachment::find($attachment_id);
+    }
+}
+
+if (! function_exists('bg_status')) {
+
+    function bg_status($value) {
+        // Not bothering about auto because immediately
+        // plan commences, $value becomes active 
+        if ($value == 'inactive'): return 'inactive';
+        elseif ($value == 'active'): return 'active';
+        else: return 'suspended';
+        endif;
+    }
+}
+
+if (! function_exists('confirm_team_status')) {
+
+    function confirm_team_status($value, $start_date) {
+        if ($value == 'inactive'): return false;
+        elseif ($value == 'active'): return true;
+        elseif ($status == 'auto'):
+            if (Carbon::now()->diffInDays($start_date) < 1):
+                return true;
+            else: return false;
+            endif;
+        else: return 'suspended';
+        endif;
+    }
+}
+

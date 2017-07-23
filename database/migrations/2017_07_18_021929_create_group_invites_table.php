@@ -19,10 +19,12 @@ class CreateGroupInvitesTable extends Migration
             $table->string('id');
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
+            $table->string('inviter_id')->nullable();
+            $table->string('team_id')->nullable();
             $table->string('status')->default('waiting');
             $table->timestamps();
 
-            $tanle->primary('id');
+            $table->primary('id');
         });
     }
 

@@ -1,11 +1,9 @@
-body {
-    background-color: #f6f6f6;
-}
+body {background-color: #f6f6f6;padding-bottom:60px;font-family: 'Raleway', sans-serif;}
 .margin-left-sm{margin-left:5px;}.margin-right-sm{margin-right:5px;}.margin-top-sm{margin-top:5px;}.margin-bottom-sm{margin-bottom:5px;}
 .margin-left-md{margin-left:10px;}.margin-right-md{margin-right:10px;}.margin-top-md{margin-top:10px;}.margin-bottom-md{margin-bottom:10px;}
 .margin-left-lg{margin-left:15px;}.margin-right-lg{margin-right:15px;}.margin-top-lg{margin-top:15px;}.margin-bottom-lg{margin-bottom:15px;}
 .margin-left-xl{margin-left:20px;}.margin-right-xl{margin-right:20px;}.margin-top-xl{margin-top:20px;}.margin-bottom-xl{margin-bottom:20px;}
-.margin-left-xxl{margin-left:25px;}.margin-right-xxl{margin-right:25px;}.margin-top-xxl{margin-top:25px;}.margin-bottom-xxl{margin-bottom:25px;}.margin-left-xxxlg{margin-left:70px;}
+.margin-left-xxl{margin-left:25px;}.margin-right-xxl{margin-right:25px;}.margin-top-xxl{margin-top:25px;}.margin-bottom-xxl{margin-bottom:25px;}
 .padding-left-xs{padding-left:2px;}.padding-right-xs{padding-right:2px;}.padding-top-xs{padding-top:2px;}.padding-bottom-xs{padding-bottom:2px;}
 .padding-left-sm{padding-left:5px;}.padding-right-sm{padding-right:5px;}.padding-top-sm{padding-top:5px;}.padding-bottom-sm{padding-bottom:5px;}
 .padding-left-md{padding-left:10px;}.padding-right-md{padding-right:10px;}.padding-top-md{padding-top:10px;}.padding-bottom-md{padding-bottom:10px;}
@@ -14,6 +12,7 @@ body {
 .padding-left-xxl{padding-left:25px;}.padding-right-xxl{padding-right:25px;}.padding-top-xxl{padding-top:25px;}.padding-bottom-xxl{padding-bottom:25px;}
 .padding-left-right-phone{padding-left:16px;padding-right:16px;}
 .bg-white{background-color:#ffffff;}
+.text-xxl{font-size:30px;}.text-lg{font-size:18px;}
 /* Header Image Section */
 .bold{font-weight:bold}
 .remove_current_option{font-size:35px;line-height:35px;}
@@ -27,11 +26,13 @@ body {
 .text-header{color:#008ED6;}
 .section{margin:10px 0;}.section-footer{padding:15px 0 20px 0;}
 .hr-class{width:60%;border-color:#ededed;margin:5px auto 15px auto;}
-.group-caption{padding:15px 0;background-color:#F5FFFF;}
+.group-caption{padding:15px 0;}
 .main-text{font-size:40px;}.sub-text{font-size:35px;}.sub-text sup{font-size:10px;}
 .border-right{border-right:1px solid #ededed;}
 a.no-underline{text-decoration:none;}
-.percent-area{background-color:#F5FFFF;}
+.active{background-color:#D4FFD4;}
+.inactive{background-color:#FFFFE1;}
+.suspended{background-color:#FFE5FF;}
 .monthly-amount{font-size:30px;margin:0;padding:0;}.monthly-amount small{font-size:12px;}
 .input-group-addon{background-color:rgb(255, 255, 255);}
 .option-space option{padding-left:15px;}
@@ -43,17 +44,20 @@ a.no-underline{text-decoration:none;}
     .no-margin-padding{margin-top:-15px;}
 }
 @media (min-width:768px) {
+    .margin-left-xxxl{margin-left:35px;}.margin-right-xxxl{margin-right:35px;}.margin-top-xxxl{margin-top:35px;}.margin-bottom-xxxl{margin-bottom:35px;}
     .no-bottom-margin{margin-bottom:0!important;}
     .panel-heading-with-position{position:relative;}
     .position-right{position:absolute;top:10px;right:15px;}
+    .same-height{min-height:222px;}
 }
 /* JQUery UI related */
 div.ui-datepicker{font-size:15px;z-index:10!important;}
 .ui-tooltip-content{font-size:10pt;font-family:Calibri;}
 /*End JQuery UI */
+.panel-heading{border-bottom:none;padding-top:15px;padding-bottom:15px;}
 .help-text{color:#9a9a9a;font-size:10px;}
 .flex-center{display:flex;justify-content:center;align-items:center;align-content:center;flex-flow:row nowrap;}
-.main-area{min-height:358px;}
+.main-area{min-height:363px;}
 .no-underline{text-decoration:none!important;}
 .countingdown{width:100%;min-width:100%;max-width:100%;}
 .countingdown{height:60px;max-height:60px;min-height:60px;}
@@ -65,3 +69,8 @@ div.ui-datepicker{font-size:15px;z-index:10!important;}
 .border-radius-sm{-moz-border-radius:5px;-webkit-border-radius:5px;-o-border-radius:5px;border-radius:5px;}
 .border-radius-md{-moz-border-radius:10px;-webkit-border-radius:10px;-o-border-radius:10px;border-radius:10px;}
 .border-radius-lg{-moz-border-radius:15px;-webkit-border-radius:15px;-o-border-radius:15px;border-radius:15px;}
+.no-border-right{border-right:none!important;}.no-border-left{border-left:none!important;}
+.bordered{border:1px solid #dedede;}
+.text-black{color:#000;}.text-gray{color:#565656;}
+.team-heading{margin-bottom:3px;}.text-small{margin:0 0 10px 0;padding:0;font-size:12px;}
+.tab-pane{background-color:#fff;}

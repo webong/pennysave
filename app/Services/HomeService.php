@@ -11,7 +11,7 @@ class HomeService
 
     public function home()
     {
-        return User::with(['group', 'personal_save'])
+        return User::with(['group.period', 'personal_save'])
             ->where('id', Auth::user()->id)->first();
     }
 

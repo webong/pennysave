@@ -43,8 +43,21 @@ class UserService
         ))->select('users.*')->get();
     }
 
-    public function newRegistrations()
-    {
-
+    public function getFirstName($emailOrPhone) {
+        $user =  User::where('email', $emailOrPhone)
+            ->orWhere('phone', $emailOrPhone)->first();
+        if ($user) return $user->first_name;
     }
+
+    public function getUsersIDAndName($team_id)
+    {
+        return $data['users'] = DB::table('users')
+            ->join('group_user', 'users.id', '=', 'group_user.user_id')
+            ->join('groups', 'groups.id', '=', 'group_user.group_id')
+            ->where('groups.id', $team_id)
+            ->select('users.id', DB::raw('concat(users.first_name," ", users.last_name) as name'))
+            ->get();
+    }
+
+
 }

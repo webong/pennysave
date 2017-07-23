@@ -25,6 +25,7 @@ class CreatePersonalSavesTable extends Migration
             $table->date('start_date');
             $table->integer('recurrence')->unsigned();
             $table->integer('priority_level')->unsigned();
+            $table->string('status')->default('inactive');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('recurrence')->references('id')->on('recurrences');

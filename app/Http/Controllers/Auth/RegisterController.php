@@ -29,16 +29,19 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/dashboard';
+    
+    protected $registerService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(RegisterService $registerService)
     {
         $this->middleware('guest');
+        $this->registerService = $registerService;
     }
 
     public function register(RegisterRequest $request)
@@ -58,7 +61,7 @@ class RegisterController extends Controller
      */
     public function create($request)
     {
-        return RegisterService::register($request);
+        return $this->registerService->register($request);
     }
 
     public function guard()

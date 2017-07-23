@@ -18,17 +18,36 @@ trait UploadTrait {
      *
      * @return string $filename | $filenames
      */
-    public function upload($location, $files, $dimensions) {
+    public function upload($location, $files, $dimensions = null) {
+        // Image Upload
+        $file_names = '';
         if (count($files) == 1) {
             // Only One Photo is Being Uploaded
-            return $this->uploadSingleOrMultiple($location, $files, $dimensions);
-        } else {
-            //Multiple Files Are Being Uploaded
-            $multiple[] = 'm_files';
-            foreach ($files as $file) {
-                $multiple[] = $this->uploadSingleOrMultiple($location, $file, $dimensions);
+            if (is_null($dimensions)) {
+                $hashName = $this->generateHashName($files, $location);
+                if (Storage::disk('public')->put($hashName, $files)) {
+                    return urlencode($location.'/'.$hashName);
+                }
+            } else {
+                return $this->uploadSingleOrMultiple($location, $files, $dimensions);
             }
-            return $multiple;
+        } else {
+            if (is_null($dimensions)) {
+                foreach ($files as $file) {
+                    $hashName = $this->generateHashName($file, $location);
+                    if (Storage::disk('public')->put($hashName, $file)) {
+                        $file_names .= urlencode($location.'/'.$hashName) .';';
+                    }
+                }
+                return $file_names;
+            } else {
+                //Multiple Files Are Being Uploaded
+                $multiple[] = 'm_files';
+                foreach ($files as $file) {
+                    $multiple[] = $this->uploadSingleOrMultiple($location, $file, $dimensions);
+                }
+                return $multiple;
+            }
         }
     }
 

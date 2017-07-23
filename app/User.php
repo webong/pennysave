@@ -87,4 +87,13 @@ class User extends Authenticatable
         return $this->hasMany('\App\UserWithdrawal');
     }
 
+    public function message()
+    {
+        return $this->hasMany('\App\Message');
+    }
+
+    public function group_invite()
+    {
+        return $this->hasMany('\App\GroupInvite'. 'inviter_id', 'id');
+    }
 }

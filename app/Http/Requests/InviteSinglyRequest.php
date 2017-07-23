@@ -27,6 +27,7 @@ class InviteSinglyRequest extends FormRequest
             'first_name.*' => 'nullable|string',
             'email.*' => 'nullable|email',
             'phone.*' => 'nullable|string',
+            'message' => 'nullable|string',
         ];
     }
 }

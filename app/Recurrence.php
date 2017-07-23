@@ -19,6 +19,11 @@ class Recurrence extends Model
 
     public function personal_save()
     {
-        return $this->hasOne('\App\PersonalSave', 'recurrence');
+        return $this->hasMany('\App\PersonalSave', 'recurrence');
+    }
+
+    public function group()
+    {
+        return $this->hasMany('\App\Group', 'recurrence');
     }
 }

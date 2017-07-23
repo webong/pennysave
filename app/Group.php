@@ -12,7 +12,7 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'amount', 'duration', 'recurrence', 'start_date',
+        'id', 'name', 'amount', 'duration', 'recurrence', 'start_date',
     ];
 
     public $incrementing = false;
@@ -34,6 +34,21 @@ class Group extends Model
     public function role()
     {
         return $this->belongsToMany('\App\Role', 'group_user')->withPivot(['user_id', 'role_id', 'status'])->withTimestamps();
+    }
+
+    public function messages()
+    {
+        return $this->hasMany('\App\Message');
+    }
+
+    public function period()
+    {
+        return $this->belongsTo('\App\Recurrence', 'recurrence');
+    }
+
+    public function group_invite()
+    {
+        return $this->hasMany('\App\GroupInvite', 'team_id', 'id');
     }
 
 }
