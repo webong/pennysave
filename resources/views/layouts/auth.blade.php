@@ -18,7 +18,6 @@
     <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery-ui.structure.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery-ui.theme.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/politespace.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sweet-alert.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -109,25 +108,19 @@
             @yield('content')
 
         </div>
-        <footer class="footer navbar-fixed-bottom">
-            <h5 class="padding-top-lg padding-bottom-lg text-center bg-primary text-white">
-                <strong>&copy; {{ date('Y') .' ' . config('app.name') }}</strong>
-            </h5>
-        </footer>        
+        
+        @include('partials._footer')
+    
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/modernizr-custom.js') }}"></script>
-    <script src="{{ asset('js/select2.full.min.js') }}"></script>
     <script src="{{ asset('js/politespace.js') }}"></script>
     <script src="{{ asset('js/sweet-alert.min.js') }}"></script>
     <script type="text/javascript">
         $(function () {
             $( document ).tooltip();
-            $("select").select2({
-                minimumResultsForSearch: 20
-            });
         });
 
         // DataPicker for Date Input types
