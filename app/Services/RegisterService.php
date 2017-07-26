@@ -6,6 +6,7 @@ use App\User;
 use App\Profile;
 use App\Role;
 use App\Services\TeamService;
+use Propaganistas\LaravelIntl\Facades\Country;
 
 class RegisterService
 {
@@ -14,6 +15,11 @@ class RegisterService
     public function __construct(TeamService $teamService)
     {
         $this->teamService = $teamService;
+    }
+
+    public function index()
+    {
+        return Country::all();        
     }
 
     public function register($request)
