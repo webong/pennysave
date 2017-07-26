@@ -19,7 +19,7 @@ class RegisterService
 
     public function index()
     {
-        return Country::all();        
+        return Country::all();
     }
 
     public function register($request)
