@@ -44,6 +44,17 @@ class RegisterController extends Controller
         $this->registerService = $registerService;
     }
 
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        $data['countries'] = $this->registerService->index();
+        return view('auth.register', $data);
+    }
+
     public function register(RegisterRequest $request)
     {
         event(new Registered($user = $this->create($request->all())));
