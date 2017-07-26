@@ -29,7 +29,7 @@
     @endif
     <div class="col-md-offset-3 col-md-6 alert alert-danger text-lg bold text-center hidden" id="error-message"></div>
 
-    @if (isset($checkInvites))
+    @if (isset($checkInvites) && ($checkInvites->count()) > 0)
         <div class="alert alert-info text-center bold text-lg bold col-md-6 col-md-offset-3 padding-top-md padding-bottom-md">
             You Have {{ $checkInvites->count() }} Pending
             <br />

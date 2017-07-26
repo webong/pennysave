@@ -107,11 +107,9 @@
             @yield('content')
 
         </div>
-        <footer class="footer navbar-fixed-bottom">
-            <h5 class="padding-top-lg padding-bottom-lg text-center bg-primary text-white">
-                <strong>&copy; {{ date('Y') .' ' . config('app.name') }}</strong>
-            </h5>
-        </footer>        
+
+        @include('partials._footer')
+
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

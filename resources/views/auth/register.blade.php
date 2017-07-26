@@ -203,7 +203,10 @@
     <script src="{{ asset('js/selectize.min.js') }}"></script>
     <script type="text/javascript">
         $(function () {
-            $("select").selectize();
+            $("select").selectize({
+                'closeAfterSelect': true,
+                'openOnFocus': false
+            });
         });
     </script>
 @endsection
