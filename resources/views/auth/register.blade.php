@@ -1,5 +1,9 @@
 @extends('layouts.auth')
 
+@section('added_css')
+    <link href="{{ asset('css/selectize.bootstrap3.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
     <div class="row margin-top-xxl">
         <div class="col-md-6 col-md-offset-3">
@@ -50,7 +54,7 @@
                         
                             <div class="tab-content">
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} tab-pane active" id="show-email">                                                            
-                                    <label for="email" class="col-md-4 control-label sr-only">E-Mail Address</label>
+                                    <label for="email" class="control-label sr-only">E-Mail Address</label>
                                     
                                     <input id="email" type="text" class="form-control" placeholder="Email Address" name="email" value="{{ old('email') }}">
 
@@ -61,22 +65,43 @@
                                     @endif
                                 </div>
 
-                                <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }} tab-pane @if(isset($invitationPhone)){{'active'}}@endif"  id="show-phone">
-                                    <label for="phone" class="col-md-4 control-label sr-only">Phone Number</label>
+                                <div class="row tab-pane" id="show-phone">
+                                    <div class="col-md-5 form-group{{ $errors->has('countries') ? ' has-error' : '' }}">
+                                        <label for="countries" class="control-label sr-only">Countries</label>
 
-                                    <input id="phone" type="tel" class="form-control" placeholder="Phone Number" name="phone" value="{{ old('phone') }}">
+                                        <select id="countries" name="countries" class="form-control" placeholder="Country">
+                                            <<option></option>
+                                            @if (isset($countries))
+                                                @foreach ($countries as $key => $country)
+                                                    <option value="{{ $key }}" @if($key == 'NG'){{ 'selected' }}@endif>{{ '(' . $key . ') ' . $country }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
 
-                                    @if ($errors->has('phone'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('phone') }}</strong>
-                                        </span>
-                                    @endif
+                                        @if ($errors->has('countries'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('countries') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                        
+                                    <div class="col-md-7 form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                                        <label for="phone" class="control-label sr-only">Phone Number</label>
+
+                                        <input id="phone" type="tel" class="form-control" placeholder="Phone Number" name="phone" value="{{ old('phone') }}">
+
+                                        @if ($errors->has('phone'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('phone') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         @else
                             @if (isset($invitationEmail))
-                                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} tab-pane active" id="show-email">
-                                    <label for="email" class="col-md-4 control-label sr-only">E-Mail Address</label>
+                                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}" id="show-email">
+                                    <label for="email" class="control-label sr-only">E-Mail Address</label>
                                     
                                     <input readonly id="email" type="text" class="form-control" placeholder="Email Address" name="email" value="@if (isset($invitationEmail)){{ $invitationEmail }}@else{{ old('email') }}@endif">
 
@@ -87,22 +112,43 @@
                                     @endif
                                 </div>
                             @else
-                                <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }} tab-pane @if(isset($invitationPhone)){{'active'}}@endif"  id="show-phone">
-                                    <label for="phone" class="col-md-4 control-label sr-only">Phone Number</label>
+                                <div class="row tab-pane" id="show-phone">
+                                    <div class="col-md-5 form-group{{ $errors->has('countries') ? ' has-error' : '' }}">
+                                        <label for="countries" class="control-label sr-only">Countries</label>
 
-                                    <input readonly id="phone" type="tel" class="form-control" placeholder="Phone Number" name="phone" value="@if (isset($invitationPhone)){{ $invitationPhone }}@else{{ old('phone') }}@endif">
+                                        <select id="countries" name="countries" class="form-control" placeholder="Country">
+                                            <<option></option>
+                                            @if (isset($countries))
+                                                @foreach ($countries as $key => $country)
+                                                    <option value="{{ $key }}" @if($key == 'NG'){{ 'selected' }}@endif>{{ '(' . $key . ') ' . $country }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
 
-                                    @if ($errors->has('phone'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('phone') }}</strong>
-                                        </span>
-                                    @endif
+                                        @if ($errors->has('countries'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('countries') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="col-md-7 form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                                        <label for="phone" class="control-label sr-only">Phone Number</label>
+
+                                        <input readonly id="phone" type="tel" class="form-control" placeholder="Phone Number" name="phone" value="@if (isset($invitationPhone)){{ $invitationPhone }}@else{{ old('phone') }}@endif">
+
+                                        @if ($errors->has('phone'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('phone') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
                             @endif
                         @endif
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label sr-only">Password</label>
+                            <label for="password" class="control-label sr-only">Password</label>
 
                             <input id="password" type="password" class="form-control" placeholder="Password" name="password" required>
 
@@ -116,6 +162,16 @@
                         @if (isset($invitationEmail) || isset($invitationPhone))
                             <input type="hidden" name="registerToTeam" value="{{ $team_id }}" />     
                         @endif
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="tos" {{ old('tos') ? 'checked' : '' }}> Accept Our <a href="{{ Request::root() }}/tos"> Terms & Conditions</a>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="form-group col-xs-12">
                             <button type="submit" class="btn btn-primary btn-lg center-block">
@@ -143,4 +199,11 @@
             });
         </script>
     @endif
+    
+    <script src="{{ asset('js/selectize.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("select").selectize();
+        });
+    </script>
 @endsection
