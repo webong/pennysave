@@ -10,7 +10,6 @@ use App\Services\UserService;
 use App\Jobs\SendInvitationEmail;
 use App\Jobs\SendInvitationSMS;
 use Carbon\Carbon;
-use Illuminate\Support\HtmlString;
 use Auth;
 use DB;
 
@@ -34,7 +33,6 @@ class InviteService
 
     public function invite($request, $team_id, $user, $list = false)
     {
-        // Filtering Duplicates and Null values
         $this->request = $request;
         $this->team_id = $team_id;
         $this->user = $user;
@@ -42,7 +40,6 @@ class InviteService
         if (count($this->confirmedEmails) > 0) {
             // Email Addresses are arranged in arrays
             $status = $this->sendMail($this->confirmedEmails);
-            // dd($this->confirmedEmails);
             if (count($this->confirmedPhoneNos) > 0) {
                 // Phones Numbers are arranged as comma-seperated values
                 $status = $this->sendSMS($this->confirmedPhoneNos);
@@ -60,6 +57,7 @@ class InviteService
     {
         if ($list) {
             $getEmails = explode(',', $this->request->emails);
+            // Filtering Duplicates and Null values
             (array) $getEmails = array_filter(array_unique($getEmails));
             for ($i = 0; $i < count($getEmails); $i++) {
                 $getEmails[$i] = trim($getEmails[$i]);
@@ -86,6 +84,7 @@ class InviteService
                 }
             }
         } else {
+            // Filtering Duplicates and Null values
             (array) $this->request->email = array_filter(array_unique($this->request->email));
             (array) $this->request->phone = array_filter(array_unique($this->request->phone));
     
@@ -170,7 +169,6 @@ class InviteService
     {
         foreach ($confirmedEmails as $email) {
             if (is_array($email)) {
-                // dd($email);
                 $job = (new SendInvitationEmail($email[0], $this->generateInviteLink($email[0], $this->team_id),
                         $this->teamService->getTeam($this->team_id), $this->request->message, 
                         $this->user->full_name(), $email[1]))->delay($this->when);
@@ -234,7 +232,7 @@ class InviteService
         }
         // Remove final Break Tag at the end of line
         rtrim($this->message, '<br />');
-        return new HtmlString($this->message);
+        return $this->message;
     }
 
     public function returnAnalysis($status, $setTitle, $added = false)

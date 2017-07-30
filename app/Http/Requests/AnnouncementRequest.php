@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class InviteSinglyRequest extends FormRequest
+class AnnouncementRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,8 @@ class InviteSinglyRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name.*' => 'nullable|string',
-            'email.*' => 'nullable|email|max:255|required_if:phone.*,null|unique:users',
-            'phone.*' => 'nullable|phone:countries|required_if:email.*,null|unique:users',
-            'countries.*' => 'required_with:phone',
-            'message' => 'nullable|string|max:140',
+            'subject' => 'string|max:35',
+            'content' => 'string|max:150',
         ];
     }
 }

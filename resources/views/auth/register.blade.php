@@ -70,7 +70,7 @@
                                         <label for="countries" class="control-label sr-only">Countries</label>
 
                                         <select id="countries" name="countries" class="form-control" placeholder="Country">
-                                            <<option></option>
+                                            <option></option>
                                             @if (isset($countries))
                                                 @foreach ($countries as $key => $country)
                                                     <option value="{{ $key }}" @if($key == 'NG'){{ 'selected' }}@endif>{{ '(' . $key . ') ' . $country }}</option>
@@ -117,7 +117,7 @@
                                         <label for="countries" class="control-label sr-only">Countries</label>
 
                                         <select id="countries" name="countries" class="form-control" placeholder="Country">
-                                            <<option></option>
+                                            <option></option>
                                             @if (isset($countries))
                                                 @foreach ($countries as $key => $country)
                                                     <option value="{{ $key }}" @if($key == 'NG'){{ 'selected' }}@endif>{{ '(' . $key . ') ' . $country }}</option>

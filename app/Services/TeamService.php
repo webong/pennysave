@@ -6,10 +6,10 @@ use App\Group as Team;
 use App\Services\RoleService;
 use App\UserGroup;
 use Auth;
+use Carbon\Carbon;
 
 class TeamService
 {
-
     protected $roleService;
 
     public function __construct(RoleService $roleService, UserGroup $userGroup, Team $team)
@@ -68,6 +68,21 @@ class TeamService
             'role_id' => $userRole,
             'status' => 'active',
         ]);
+    }
+
+    public function updateStartSchedule($team_id, $request)
+    {
+        return $team = Team::where('id', $team_id)
+            ->update(['start_date' => $request->update_date]);
+    }
+
+    public function startNow($team_id, $request)
+    {
+        return $team = Team::where('id', $team_id)
+            ->update([
+                'status' => 'active',
+                'start_date' => Carbon::now(),
+            ]);
     }
 
 }

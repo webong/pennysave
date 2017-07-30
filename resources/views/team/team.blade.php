@@ -30,3 +30,9 @@
 
     </div>
 @endsection
+
+@section('added_js')
+    @include('views-js.team-details-js')
+    @include('views-js.invite-members-js')
+    @include('views-js.handle-invites-js')
+@endsection

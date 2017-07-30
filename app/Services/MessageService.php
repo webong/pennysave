@@ -45,11 +45,13 @@ class MessageService
         return $data;
     }
 
-    public function create($team_id)
+    public function create($team_id, $everyone)
     {
+        if ($everyone) $data['everyone'] = true;
         $data['team_id'] = $team_id;
         $data['unread'] = $this->getUnreadCount($team_id);
         $data['users'] = $this->userService->getUsersIDAndName($team_id);
+
         return $data;
     }
 

@@ -33,9 +33,9 @@ class MessageController extends Controller
         }
     }
 
-    public function create($team_id)
+    public function create($team_id, $everyone = Null)
     {
-        if ($data = $this->messageService->create($team_id)) {
+        if ($data = $this->messageService->create($team_id, $everyone)) {
             return view('message.compose', $data);
         } else {
             return abort();

@@ -33,6 +33,14 @@
                       @endif
                     @endif
                   @endforeach
+                @elseif (isset($everyone))
+                  @foreach ($users as $otherUsers)
+                    @if ($otherUsers->id == Auth::user()->id)
+                      @continue
+                    @else
+                      <option value="{{ $otherUsers->id }}" selected>{{ $otherUsers->name }}</option>  
+                    @endif
+                  @endforeach
                 @else
                   @foreach ($users as $otherUsers)
                     @if ($otherUsers->id == Auth::user()->id)
@@ -107,12 +115,11 @@
 
 @section('added_js')
     <script src="{{ asset('js/selectize.min.js') }}"></script>
-    <script src="{{ asset('js/plugin.js') }}"></script>
     <script src="{{ asset('js/trumbowyg.min.js') }}"></script>
     <script>
       $(function () {
         $("select").selectize({
-          plugins: ['restore_on_backspace'],
+          plugins: ['remove_button'],
           closeAfterSelect: true,
           hideSelected: true,
           maxItems: 5

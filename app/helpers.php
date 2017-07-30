@@ -105,6 +105,7 @@ if (! function_exists('bg_status')) {
 if (! function_exists('confirm_team_status')) {
 
     function confirm_team_status($value, $start_date) {
+        // Return true if active, false if not active
         if ($value == 'inactive'): return false;
         elseif ($value == 'active'): return true;
         elseif ($status == 'auto'):

@@ -12,6 +12,8 @@ use App\Services\InviteService;
 use Auth;
 use App\GroupInvite;
 use App\User;
+use Propaganistas\LaravelIntl\Facades\Country;
+use Illuminate\Support\HtmlString;
 
 class TeamController extends Controller
 {
@@ -43,16 +45,23 @@ class TeamController extends Controller
     public function index($team_id)
     {
         if ($data['team'] = $this->teamService->getTeam($team_id)) {
+            $data['countries'] = Country::all();
             return view('team.team', $data);
         }
     }
 
     public function invite(InviteSinglyRequest $request, $team_id)
     {
-        if ($sendInvitesResponse = $this->inviteService->invite($request, $team_id, Auth::user())) {
-            return redirect()->back()->with('message', $sendInvitesResponse);
+        $sendInvitesResponse = $this->inviteService->invite($request, $team_id, Auth::user());
+        if ($sendInvitesResponse) {
+            return redirect()->back()->with('message', new HtmlString($sendInvitesResponse));
+        } else {
+            if (is_bool($sendInvitesResponse)) {
+                return redirect()->back()->with('error', 'Error Sending Invitations');
+            } else {
+                return redirect()->back()->with('error', 'No Emails or Phone Numbers indicated');
+            }
         }
-        return redirect()->back()->with('error', 'Error Sending Invitations');
     }
 
     public function inviteInList(InviteListRequest $request, $team_id)
@@ -77,6 +86,27 @@ class TeamController extends Controller
         } else {
             $data['emailOrPhone'] = $confirmInvite;
             return view('auth.login', $data);
+        }
+    }
+
+    public function update_schedule($team_id, Request $request)
+    {
+        $this->validate($request, [
+            'update_date' => 'required|date|after:yesterday',
+        ]);
+        if ($this->teamService->updateStartSchedule($team_id, $request)) {
+            echo 'updated';
+        } else {
+            echo 'error';
+        }
+    }
+
+    public function start_now($team_id, Request $request)
+    {
+        if ($this->teamService->startNow($team_id, $request)) {
+            return 'started';
+        } else {
+            return 'error';
         }
     }
 }

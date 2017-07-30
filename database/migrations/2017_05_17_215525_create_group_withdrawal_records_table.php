@@ -13,7 +13,7 @@ class CreateGroupWithdrawalRecordsTable extends Migration
      */
     public function up()
     {
-        // Records of Withdrawals/Payouts from Groups
+        // Records of Withdrawals/Payouts from Groups to its members 
         Schema::create('group_withdrawal_records', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 

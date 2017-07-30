@@ -33,13 +33,20 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::group(['prefix' => '/teams/{team_id}'], function () {
 		Route::get('/', 'TeamController@index');
 
+		// Team Commencement management
+		Route::post('/update-schedule', 'TeamController@update_schedule');
+		Route::post('/start-now', 'TeamController@start_now');
+
+		// Announcements
+		Route::post('/announcements/{id}/mark-as-seen', 'AnnouncementController@mark_as_seen');
+
 		// Invite Members
 		Route::post('invite-members', 'TeamController@invite')->name('invite-members');
 		Route::post('invite-members-list', 'TeamController@inviteInList')->name('invite-members-list');
 		
 		// Messages Routes
 		Route::get('messages', 'MessageController@index');
-		Route::get('messages/create', 'MessageController@create');
+		Route::get('messages/create/{everyone?}', 'MessageController@create');
 		Route::post('messages/create', 'MessageController@send')->name('send-message');
 		Route::get('messages/sent', 'MessageController@sent');
 		Route::get('messages/draft', 'MessageController@draft');

@@ -118,7 +118,7 @@
                             <div class="col-md-6 form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
                                 <label for="start_date" class="control-label sr-only">Start Date</label>
 
-                                <input id="start_date" type="date" class="form-control" placeholder="Start Date" name="start_date" value="{{ old('start_date') }}" required>
+                                <input id="start_date" type="date" class="form-control date-single" placeholder="Start Date" name="start_date" value="{{ old('start_date') }}" required>
 
                                 @if ($errors->has('start_date'))
                                     <span class="help-block">
@@ -131,7 +131,7 @@
                             <div class="col-md-6 form-group{{ $errors->has('target_date') ? ' has-error' : '' }}">
                                 <label for="target_date" class="control-label sr-only">Target Date</label>
 
-                                <input id="target_date" type="date" class="form-control" placeholder="Target Date" name="target_date" value="{{ old('target_date') }}" required>
+                                <input id="target_date" type="date" class="form-control date-single" placeholder="Target Date" name="target_date" value="{{ old('target_date') }}" required>
 
                                 @if ($errors->has('target_date'))
                                     <span class="help-block">

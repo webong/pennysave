@@ -64,6 +64,69 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
+                            <li class="dropdown">
+                                <a href="#" id="dLabel" class="dropdown-toggle" role="button" data-toggle="dropdown">
+                                    <span class="text-info fa fa-bell"></span>
+                                    <span class="badge info margin-left-sm padding-bottom-mmd"></span>
+                                </a>
+                                <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+                                    <div class="notification-heading">
+                                        <h4 class="menu-title dLabel">Notifications</h4>
+                                        <h4 class="menu-title pull-right">View all
+                                            <i class="fa fa-arrow-circle-right margin-left-sm"></i>
+                                        </h4>
+                                    </div>
+                                    <div class="notifications-wrapper">
+                                        <a class="content view-notification" href="#">
+                                            <div class="notification-item">
+                                                <h4 class="item-title">Evaluation Deadline  <small> 1 day ago</small></h4>
+                                                <p class="item-info">Mr hassan has followed you!</p>
+                                            </div>  
+                                        </a>
+                                    </div>
+                                    <div class="notifications-wrapper">
+                                        <a class="content view-notification" href="#">
+                                            <div class="notification-item">
+                                                <h4 class="item-title">Evaluation Deadline  <small> 1 day ago</small></h4>
+                                                <p class="item-info">Mr hassan has followed you!</p>
+                                            </div>  
+                                        </a>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" id="dLabel" class="dropdown-toggle" role="button" data-toggle="dropdown">
+                                    <span class="text-info fa fa-envelope"></span>
+                                    <span class="badge info margin-left-sm padding-bottom-mmd">3</span>
+                                </a>
+                                <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+                                    <div class="notification-heading">
+                                        <h4 class="menu-title dLabel">Messages</h4>
+                                        <a href="@if(isset($team_id)){{ url('/teams/' . $team_id . '/messages') }}
+                                                @else{{ url('/teams/' . $team->id . '/messages') }}@endif">
+                                            <h4 class="menu-title pull-right">View all
+                                                <i class="fa fa-arrow-circle-right margin-left-sm"></i>
+                                            </h4>
+                                        </a>
+                                    </div> 
+                                    <div class="notifications-wrapper">
+                                        <a class="content view-message" href="#">
+                                            <div class="notification-item">
+                                                <h4 class="item-title">Evaluation Deadline  <small> 1 day ago</small></h4>
+                                                <p class="item-info">Mr hassan has followed you!</p>
+                                            </div>  
+                                        </a>
+                                    </div>
+                                    <div class="notifications-wrapper">
+                                        <a class="content view-message" href="#">
+                                            <div class="notification-item">
+                                                <h4 class="item-title">Evaluation Deadline  <small> 1 day ago</small></h4>
+                                                <p class="item-info">Mr hassan has followed you!</p>
+                                            </div>  
+                                        </a>
+                                    </div>
+                                </ul>
+                            </li>
                             <li class="dropdown user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     <img src="{{ asset(urldecode(Auth::user()->avatar)) }}" class="user-image" alt="User Image"> <span class="hidden-xs">{{ Auth::user()->first_name }}</span> <span class="caret"></span>
@@ -128,7 +191,7 @@
                 dateFormat: 'yy-mm-dd',
                 numberOfMonths: 2
             });
-            $('input[type=date]').datepicker({
+            $('input[type=date].date-single').datepicker({
                 // Consistent format with the HTML5 picker
                 minDate: 0,
                 dateFormat: 'yy-mm-dd'

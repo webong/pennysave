@@ -51,4 +51,8 @@ class Group extends Model
         return $this->hasMany('\App\GroupInvite', 'team_id', 'id');
     }
 
+    public function announcement()
+    {
+        return $ths->hasMany('\App\Announcement', 'team_id', 'id');
+    }
 }

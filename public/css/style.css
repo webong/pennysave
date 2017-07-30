@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('../fonts/fontawesome-webfont.eot?v=4.7.0');
+  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
 body {background-color: #f6f6f6;padding-bottom:60px;font-family: 'Raleway', sans-serif;}
 .margin-left-sm{margin-left:5px;}.margin-right-sm{margin-right:5px;}.margin-top-sm{margin-top:5px;}.margin-bottom-sm{margin-bottom:5px;}
 .margin-left-md{margin-left:10px;}.margin-right-md{margin-right:10px;}.margin-top-md{margin-top:10px;}.margin-bottom-md{margin-bottom:10px;}
@@ -6,12 +13,22 @@ body {background-color: #f6f6f6;padding-bottom:60px;font-family: 'Raleway', sans
 .margin-left-xxl{margin-left:25px;}.margin-right-xxl{margin-right:25px;}.margin-top-xxl{margin-top:25px;}.margin-bottom-xxl{margin-bottom:25px;}
 .padding-left-xs{padding-left:2px;}.padding-right-xs{padding-right:2px;}.padding-top-xs{padding-top:2px;}.padding-bottom-xs{padding-bottom:2px;}
 .padding-left-sm{padding-left:5px;}.padding-right-sm{padding-right:5px;}.padding-top-sm{padding-top:5px;}.padding-bottom-sm{padding-bottom:5px;}
+.padding-left-mmd{padding-left:7px;}.padding-right-mmd{padding-right:7px;}.padding-top-mmd{padding-top:7px;}.padding-bottom-mmd{padding-bottom:7px;}
 .padding-left-md{padding-left:10px;}.padding-right-md{padding-right:10px;}.padding-top-md{padding-top:10px;}.padding-bottom-md{padding-bottom:10px;}
 .padding-left-lg{padding-left:15px;}.padding-right-lg{padding-right:15px;}.padding-top-lg{padding-top:15px;}.padding-bottom-lg{padding-bottom:15px;}
 .padding-left-xl{padding-left:20px;}.padding-right-xl{padding-right:20px;}.padding-top-xl{padding-top:20px;}.padding-bottom-xl{padding-bottom:20px;}
 .padding-left-xxl{padding-left:25px;}.padding-right-xxl{padding-right:25px;}.padding-top-xxl{padding-top:25px;}.padding-bottom-xxl{padding-bottom:25px;}
 .padding-left-right-phone{padding-left:16px;padding-right:16px;}
 .bg-white{background-color:#ffffff;}
+.border-radius-xs{-moz-border-radius:3px;-webkit-border-radius:3px;-o-border-radius:3px;border-radius:3px;}
+.border-radius-sm{-moz-border-radius:5px;-webkit-border-radius:5px;-o-border-radius:5px;border-radius:5px;}
+.border-radius-md{-moz-border-radius:10px;-webkit-border-radius:10px;-o-border-radius:10px;border-radius:10px;}
+.border-radius-lg{-moz-border-radius:15px;-webkit-border-radius:15px;-o-border-radius:15px;border-radius:15px;}
+.no-border-right{border-right:none!important;}.no-border-left{border-left:none!important;}
+.no-border-top{border-top:none!important;}.no-border-bottom{border-bottom:none!important;}
+.no-padding-right{padding-right:none!important;}.no-padding-left{padding-left:none!important;}
+.no-padding-top{padding-top:none!important;}.no-padding-bottom{padding-bottom:none!important;}
+.text-xs{font-size:12px;}.text-sm{font-size:14px;}.text-md{font-size:15px;}
 .text-xxl{font-size:30px;}.text-lg{font-size:18px;}
 /* Header Image Section */
 .bold{font-weight:bold}
@@ -51,7 +68,7 @@ a.no-underline{text-decoration:none;}
     .same-height{min-height:222px;}
 }
 /* JQUery UI related */
-div.ui-datepicker{font-size:15px;z-index:10!important;}
+div.ui-datepicker{font-size:15px;z-index:10000!important;}
 .ui-tooltip-content{font-size:10pt;font-family:Calibri;}
 /*End JQuery UI */
 .panel-heading{border-bottom:none;padding-top:15px;padding-bottom:15px;}
@@ -65,13 +82,35 @@ div.ui-datepicker{font-size:15px;z-index:10!important;}
 .invite-heading{margin-top:-10px;}
 .text_input{padding-right:15px!important;}
 .add-more-contain{padding:0 0 10px 5px;}.back-to-single{padding:10px 5px;}
-.border-radius-xs{-moz-border-radius:3px;-webkit-border-radius:3px;-o-border-radius:3px;border-radius:3px;}
-.border-radius-sm{-moz-border-radius:5px;-webkit-border-radius:5px;-o-border-radius:5px;border-radius:5px;}
-.border-radius-md{-moz-border-radius:10px;-webkit-border-radius:10px;-o-border-radius:10px;border-radius:10px;}
-.border-radius-lg{-moz-border-radius:15px;-webkit-border-radius:15px;-o-border-radius:15px;border-radius:15px;}
-.no-border-right{border-right:none!important;}.no-border-left{border-left:none!important;}
 .bordered{border:1px solid #dedede;}
 .text-black{color:#000;}.text-gray{color:#565656;}
 .team-heading{margin-bottom:3px;}.text-small{margin:0 0 10px 0;padding:0;font-size:12px;}
 .tab-pane{background-color:#fff;}
 .form-control{height:34px;}
+.modal-loading{display:none;position:fixed;z-index:1000;top:0;left:0;height:100%;width:100%;background: rgba( 255, 255, 255, .5 ) url('../images/ajax-loader.gif') 50% 50% no-repeat;}
+/* When the body has the loading class, we turn the scrollbar off with overflow:hidden */
+body.loading{overflow: hidden;}
+/* Anytime the body has the loading class, our modal element will be visible */
+body.loading .modal-loading{display: block;}
+.info{background-color:#2F6C8A;}
+/** Notifications Bar **/
+.notifications{min-width:320px;}
+.notifications-wrapper{overflow:auto;max-height:250px;}
+.menu-title{color: #ffffff;font-size: 13px;display:inline-block;font-weight:bold;}
+.item-title{font-size: 1.3rem;color:#000;font-weight:bold;margin:5px 0px;}
+.notifications a.content{text-decoration:none;display:block;color:#000;}
+.notification-item{position: relative;padding: 10px;padding-left:40px;padding-bottom:0px;}
+.dropdown-menu .divider{height: 1px;margin: 5px 0;overflow: hidden;background-color: #e5e5e5;}
+ul.dropdown-menu.notifications .notifications-wrapper a.content{padding: 0px!important;background: rgba(0, 0, 0, 0.04);border-bottom: 1px solid #d1d1d1;}
+ul.dropdown-menu.notifications .notifications-wrapper a.content:hover{color: #000;background: rgba(0, 0, 0, 0.1);}
+.login-nav ul.nav.navbar-nav.navbar-right li a{display:block;}
+.notifications a.content{text-decoration:none;display:block;}
+.notification-heading{background: #2F6C8A;padding:3px 10px;}
+/** Centralize Modals **/
+.vertical-alignment-helper{display:table;height:100%;width:100%;pointer-events:none;}
+.vertical-align-center {/* To center vertically */display:table-cell;vertical-align:middle;pointer-events:none;}
+.modal-content{/* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+width:inherit;height:inherit;/* To center horizontally */margin:0 auto;pointer-events:all;}
+.country-select{width:20%;height:32px;border:1px solid#CCD0D2;border-right:none;border-radius: 3px;border-top-right-radius:none;border-bottom-right-radius:none;overflow:hidden;margin-right:20px;background:96% / 20% no-repeat transparent;}
+.country-select .btn{width:140%;padding-left:2px;padding-right:0;text-align:left;background:transparent;border:none;font-size: 16px;height:32px;}
+.country-select .btn option{padding-left:10px;text-align:left;}
