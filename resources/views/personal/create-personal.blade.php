@@ -26,7 +26,7 @@
                         <p class="text-center">It is easier to follow through on Savings with a <strong>Goal/Target</strong> than without one<hr class="hr-class" /></p>
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="control-label sr-only">Target Amount</label>
+                            <label for="name" class="control-label">Target Amount</label>
 
                             <input id="name" type="text" class="form-control amount" placeholder="Name of Plan" name="name" value="{{ old('name') }}">
 
@@ -40,7 +40,7 @@
 
                         <div class="row">
                             <div class="col-md-6 form-group{{ $errors->has('target_amount') ? ' has-error' : '' }}">
-                                <label for="target_amount" class="control-label sr-only">Target Amount</label>
+                                <label for="target_amount" class="control-label">Target Amount</label>
 
                                 <div class="input-group">
                                     <span class="input-group-addon no-border-right">&#x20A6;</span>
@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="col-md-6 form-group{{ $errors->has('instalment_amount') ? ' has-error' : '' }}">
-                                <label for="instalment_amount" class="control-label sr-only">Amount</label>
+                                <label for="instalment_amount" class="control-label">Amount</label>
 
                                 <div class="input-group">
                                     <span class="input-group-addon no-border-right">&#x20A6;</span>
@@ -75,7 +75,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 form-group{{ $errors->has('recurrence') ? ' has-error' : '' }}">
-                                <label for="recurrence" class="control-label sr-only">Payment Intervals</label>
+                                <label for="recurrence" class="control-label">Payment Intervals</label>
 
                                 <select name="recurrence" data-placeholder="Select Savings Interval" class="single-select form-control">
                                     @foreach($recurrence as $current)
@@ -95,7 +95,7 @@
                             </div>
 
                             <div class="col-md-6 form-group{{ $errors->has('priority') ? ' has-error' : '' }}">
-                                <label for="priority" class="control-label sr-only">Priority Level</label>
+                                <label for="priority" class="control-label">Priority Level</label>
 
                                 <select name="priority" data-placeholder="Set Priority Level" class="single-select form-control" title="Set How Important it is to reach the Target">
                                     @foreach($priority_level as $priority)
@@ -116,7 +116,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
-                                <label for="start_date" class="control-label sr-only">Start Date</label>
+                                <label for="start_date" class="control-label">Start Date</label>
 
                                 <input id="start_date" type="date" class="form-control date-single" placeholder="Start Date" name="start_date" value="{{ old('start_date') }}" required>
 
@@ -129,7 +129,7 @@
                             </div>
 
                             <div class="col-md-6 form-group{{ $errors->has('target_date') ? ' has-error' : '' }}">
-                                <label for="target_date" class="control-label sr-only">Target Date</label>
+                                <label for="target_date" class="control-label">Target Date</label>
 
                                 <input id="target_date" type="date" class="form-control date-single" placeholder="Target Date" name="target_date" value="{{ old('target_date') }}" required>
 

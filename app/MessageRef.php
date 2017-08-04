@@ -12,8 +12,8 @@ class MessageRef extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'message_id', 'sender', 'receiver', 'sender_status',
-        'receiver_status', 'sent_at',
+        'id', 'message_id', 'team_id', 'sender', 'receiver', 'sender_status',
+        'receiver_status',
     ];
 
     public function message()
@@ -23,12 +23,12 @@ class MessageRef extends Model
 
     public function team()
     {
-        return $this->belongsTo('\App\Group');
+        return $this->belongsTo('\App\Group', 'team_id', 'id');
     }
 
-    public function user()
+    public function sender()
     {
-        return $this->belongsTo('\App\User');
+        return $this->belongsTo('\App\User', 'sender', 'id');
     }
 
 }

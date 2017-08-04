@@ -33,7 +33,7 @@ class AnnouncementController extends Controller
         }
     }
 
-    public function getAllAnnouncements($team_id)
+    public function getAllTeamAnnouncements($team_id)
     {
         return $this->announcementService->getAllAnnouncements($team_id);
     }

@@ -19,7 +19,7 @@ class CreateGroupsTable extends Migration
             $table->string('id');
             $table->string('name');
   			$table->float('amount', 12, 2);
-  			$table->integer('participants');
+  			$table->integer('completed_cycles')->default(0);
   			$table->integer('recurrence')->unsigned();
   			$table->date('start_date');
   			$table->string('status')->default('inactive');

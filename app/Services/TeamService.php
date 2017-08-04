@@ -20,16 +20,13 @@ class TeamService
     }
 
     public function create($request) {
-        $team_status = $this->handleStatus($request);
-
         $uuid = gen_uuid();
         $this->team->id = $uuid;
         $this->team->name = ucwords($request->name);
         $this->team->amount = $request->amount;
-        $this->team->participants = $request->participants;
         $this->team->recurrence = $request->recurrence;
         $this->team->start_date = $request->start_date;
-        $this->team->status = $team_status;
+        $this->team->status = $this->handleStatus($request);
         if ($this->team->save()) {
             $getRole = $this->roleService->getRole('group_admin');
             $userRole = ($getRole) ? $getRole->id : 3;
@@ -56,7 +53,9 @@ class TeamService
 
     public function getTeam($team_id)
     {
-        return $this->team->where('id', $team_id)->first();
+        return $this->team->where('id', $team_id)
+            ->with('role.group')
+            ->first();
     }
     
     public function registerMemberToTeam($user_id, $team_id)

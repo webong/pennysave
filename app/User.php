@@ -96,4 +96,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('\App\GroupInvite'. 'inviter_id', 'id');
     }
+
+    public function announcement()
+    {
+        return $this->hasMany('\App\Announcement', 'announcer', 'id');
+    }
 }

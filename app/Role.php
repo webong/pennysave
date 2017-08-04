@@ -15,12 +15,14 @@ class Role extends Model
 
     public function user()
     {
-        return $this->belongsToMany('\App\User', 'group_user');
+        return $this->belongsToMany('\App\User', 'group_user')
+            ->withPivot(['user_id', 'group_id', 'status'])->withTimestamps();
     }
 
     public function group()
     {
-        return $this->belongsToMany('\App\Group', 'group_user')->withPivot(['role_id', 'group_id', 'status'])->withTimestamps();
+        return $this->belongsToMany('\App\Group', 'group_user')
+            ->withPivot(['user_id', 'group_id', 'status'])->withTimestamps();
     }
 
 }

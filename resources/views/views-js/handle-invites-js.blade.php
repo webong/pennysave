@@ -14,7 +14,7 @@
             $('#invite-response').val($('#accept-invite').val());
             $('#invite-confirmation').submit();
         }).catch(swal.noop);
-    })
+    });
     $('#reject-invite').click(function(evt) {
         evt.preventDefault();
         swal({
@@ -30,16 +30,5 @@
             $('#invite-response').val($('#reject-invite').val());
             $('#invite-confirmation').submit();
         }).catch(swal.noop);
-
-        // .then(function () {
-        //     var deleteList = Array();
-        //     $('.checkbox_select:checked').each(function() {
-        //         console.log($(this).val());
-        //         return;
-        //         deleteList.push($(this).val());
-        //     });
-        //     $('#deleteSection').val(deleteList);
-        //     $('#table_selection').submit();
-        // })
     });
 </script>

@@ -1,10 +1,4 @@
 <div class="section tab-pane active" id="team-statusboard">
-    <div class="col-md-6">
-        <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#make-announcement-modal">Make Announcement</button>
-    </div>
-    <div class="col-md-6">
-        <button class="btn btn-primary" onclick="window.location.href='{{ url("teams/" . $team->id . "/messages/create/everyone") }}'">Send General Message</button>
-    </div>
 
     @if (! confirm_team_status($team->status, $team->start_date))
         <div class="col-md-10 col-md-offset-1 flex-center">
@@ -23,17 +17,27 @@
                 <button class="btn btn-primary" id="start_now">Start Now Instead</button>
             </div>
         </div>
-
-        @include('modals._reschedule-modal')
-
     @else
-        @if ($team->user->count() > 1)
-            <div class="col-md-10 col-md-offset-1">
-                <h3 class="text-center margin-bottom-md">You are currently in your <span class="text-info text-xxl">
-                    <?php $nf = new NumberFormatter('en_US', NumberFormatter::ORDINAL);
-                    echo $nf->format($team->user->where('pivot.status', 'active')->count()); ?></span> cycle
-                </h3>
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#make-announcement-modal">Make Announcement</button>
             </div>
+            <div class="col-md-6">
+                <button class="btn btn-primary" onclick="window.location.href='{{ url("teams/" . $team->id . "/messages/create/everyone") }}'">Send General Message</button>
+            </div>
+        </div>
+        @if ($team->user->count() > 1)
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <h3 class="text-center margin-bottom-md">You are currently in your <span class="text-info text-xxl">
+                        <?php $nf = new NumberFormatter('en_US', NumberFormatter::ORDINAL);
+                        echo $nf->format($team->user->where('pivot.status', 'active')->count()); ?></span> cycle
+                    </h3>
+                </div>
+            </div>
+            
+            @include('team.group-arrangements')
+            
             <?php $count = 0; ?>
             <h3 class="text-center">Members List</h3>
             <table class="table table-bordered table-condensed table-responsive text-center">
@@ -70,8 +74,5 @@
             </button>
         @endif
     @endif
-
-    @include('modals._make-announcement-modal')
-
 </div>
 <div class="modal-loading"></div>

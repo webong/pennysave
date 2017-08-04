@@ -20,7 +20,7 @@
 
                         <div class="row">
                           <div class="col-md-6 form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                              <label for="first_name" class="control-label sr-only">First Name</label>
+                              <label for="first_name" class="control-label">First Name</label>
 
                               <input id="first_name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" placeholder="First Name" required autofocus>
 
@@ -32,7 +32,7 @@
                           </div>
 
                           <div class="col-md-6 form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                              <label for="last_name" class="control-label sr-only">Last Name</label>
+                              <label for="last_name" class="control-label">Last Name</label>
 
                               <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" placeholder="Last Name" required>
 
@@ -54,7 +54,7 @@
                         
                             <div class="tab-content">
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} tab-pane active" id="show-email">                                                            
-                                    <label for="email" class="control-label sr-only">E-Mail Address</label>
+                                    <label for="email" class="control-label">E-Mail Address</label>
                                     
                                     <input id="email" type="text" class="form-control" placeholder="Email Address" name="email" value="{{ old('email') }}">
 
@@ -67,7 +67,7 @@
 
                                 <div class="row tab-pane" id="show-phone">
                                     <div class="col-md-5 form-group{{ $errors->has('countries') ? ' has-error' : '' }}">
-                                        <label for="countries" class="control-label sr-only">Countries</label>
+                                        <label for="countries" class="control-label">Countries</label>
 
                                         <select id="countries" name="countries" class="form-control" placeholder="Country">
                                             <option></option>
@@ -86,7 +86,7 @@
                                     </div>
                                         
                                     <div class="col-md-7 form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                                        <label for="phone" class="control-label sr-only">Phone Number</label>
+                                        <label for="phone" class="control-label">Phone Number</label>
 
                                         <input id="phone" type="tel" class="form-control" placeholder="Phone Number" name="phone" value="{{ old('phone') }}">
 
@@ -101,7 +101,7 @@
                         @else
                             @if (isset($invitationEmail))
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}" id="show-email">
-                                    <label for="email" class="control-label sr-only">E-Mail Address</label>
+                                    <label for="email" class="control-label">E-Mail Address</label>
                                     
                                     <input readonly id="email" type="text" class="form-control" placeholder="Email Address" name="email" value="@if (isset($invitationEmail)){{ $invitationEmail }}@else{{ old('email') }}@endif">
 
@@ -114,7 +114,7 @@
                             @else
                                 <div class="row tab-pane" id="show-phone">
                                     <div class="col-md-5 form-group{{ $errors->has('countries') ? ' has-error' : '' }}">
-                                        <label for="countries" class="control-label sr-only">Countries</label>
+                                        <label for="countries" class="control-label">Countries</label>
 
                                         <select id="countries" name="countries" class="form-control" placeholder="Country">
                                             <option></option>
@@ -133,7 +133,7 @@
                                     </div>
 
                                     <div class="col-md-7 form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                                        <label for="phone" class="control-label sr-only">Phone Number</label>
+                                        <label for="phone" class="control-label">Phone Number</label>
 
                                         <input readonly id="phone" type="tel" class="form-control" placeholder="Phone Number" name="phone" value="@if (isset($invitationPhone)){{ $invitationPhone }}@else{{ old('phone') }}@endif">
 
@@ -148,7 +148,7 @@
                         @endif
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="control-label sr-only">Password</label>
+                            <label for="password" class="control-label">Password</label>
 
                             <input id="password" type="password" class="form-control" placeholder="Password" name="password" required>
 

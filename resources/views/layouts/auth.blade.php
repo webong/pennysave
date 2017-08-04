@@ -65,9 +65,6 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
-                            <li><a href="{{ url('/member') }}">Members</a></li>
-                            <li><a href="{{ url('/payment') }}">Payment Hierarchy</a></li>
-                            <li><a href="{{ url('/settings') }}">Settings</a></li>
                             <li class="dropdown user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     <img src="{{ asset(urldecode(Auth::user()->avatar)) }}" class="user-image" alt="User Image"> <span class="hidden-xs">{{ Auth::user()->first_name }}</span> <span class="caret"></span>

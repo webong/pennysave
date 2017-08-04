@@ -17,7 +17,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="control-label sr-only">E-Mail Address</label>
+                            <label for="email" class="control-label">E-Mail Address</label>
 
                             <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email Address" required>
 

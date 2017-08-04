@@ -247,6 +247,13 @@ class MessageService
             ->first();
     }
 
+    public function getNewMessages()
+    {
+        return $this->messageRef->where('receiver', Auth::user()->id)
+            ->where('receiver_status', 1)
+            ->with('team')->get();
+    }
+
     public function getUnreadCount($team_id)
     {
         return $this->messageRef->where('receiver', Auth::user()->id)

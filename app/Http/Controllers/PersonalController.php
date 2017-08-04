@@ -11,7 +11,6 @@ use App\Services\InviteService;
 
 class PersonalController extends Controller
 {
-
     protected $personalService;
 
     public function __construct(PersonalSaveService $personalService, InviteService $inviteService)

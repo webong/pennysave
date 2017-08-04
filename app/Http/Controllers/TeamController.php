@@ -3,29 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Recurrence;
 use App\Http\Requests\TeamRequest;
 use App\Http\Requests\InviteSinglyRequest;
-use App\Http\Requests\InviteListRequest;
-use App\Services\TeamService;
-use App\Services\InviteService;
-use Auth;
-use App\GroupInvite;
-use App\User;
 use Propaganistas\LaravelIntl\Facades\Country;
+use App\Http\Requests\InviteListRequest;
+use App\Services\AnnouncementService;
 use Illuminate\Support\HtmlString;
+use App\Services\MessageService;
+use App\Services\InviteService;
+use App\Services\TeamService;
+use App\GroupInvite;
+use App\Recurrence;
+use App\User;
+use Auth;
 
 class TeamController extends Controller
 {
-
     protected $teamService;
-
     protected $inviteService;
+    protected $announcementService;
+    protected $messageService;
 
-    public function __construct(TeamService $teamService, InviteService $inviteService)
+    public function __construct(
+        TeamService $teamService,
+        InviteService $inviteService,
+        AnnouncementService $announcementService,
+        MessageService $messageService
+    )
     {
         $this->teamService = $teamService;
         $this->inviteService = $inviteService;
+        $this->announcementService = $announcementService;
+        $this->messageService = $messageService;
     }
 
     public function team()
@@ -45,6 +54,8 @@ class TeamController extends Controller
     public function index($team_id)
     {
         if ($data['team'] = $this->teamService->getTeam($team_id)) {
+            $data['notifications'] = $this->announcementService->getAllTeamAnnouncements($team_id);
+            $data['unread_messages'] = $this->messageService->getNewMessages($team_id);
             $data['countries'] = Country::all();
             return view('team.team', $data);
         }

@@ -11,11 +11,11 @@
             <div class="panel panel-default">
                 <h3 class="panel-heading text-center">Create Team</h3>
                 <div class="panel-body">
-                    <form role="form" method="POST" action="{{ route('team-create') }}" id="form_with_amount">
+                    <form role="form" method="POST" action="{{ route('team-create') }}" id="form_with_amount" data-parsley-validate>
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="control-label sr-only">Team Name</label>
+                            <label for="name" class="control-label">Team Name</label>
 
                             <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Team Name" required autofocus>
 
@@ -29,7 +29,7 @@
 
                         <div class="row">
                             <div class="col-md-6 form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
-                                <label for="amount" class="control-label sr-only">Amount</label>
+                                <label for="amount" class="control-label">Amount</label>
 
                                 <div class="input-group">
                                     <span class="input-group-addon no-border-right">&#x20A6;</span>
@@ -45,43 +45,30 @@
                                 <span class="help-block">Amount To Be Contributed By Members</span>
                             </div>
 
-                            <div class="col-md-6 form-group{{ $errors->has('participants') ? ' has-error' : '' }}">
-                                <label for="participants" class="control-label sr-only">Participants</label>
+                            <div class="col-md-6 form-group{{ $errors->has('recurrence') ? ' has-error' : '' }}">
+                                <label for="recurrence" class="control-label">Payment Intervals</label>
 
-                                <input id="participants" type="number" class="form-control" placeholder="Number of Participants" name="participants" value="{{ old('participants') }}">
+                                <select name="recurrence" data-placeholder="Select Payment Interval" class="single-select form-control">
+                                    <option></option>
+                                    @foreach($recurrence as $current)
+                                        <option value="{{ $current->id }}"
+                                            @if (old('recurrence') == $current->id) {{ ' selected' }}@endif> {{ $current->period }}
+                                        </option>
+                                    @endforeach
+                                </select>
 
-                                @if ($errors->has('participants'))
-                                  <span class="help-block">
-                                      <strong>{{ $errors->first('participants') }}</strong>
-                                  </span>
+                                @if ($errors->has('recurrence'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('recurrence') }}</strong>
+                                </span>
                                 @endif
-                                <span class="help-block">Estimated Number of Participants (Can Be Changed Later)</span>
+                                <span class="help-block">Set The Payment Interval</span>
                             </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('recurrence') ? ' has-error' : '' }}">
-                            <label for="recurrence" class="control-label sr-only">Payment Intervals</label>
-
-                            <select name="recurrence" data-placeholder="Select Payment Interval" class="single-select form-control">
-                                <option></option>
-                                @foreach($recurrence as $current)
-                                    <option value="{{ $current->id }}"
-                                        @if (old('recurrence') == $current->id) {{ ' selected' }}@endif> {{ $current->period }}
-                                    </option>
-                                @endforeach
-                            </select>
-
-                            @if ($errors->has('recurrence'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('recurrence') }}</strong>
-                              </span>
-                            @endif
-                            <span class="help-block">Set The Payment Interval</span>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
-                                <label for="start_date" class="control-label sr-only">Start Date</label>
+                                <label for="start_date" class="control-label">Start Date</label>
 
                                 <input id="start_date" type="date" class="form-control date" placeholder="Start Date" name="start_date" value="{{ old('start_date') }}" required>
 
@@ -92,7 +79,10 @@
                                 @endif
                                 <span class="help-block">Select A Tentative Date For Commencement</span>
                             </div>
-                            <div class="col-md-6 form-group start-date-auto padding-top-lg">
+
+                            <div class="col-md-6 form-group start-date-auto">
+                                <label class="control-label margin-bottom-lg">Auto-Start</label>
+                            
                                 <div class="block-switch">
                                     <input id="toggle-flat" class="toggle toggle-flat" type="checkbox" name="auto_start_date">
                                     <label for="toggle-flat" id="start-date-label" data-on="Yes" data-off="No" title="Set Plan To Automatically Generate Members Payment Hierarchy and Start Plan on The Selected Start Date"></label>

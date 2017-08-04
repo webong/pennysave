@@ -6,15 +6,17 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h5 class="modal-title text-center bold" id="myModalLabel">Create Announcement</h5>
+                    <h4 class="modal-title text-center bold" id="myModalLabel">Create Announcement</h4>
                 </div>
                 <div class="modal-body">
                     <form id="make-announcement-form">
                         <div class="form-group">
-                            <input type="text" name="subject" class="form-control" placeholder="Brief Subject">
+                            <label for="announce-subject" class="control-label">Brief Subject</label>
+                            <input id="announce-subject" type="text" name="subject" class="form-control" placeholder="Brief Subject">
                         </div>
                         <div class="form-group">
-                            <textarea rows="3" class="form-control countingdown" name="content" placeholder="Announcement Details"></textarea>
+                            <label for="announce-content" class="control-label">Announcement Details</label>
+                            <textarea rows="3" id="announce-content" class="form-control countingdown" name="content" placeholder="Announcement Details"></textarea>
                             <span id="characters" class="bold"></span>
                         </div>
                     </form>

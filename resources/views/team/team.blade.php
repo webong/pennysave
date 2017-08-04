@@ -26,6 +26,7 @@
         @include('team.team-details')
         @include('team.invite-members')
         @include('team.view-members')
+        @include('team.notifications')
         @include('team.settings')
 
     </div>
@@ -35,4 +36,7 @@
     @include('views-js.team-details-js')
     @include('views-js.invite-members-js')
     @include('views-js.handle-invites-js')
+    @include('modals._reschedule-modal')
+    @include('modals._make-announcement-modal')
+    @include('modals._view-announcement-modal')
 @endsection

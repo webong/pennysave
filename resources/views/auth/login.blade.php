@@ -14,7 +14,7 @@
                         @endif
                         
                         <div class="form-group{{ $errors->has('login') ? ' has-error' : '' }}">
-                            <label for="login" class="control-label sr-only">E-Mail Address</label>
+                            <label for="login" class="control-label">E-Mail Address</label>
 
                             <input id="login" type="text" class="form-control" name="login" value="@if(isset($emailOrPhone)){{ $emailOrPhone }}@else{{ old('email') }}@endif" placeholder="Email Address or Phone Number" required autofocus>
 
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="control-label sr-only">Password</label>
+                            <label for="password" class="control-label">Password</label>
 
                             <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
 

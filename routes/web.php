@@ -19,6 +19,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/team/{team_id}/invite/{invite_token}', 'TeamController@invite_register');
+Route::get('/tos', 'LegalController@tos');
+Route::get('/privacy', 'LegalController@privacy');
 
 Route::group(['middleware' => 'auth'], function() {
 

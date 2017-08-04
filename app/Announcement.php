@@ -12,7 +12,7 @@ class Announcement extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'team_id', 'subject', 'content'
+        'id', 'team_id', 'announcer', 'subject', 'content', 'status'
     ];
 
     public $incrementing = false;
@@ -23,4 +23,11 @@ class Announcement extends Model
 	{
 		return $this->belongsTo('\App\Group', 'team_id');
 	}
+
+    public function user()
+	{
+		return $this->belongsTo('\App\User', 'announcer', 'id');
+	}
+
+
 }

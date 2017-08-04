@@ -13,19 +13,35 @@ class AnnouncementService
     public function create($team_id, $request)
     {
         $announce = new Announcement;
-
+        $announce_id = gen_uuid();
+        $announce->id = $announce_id;
+        $announce->subject = $request->subject;
+        $announce->content = $request->content;
+        $announce->team_id = $team_id;
+        if ($announce->save()) {
+            return $announce_id;
+        }
+        return false;
     }
 
-    public function getAllAnnouncements($team_id)
+    public function getAllAnnouncements()
+    {
+        return Announcement::where('status', 'Like', Auth::user()->id)
+            ->with('team', 'user')
+            ->get();
+    }
+
+    public function getAllTeamAnnouncements($team_id)
     {
         return Announcement::where('team_id', $team_id)
+            ->with('team')
             ->paginate($this->paginator);
     }
 
     public function getUnreadAnnouncements($team_id)
     {
         return Announcement::where('team_id', $team_id)
-            ->whereNotIn(Auth::user()->id, 'read')
+            ->where('status', 'Like', Auth::user()->id)
             ->get();
     }
 
@@ -51,6 +67,6 @@ class AnnouncementService
             $announce->status = $announce->status . ',' . Auth::user()->id; 
             return true;
         }
-        return false
+        return false;
     }
 }

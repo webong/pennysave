@@ -13,20 +13,25 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Traits\HandleMessageAttachments;
 use App\Services\MessageService;
+use App\Services\AnnouncementService;
 
 class MessageController extends Controller
 {
 
     protected $messageService;
+    protected $announcementService;
 
-    public function __construct(MessageService $messageService)
+    public function __construct(MessageService $messageService, AnnouncementService $announcementService)
     {
         $this->messageService = $messageService;
+        $this->announcementService = $announcementService;
     }
 
     public function index($team_id)
     {
         if ($data = $this->messageService->index($team_id)) {
+            $data['notifications'] = $this->announcementService->getAllTeamAnnouncements($team_id);
+            $data['unread_messages'] = $this->messageService->getNewMessages($team_id);
             return view('message.index', $data);
         } else {
             return abort();
@@ -36,6 +41,8 @@ class MessageController extends Controller
     public function create($team_id, $everyone = Null)
     {
         if ($data = $this->messageService->create($team_id, $everyone)) {
+            $data['notifications'] = $this->announcementService->getAllTeamAnnouncements($team_id);
+            $data['unread_messages'] = $this->messageService->getNewMessages($team_id);
             return view('message.compose', $data);
         } else {
             return abort();
@@ -60,7 +67,8 @@ class MessageController extends Controller
     public function read($team_id, $type = null, $id)
     {
         if ($data = $this->messageService->read($team_id, $type, $id)) {
-            dd($data);
+            $data['notifications'] = $this->announcementService->getAllTeamAnnouncements($team_id);
+            $data['unread_messages'] = $this->messageService->getNewMessages($team_id);
             return view('message.read', $data);
         } else {
             return abort();
@@ -70,6 +78,8 @@ class MessageController extends Controller
     public function draft($team_id)
     {
         if ($data = $this->messageService->draft($team_id)) {
+            $data['notifications'] = $this->announcementService->getAllTeamAnnouncements($team_id);
+            $data['unread_messages'] = $this->messageService->getNewMessages($team_id);
             return view('message.draft', $data);
         } else {
             return abort();
@@ -79,6 +89,8 @@ class MessageController extends Controller
     public function trash($team_id)
     {
         if ($data = $this->messageService->trash($team_id)) {
+            $data['notifications'] = $this->announcementService->getAllTeamAnnouncements($team_id);
+            $data['unread_messages'] = $this->messageService->getNewMessages($team_id);
             return view('message.trash', $data);
         } else {
             return abort();
@@ -88,6 +100,8 @@ class MessageController extends Controller
     public function sent($team_id)
     {
         if ($data = $this->messageService->sent($team_id)) {
+            $data['notifications'] = $this->announcementService->getAllTeamAnnouncements($team_id);
+            $data['unread_messages'] = $this->messageService->getNewMessages($team_id);
             return view('message.sent', $data);
         } else {
             return abort();
@@ -97,6 +111,8 @@ class MessageController extends Controller
     public function reply($team_id, $type, $id)
     {
         if ($data = $this->messageService->reply($team_id, $type, $id)) {
+            $data['notifications'] = $this->announcementService->getAllTeamAnnouncements($team_id);
+            $data['unread_messages'] = $this->messageService->getNewMessages($team_id);
             return view('message.compose', $data);
         } else {
             return abort();
@@ -105,6 +121,8 @@ class MessageController extends Controller
 
     public function forward($team_id, $type, $id) {
         if ($data = $this->messageService->create($team_id, $type, $id)) {
+            $data['notifications'] = $this->announcementService->getAllTeamAnnouncements($team_id);
+            $data['unread_messages'] = $this->messageService->getNewMessages($team_id);
             return view('message.compose', $data);
         } else {
             return abort();

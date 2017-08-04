@@ -20,12 +20,13 @@ $('.countingdown').keydown(updateCount);
 function updateCount() {
     var element = $(this);
     var cs = element.val().length;
+    console.log(cs);
     if (cs == 140) {
         element.html($(this).val().substring(0, 140));
         element.next('span').addClass('text-danger').text('You Have Reached The Limit');
     } else {
         if (element.next('span').hasClass('text-danger')) {
-            element.next('span').removeClass('text-danger')
+            element.next('span').removeClass('text-danger');
         }
         element.next('span').text(cs);
     }

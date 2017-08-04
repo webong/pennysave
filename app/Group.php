@@ -36,9 +36,9 @@ class Group extends Model
         return $this->belongsToMany('\App\Role', 'group_user')->withPivot(['user_id', 'role_id', 'status'])->withTimestamps();
     }
 
-    public function messages()
+    public function message_ref()
     {
-        return $this->hasMany('\App\Message');
+        return $this->hasMany('\App\MessageRef', 'team_id', 'id');
     }
 
     public function period()
