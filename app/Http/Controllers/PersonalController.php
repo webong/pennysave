@@ -44,8 +44,10 @@ class PersonalController extends Controller
 
     public function index($personal_id)
     {
-        $data['plan_details'] = $this->personalService->getPlan($personal_id);
-        return view('personal.personal', $data);
+        if ($data['plan_details'] = $this->personalService->getPlan($personal_id)) {
+            return view('personal.personal', $data);
+        }
+        return abort(404);
     }
 
 }
