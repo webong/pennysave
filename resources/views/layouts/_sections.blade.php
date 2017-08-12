@@ -20,51 +20,56 @@
                 </a>
             </div>
             @if ($notifications->count())
-                <div class="notifications-wrapper">
-                    <a class="content view-notification" href="#">
-                        <div class="notification-item">
-                            <h4 class="item-title">{{ $notifications->team->name }}
-                                <small>{{ $notifications->created_at->diffForHumans() }}</small>
-                            </h4>
-                            <p class="item-info">$notifications->subject </p>
-                        </div>  
-                    </a>
-                </div>
+                @foreach ($notifications as $notification)
+                    <div class="notifications-wrapper">
+                        <a class="content view-notification" data-url="{{ $notification->id }}"
+                            data-subject="{{ $notification->subject }}" 
+                            data-content="{{ $notification->content }}" href="#">
+                            <div class="notification-item">
+                                <h4 class="item-title">{{ $notification->subject }}
+                                    <small>{{ $notification->created_at->diffForHumans() }}</small>
+                                </h4>
+                                <p class="item-info">{{ read_more($notification->content, 20) }}</p>
+                            </div>  
+                        </a>
+                    </div>
+                @endforeach
             @else
                 <div class="notifications-wrapper padding-top-sm padding-bottom-sm text-center">
-                    You don't have any notifications
+                    You don't have any new notifications
                 </div>
             @endif
         </ul>
     </li>
-    <li class="dropdown">
-        <a href="#" id="dLabel" class="dropdown-toggle" role="button" data-toggle="dropdown">
-            <span class="text-info fa fa-envelope"></span>
-            <span class="badge info margin-left-sm padding-bottom-mmd">@if($unread_messages->count()){{ $unread_messages->count() }}@endif</span>
-        </a>
-        <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
-            <div class="notification-heading">
-                <h4 class="menu-title dLabel">Messages</h4>
-            </div>
-            @if ($unread_messages->count())
-                <div class="notifications-wrapper">
-                    <a class="content view-message" href="#">
-                        <div class="notification-item">
-                            <h4 class="item-title">{{ $unread_messages->sender->first_name }}
-                                <small> {{ $unread_messages->created_at->diffForHumans() }}</small>
-                            </h4>
-                            <p class="item-info">{{ $unread_messages->subject }}</p>
-                        </div>  
-                    </a>
+    @isset($unread_messages)
+        <li class="dropdown">
+            <a href="#" id="dLabel" class="dropdown-toggle" role="button" data-toggle="dropdown">
+                <span class="text-info fa fa-envelope"></span>
+                <span class="badge info margin-left-sm padding-bottom-mmd">@if($unread_messages->count()){{ $unread_messages->count() }}@endif</span>
+            </a>
+            <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+                <div class="notification-heading">
+                    <h4 class="menu-title dLabel">Messages</h4>
                 </div>
-            @else
-                <div class="notifications-wrapper padding-top-sm padding-bottom-sm text-center">
-                    You don't have any new messages
-                </div>
-            @endif
-        </ul>
-    </li>
-
+                @if ($unread_messages->count())
+                    <div class="notifications-wrapper">
+                        <a class="content view-message" href="#">
+                            <div class="notification-item">
+                                <h4 class="item-title">{{ $unread_messages->sender->first_name }}
+                                    <small> {{ $unread_messages->created_at->diffForHumans() }}</small>
+                                </h4>
+                                <p class="item-info">{{ $unread_messages->subject }}</p>
+                            </div>  
+                        </a>
+                    </div>
+                @else
+                    <div class="notifications-wrapper padding-top-sm padding-bottom-sm text-center">
+                        You don't have any new messages
+                    </div>
+                @endif
+            </ul>
+        </li>
+    @endisset
 @endsection
 
 @section('content')

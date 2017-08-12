@@ -32,6 +32,9 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/create-team', 'TeamController@team');
 	Route::post('/create-team', 'TeamController@create')->name('team-create');
 		
+	Route::get('/teams/invites', 'TeamController@view_invites');
+	Route::post('/teams/invites', 'TeamController@invites_response');
+
 	Route::group(['prefix' => '/teams/{team_id}'], function () {
 		Route::get('/', 'TeamController@index');
 
@@ -40,6 +43,8 @@ Route::group(['middleware' => 'auth'], function() {
 		Route::post('/start-now', 'TeamController@start_now');
 
 		// Announcements
+		Route::post('/announcements/create', 'AnnouncementController@create');
+		Route::post('/announcements/update', 'AnnouncementController@update');
 		Route::post('/announcements/{id}/mark-as-seen', 'AnnouncementController@mark_as_seen');
 
 		// Invite Members
@@ -64,8 +69,6 @@ Route::group(['middleware' => 'auth'], function() {
 	// Personal Routes
 	Route::get('/create-personal', 'PersonalController@personal');
 	Route::post('/create-personal', 'PersonalController@create')->name('personal-create');
-	Route::get('/personal/invites', 'PersonalController@invites');
-	Route::post('/personal/invites', 'PersonalController@invites_response');
 	Route::get('/personal/{personal_id}', 'PersonalController@index');
 
 	Route::get('/payment', 'PaymentController@index');

@@ -110,6 +110,9 @@
                     font-size:14px;
                 }
             }
+            .text-xxxl {
+                font-size: 50px;
+            }
         </style>
     </head>
     <body>

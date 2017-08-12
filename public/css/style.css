@@ -42,7 +42,7 @@ body {background-color: #f6f6f6;padding-bottom:60px;font-family: 'Raleway', sans
 .section{margin:10px 0;}.section-footer{padding:15px 0 20px 0;}
 .hr-class{width:60%;border-color:#ededed;margin:5px auto 15px auto;}
 .group-caption{padding:15px 0;}
-.main-text{font-size:40px;}.sub-text{font-size:35px;}.sub-text sup{font-size:10px;}
+.main-text{font-size:25px;}.sub-text{font-size:35px;}.sub-text sup{font-size:10px;}
 .border-right{border-right:1px solid #ededed;}
 a.no-underline{text-decoration:none;}
 .active{background-color:#D4FFD4;}

@@ -23,7 +23,7 @@
                 </div>
                 <div class="modal-footer no-border-top">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="create-announcement">Send Announcement</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="create-announcement">Send Announcement</button>
                 </div>
             </div>
         </div>

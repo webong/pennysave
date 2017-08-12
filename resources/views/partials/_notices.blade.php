@@ -33,7 +33,7 @@
         <div class="alert alert-info text-center alert-dismissible bold text-md bold col-md-6 col-md-offset-3 padding-top-md padding-bottom-md">
             You Have {{ $checkInvites->count() }} Pending
             <br />
-            <a class="no-underline text-xl" href="{{ url('/personal/invites') }}"><h4 class="padding-top-sm">
+            <a class="no-underline text-xl" href="{{ url('/teams/invites') }}"><h4 class="padding-top-sm">
                 View @if($checkInvites->count() > 1) {{ 'Invites' }} @else {{ 'Invite' }} @endif
             </h4></a>
         </div>

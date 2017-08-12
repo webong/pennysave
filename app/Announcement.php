@@ -12,22 +12,16 @@ class Announcement extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'team_id', 'announcer', 'subject', 'content', 'status'
+        'id', 'announcer', 'subject', 'content',
     ];
 
     public $incrementing = false;
 
     protected $table = 'announcements';
 
-    public function team()
+    public function announce_user()
 	{
-		return $this->belongsTo('\App\Group', 'team_id');
+		return $this->hasMany('\App\AnnounceUser', 'announce_id', 'id');
 	}
-
-    public function user()
-	{
-		return $this->belongsTo('\App\User', 'announcer', 'id');
-	}
-
 
 }

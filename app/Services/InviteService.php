@@ -127,13 +127,13 @@ class InviteService
 
     public function confirmPreviousInviteByEmail($email)
     {
-        $previousInvite = GroupInvite::where('email', $email)->first();
+        $previousInvite = GroupInvite::where('email', $email)->where('team_id', $this->team_id)->first();
         return ($previousInvite) ? $this->analyzeResponse($previousInvite, $email) : false;
     }
 
     public function confirmPreviousInviteByPhone($phone)
     {
-        $previousInvite = GroupInvite::where('phone', $phone)->first();
+        $previousInvite = GroupInvite::where('phone', $phone)->where('team_id', $this->team_id)->first();
         return ($previousInvite) ? $this->analyzeResponse($previousInvite, $phone) : false;
     }
 
@@ -153,11 +153,10 @@ class InviteService
 
     public function currentUser($email)
     {
-        $currentUser = User::where('email', $email)->first();
-        return ($currentUser) ?
-            $currentUser->group->
-            where('group_id', $this->team_id)->first() :
-            null;
+        return $currentUser = User::where('email', $email)
+            ->whereHas('group', function($query) {
+                $query->where('id', $this->team_id);
+            })->first();
     }
 
     public function generateInviteLink($emailOrPhone, $team_id)
@@ -310,14 +309,18 @@ class InviteService
 
     public function checkInvites()
     {
-        return GroupInvite::where('email', Auth::user()->email)
-            ->orWhere('phone', Auth::user()->phone)
-            ->where('status', 'waiting')->get();
+        return GroupInvite::where(function ($query) {
+                $query->where('email', Auth::user()->email)
+                ->orWhere('phone', Auth::user()->phone);
+            })->where('status', 'waiting')->get();
     }
 
     public function getAllInvites()
     {
-        return GroupInvite::where('email', Auth::user()->email)
+        return GroupInvite::where(function ($query) {
+                $query->where('email', Auth::user()->email)
+                ->orWhere('phone', Auth::user()->phone);
+            })->where('status', 'waiting')
             ->with('group', 'user', 'invited')->get();            
     }
 
@@ -335,11 +338,12 @@ class InviteService
 
     public function updateInviteStatus($responseType, $team_id, $inviter_id)
     {
-        return GroupInvite::where('team_id', $team_id)
+        GroupInvite::where('team_id', $team_id)
             ->where('inviter_id', $inviter_id)
             ->where('email', User::find(Auth::user()->id)->email)
             ->orWhere('phone', User::find(Auth::user()->id)->phone)
             ->where('status', 'waiting')
-            ->update(['status', $responseType]);
+            ->update(['status' => $responseType]);
+        return $responseType;
     }
 }

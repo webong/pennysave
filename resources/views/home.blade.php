@@ -4,6 +4,8 @@
     <div class="row">
         <div class="dashboard-panel">
             <h1 class="page-heading text-info text-center">DASHBOARD<hr /></h1>
+            <div class="row">
+            <div class="col-md-6">
             <div class="section">
                 <div class="page-header">
                     <h2 class="page-header-text text-header"><i class="fa fa-users">&nbsp;&nbsp;</i>
@@ -18,7 +20,7 @@
                 <div class="panel-body">
                     @if ($user->group->count() > 0)
                         @foreach ($user->group as $group)
-                        <div class="col-sm-6 col-md-4">
+                        <div class="col-sm-6 col-md-6">
                             <a href="{{ url('/teams/' . $group->id) }}" class="no-underline">
                                 <div class="thumbnail">
                                     <div class="caption bg-white">
@@ -28,10 +30,10 @@
                                         <div class="thumbnail-footer">
                                             <div class="row">
                                                 <div class="col-sm-5 border-right">
-                                                    <h2 class="text-center">{{ $group->user()->count() }}<small><sup>@if ($group->user()->count() == 1) Member @else Members @endif</sup></small></h2>
+                                                    <h4 class="text-center">{{ $group->user()->count() }}<br /><small>@if ($group->user()->count() == 1) Member @else Members @endif</small></h4>
                                                 </div>
                                                 <div class="col-sm-7">
-                                                    <h2 class="text-center">{{ number_format($group->amount) }}<small><sup>/{{ $group->period->period }}</sup></small></h2>
+                                                    <h4 class="text-center">{{ number_format($group->amount) }}<br /><small>{{ $group->period->period }}</small></h4>
                                                 </div>
                                             </div>
                                             <p class="margin-top-md"></p>
@@ -46,8 +48,9 @@
                         <button role="button" onclick='window.location.href="{{ url('/create-team') }}"' class="btn btn-primary center-block">Create New Team</button>
                     @endif
                 </div>
-                <hr class="hr-class" />
             </div>
+            </div>
+            <div class="col-md-6">
             <div class="section">
                 <div class="page-header">
                     <h2 class="page-header-text text-header"><i class="fa fa-user">&nbsp;&nbsp;</i>
@@ -97,6 +100,8 @@
                         <button role="button" onclick='window.location.href="{{ url('/create-personal') }}"' class="btn btn-primary center-block">Create New Savings Plan</button>
                     @endif
                 </div>
+            </div>
+            </div>
             </div>
         </div>
     </div>

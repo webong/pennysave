@@ -6,11 +6,10 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h5 class="modal-title text-center" id="myModalLabel"></h5>
+                    <h4 class="modal-title text-center text-info" id="myModalLabel"></h4>
                 </div>
-                <div class="modal-body"></div>
+                <h5 class="modal-body text-center"></h5>
                 <div class="modal-footer no-border-top">
-                    <button type="button" class="btn btn-primary btn-sm center-block" id="mark-as-seen">Mark As Read</button>
                 </div>
             </div>
         </div>

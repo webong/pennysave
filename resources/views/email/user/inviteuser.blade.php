@@ -1,17 +1,17 @@
 @component('mail::message')
 # Welcome To Etibe.NG
 
-@if(isset($invitee)){{ 'Hello ' . $invitee . ',' }}@else {{ 'Hello,' }}@endif
+@isset($invitee)){{ 'Hello ' . $invitee . ',' }}@else {{ 'Hello,' }}@endisset
 
 {{ $name }} has invited you to join
 
 **{{ $team->name }}**
 
-__{{ $message }}__
+@if($message) __{{ $message }}__ @endif
 
 Please click the link below to join.
 
-@component('mail::button', ['url' => $invite_link ])
+@component('mail::button', ['url' => "$invite_link" ])
 Accept Invitation
 @endcomponent
 

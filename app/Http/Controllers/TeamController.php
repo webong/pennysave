@@ -54,9 +54,10 @@ class TeamController extends Controller
     public function index($team_id)
     {
         if ($data['team'] = $this->teamService->getTeam($team_id)) {
-            $data['notifications'] = $this->announcementService->getAllTeamAnnouncements($team_id);
+            $data['notifications'] = $this->announcementService->getUnreadTeamAnnouncements($team_id);
             $data['unread_messages'] = $this->messageService->getNewMessages($team_id);
             $data['countries'] = Country::all();
+            // dd($data['notifications']);
             return view('team.team', $data);
         }
     }
@@ -72,6 +73,27 @@ class TeamController extends Controller
             } else {
                 return redirect()->back()->with('error', 'No Emails or Phone Numbers indicated');
             }
+        }
+    }
+
+    public function view_invites()
+    {
+        if ($data['allInvites'] = $this->inviteService->getAllInvites()) {
+            // dd($data['allInvites']);
+            $data['notifications'] = $this->announcementService->getAllUnreadAnnouncements();
+            return view('team.view-invites', $data);
+        } else {
+            return redirect()->back()->with('error', 'Error Retrieving Invites');
+        }
+    }
+
+    public function invites_response(Request $request)
+    {
+        if ($response = $this->inviteService->inviteResponse($request)) {
+            if ($response == 'accepted'): return redirect('/dashboard')->with('message', 'Invitation Accepted');
+            elseif ($response == 'rejected'): return redirect('/dashboard')->with('messsage', 'Invitation Rejected');
+            else: return redirect()->back()->with('error', 'Error Processing Invitation');
+            endif;
         }
     }
 

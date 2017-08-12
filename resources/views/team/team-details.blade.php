@@ -17,6 +17,9 @@
                 <button class="btn btn-primary" id="start_now">Start Now Instead</button>
             </div>
         </div>
+
+        @include('modals._reschedule-modal')
+
     @else
         <div class="row">
             <div class="col-md-6">
@@ -62,6 +65,9 @@
                     @endforeach
                 </tbody>
             </table>
+        
+            @include('modals._make-announcement-modal')
+
         @else
             <div class="text-center flex-center">
                 <h4 class="text-info">

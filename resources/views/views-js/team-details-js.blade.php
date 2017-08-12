@@ -23,6 +23,7 @@
     function display_status(msg) {
         $("#new_date_confirm").html(msg);
     };
+
     $('#start_now').click(function() {
         swal({
             title: 'Are you sure?',
@@ -51,6 +52,7 @@
             });
         }).catch(swal.noop);
     });
+
     $('#reschedule-confirm').click(function () {
         $.ajax({
             type	:	"POST",
@@ -70,8 +72,9 @@
             }
         });
     });
-    $('#mark-as-seen').click(function () {
-        var announceId = 
+    
+    $('#mark-as-unread').click(function () {
+        // var announceId = 
         $.ajax({
             type	:	"POST",
             url		: 	"/teams/{{ $team->id }}/announcements/id/mark-as-seen",
@@ -95,4 +98,40 @@
         var link = $(e.relatedTarget);
         $(this).find(".modal-body").load(link.attr("href"));
     });
+
+    $('#create-announcement').click(function () {
+        $.ajax({
+            type	:	"POST",
+            url		: 	"/teams/{{ $team->id }}/announcements/create",
+            data	:	$('form#make-announcement-form').serialize(),
+            success	:	function(msg) {
+                console.log(msg);
+            },
+            error   :   function() {
+                console.log('Error Updating Date');
+            }
+        });
+    });
+
+    $('.view-notification').click(function () {
+        $('#view-announcement-modal .modal-title').html($(this).data('subject'));
+        $('#view-announcement-modal .modal-body').html($(this).data('content'));
+        $('#view-announcement-modal').modal('show');
+        $.ajax({
+            type	:	"POST",
+            url		: 	"/teams/{{ $team->id }}/announcements/update",
+            data	:	'announce_id=' + $(this).data('url'),
+            success	:	function(msg) {
+                console.log(msg.content);
+                console.log(msg.subject);
+                $('#view-announcement-modal .modal-title').html(msg.subject);
+                $('#view-announcement-modal .modal-body').html(msg.content);
+                $('#view-announcement-modal').modal('show');
+            },
+            error   :   function() {
+                console.log('Error Updating Date');
+            }
+        });
+    });
+
 </script>

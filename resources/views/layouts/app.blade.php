@@ -140,6 +140,8 @@
         }
     </script>
     <script src="{{ asset('js/custom.js') }}"></script>
+
     @yield('added_js')
+
 </body>
 </html>

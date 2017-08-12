@@ -8,15 +8,23 @@ use App\PriorityLevel;
 use App\Http\Requests\PersonalRequest;
 use App\Services\PersonalSaveService;
 use App\Services\InviteService;
+use App\Services\AnnouncementService;
 
 class PersonalController extends Controller
 {
     protected $personalService;
+    protected $inviteService;
+    protected $announcementService;
 
-    public function __construct(PersonalSaveService $personalService, InviteService $inviteService)
+    public function __construct(
+        PersonalSaveService $personalService,
+        InviteService $inviteService,
+        AnnouncementService $announcementService
+    )
     {
         $this->personalService = $personalService;
         $this->inviteService = $inviteService;
+        $this->announcementService = $announcementService;
     }
 
     public function personal()
@@ -40,23 +48,4 @@ class PersonalController extends Controller
         return view('personal.personal', $data);
     }
 
-    public function invites()
-    {
-        if ($data['allInvites'] = $this->inviteService->getAllInvites()) {
-            return view('personal.view-invites', $data);
-        } else {
-            return redirect()->back()->with('error', 'Error Retrieving Invites');
-        }
-    }
-
-    public function invites_response(Request $request)
-    {
-        dd($request);
-        if ($response = $this->inviteService->inviteResponse($request)) {
-            if ($response == 'accepted'): return redirect('/dashboard')->with('message', 'Invitation Accepted');
-            elseif ($response == 'rejected'): return redirect('/dashboard')->with('messsage', 'Invitation Rejected');
-            else: return redirect()->back()->with('error', 'Error Processing Invitation');
-            endif;
-        }
-    }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\AnnouncementService;
-use Illuminate\Http\Requests\AnnouncementRequest;
+use App\Http\Requests\AnnouncementRequest;
 
 class AnnouncementController extends Controller
 {
@@ -15,13 +15,21 @@ class AnnouncementController extends Controller
         $this->announcementService = $announcementService;
     }
 
-    public function createAnnouncement($team_id, AnnouncementRequest $request)
+    public function create($team_id, AnnouncementRequest $request)
     {
         if ($this->announcementService->create($team_id, $request)) {
             echo 'success';
         } else {
             echo 'error';
         }
+    }
+
+    public function update($team_id, Request $request)
+    {
+        if ($announcement = $this->announcementService->updateAnnouncementStatus($team_id, $request->announce_id)) {
+            return $announcement;
+        }
+        return abort(404);
     }
 
     public function mark_as_seen($team, $id)

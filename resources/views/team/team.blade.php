@@ -29,14 +29,11 @@
         @include('team.notifications')
         @include('team.settings')
 
+        @include('modals._view-announcement-modal')
     </div>
 @endsection
 
 @section('added_js')
     @include('views-js.team-details-js')
     @include('views-js.invite-members-js')
-    @include('views-js.handle-invites-js')
-    @include('modals._reschedule-modal')
-    @include('modals._make-announcement-modal')
-    @include('modals._view-announcement-modal')
 @endsection

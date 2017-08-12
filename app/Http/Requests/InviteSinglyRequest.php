@@ -25,8 +25,8 @@ class InviteSinglyRequest extends FormRequest
     {
         return [
             'first_name.*' => 'nullable|string',
-            'email.*' => 'nullable|email|max:255|required_if:phone.*,null|unique:users',
-            'phone.*' => 'nullable|phone:countries|required_if:email.*,null|unique:users',
+            'email.*' => 'nullable|email|max:255|required_if:phone.*,null',
+            'phone.*' => 'nullable|phone:countries|required_if:email.*,null',
             'countries.*' => 'required_with:phone',
             'message' => 'nullable|string|max:140',
         ];

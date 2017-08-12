@@ -36,7 +36,7 @@
                         <td>{{ number_format($invites->group->amount) }}</td>
                         <td>{{ $invites->created_at->diffForHumans() }}</td>
                         <td>
-                            <form action="{{ url('/personal/invites') }}" method="post" id="invite-confirmation">
+                            <form action="{{ url('/teams/invites') }}" method="post" id="invite-confirmation">
                                 {{ csrf_field() }}
                                 <button class="btn btn-success btn-sm" name="accept-invite" value="accept-invite" data-team="{{ $invites->group->name }}" id="accept-invite">Accept</button>
                                 <button class="btn btn-danger btn-sm" name="reject-invite" value="reject-invite" data-team="{{ $invites->group->name }}" id="reject-invite">Decline</button>
@@ -57,4 +57,8 @@
         </div>
         <button class="btn btn-primary center-block margin-top-xxl" onclick='window.location.href="{{ url('/dashboard') }}"'>Back To Dashboard</button>
     @endif
+@endsection
+
+@section('added_js')
+    @include('views-js.handle-invites-js')
 @endsection

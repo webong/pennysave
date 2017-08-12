@@ -97,8 +97,8 @@ class User extends Authenticatable
         return $this->hasMany('\App\GroupInvite'. 'inviter_id', 'id');
     }
 
-    public function announcement()
+    public function announce_user()
     {
-        return $this->hasMany('\App\Announcement', 'announcer', 'id');
+        return $this->hasMany('\App\AnnounceUser', 'user_id', 'id');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Group as Team;
 use App\Services\RoleService;
+use App\User;
 use App\UserGroup;
 use Auth;
 use Carbon\Carbon;
@@ -82,6 +83,13 @@ class TeamService
                 'status' => 'active',
                 'start_date' => Carbon::now(),
             ]);
+    }
+
+    public function getAllTeamMembers($team_id)
+    {
+        return User::whereHas('team', function($query) {
+            $query->where('id', $team_id);
+        })->get();
     }
 
 }

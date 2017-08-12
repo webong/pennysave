@@ -9,8 +9,9 @@
     </div>
     <div class="flex-center position-ref quarter-height">
         <div class="content">
+            <div class="text-xxxl">500</div>
             <div class="title m-b-md">
-                You Have Taken A Wrong Turn
+                Please Bear With Us, We Will Fix This In No Time. 
             </div>
         </div>
     </div>
@@ -18,7 +19,7 @@
         <button class="btn btn-primary btn-lg center-block" onclick='window.location.href="@if(Auth::check()){{ route('main-dashboard') }}@else{{ url('/') }}@endif"'>
             @if (Auth::check()) Back To DashBoard
             @else Back To HomePage
-            @endif 
+            @endif
         </block>
     </div>
 @endsection

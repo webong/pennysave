@@ -17,14 +17,10 @@ class CreateAnnouncementsTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->string('id');
-            $table->string('team_id');
             $table->string('announcer');
             $table->string('subject');
             $table->text('content');
-            $table->text('status');
             $table->timestamps();
-            $table->foreign('team_id')->references('id')->on('groups');
-            $table->foreign('announcer')->references('id')->on('users');
                     
             $table->primary('id');
         });
