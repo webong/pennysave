@@ -87,13 +87,10 @@
                                       <a href="{{ url('/settings') }}" class="list-group-item"><i class="fa fa-fw fa-cog"></i> Settings</a>
                                       <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="list-group-item">
                                       <i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                                  </div>
-                                      <div class="pull-right">
-
-                                      </div>
-                                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                          {{ csrf_field() }}
-                                      </form>
+                                    </div>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
                                   </li>
                                 </ul>
                             </li>
