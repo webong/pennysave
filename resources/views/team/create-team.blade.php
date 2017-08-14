@@ -1,3 +1,6 @@
+<?php
+    dd($recurrence);
+?>
 @extends('layouts.app')
 
 @section('added_css')
@@ -44,7 +47,7 @@
                                 @endif
                                 <span class="help-block">Amount To Be Contributed By Members</span>
                             </div>
-
+                            
                             <div class="col-md-6 form-group{{ $errors->has('recurrence') ? ' has-error' : '' }}">
                                 <label for="recurrence" class="control-label">Payment Intervals</label>
 
