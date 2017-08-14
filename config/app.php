@@ -180,7 +180,6 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Propaganistas\LaravelPhone\PhoneServiceProvider::class,
         Propaganistas\LaravelIntl\IntlServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
