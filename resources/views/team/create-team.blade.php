@@ -1,6 +1,3 @@
-<?php
-    dd($recurrence);
-?>
 @extends('layouts.app')
 
 @section('added_css')

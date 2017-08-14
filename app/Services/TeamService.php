@@ -21,7 +21,6 @@ class TeamService
     }
 
     public function create($request) {
-        dd($request);
         $uuid = gen_uuid();
         $this->team->id = $uuid;
         $this->team->name = ucwords($request->name);

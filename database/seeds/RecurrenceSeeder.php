@@ -13,10 +13,10 @@ class RecurrenceSeeder extends Seeder
     public function run()
     {
         DB::table('recurrences')->insert([
-           [ 'period' => 'Daily' ],
-           [ 'period' => 'Weekly' ],
-           [ 'period' => 'Fortnightly (Every Two Weeks)' ],
-           [ 'period' => 'Monthly' ],
+           [ 'id' => 1, 'period' => 'Daily' ],
+           [ 'id' => 2, 'period' => 'Weekly' ],
+           [ 'id' => 3, 'period' => 'Fortnightly (Every Two Weeks)' ],
+           [ 'id' => 4, 'period' => 'Monthly' ],
         ]);
     }
 }

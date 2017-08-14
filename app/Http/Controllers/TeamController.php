@@ -57,7 +57,6 @@ class TeamController extends Controller
             $data['notifications'] = $this->announcementService->getUnreadTeamAnnouncements($team_id);
             $data['unread_messages'] = $this->messageService->getNewMessages($team_id);
             $data['countries'] = Country::all();
-            dd($data['team']);
             return view('team.team', $data);
         }
     }
