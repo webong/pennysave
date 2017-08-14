@@ -9,25 +9,17 @@
                 <small>({{ $team->start_date->diffForHumans() }})</small>
             </h2>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#rescheduleDate">Reschedule Start Date</button>
-            </div>
-            <div class="col-md-6">
-                <button class="btn btn-primary" id="start_now">Start Now Instead</button>
-            </div>
+        <div class="row text-center">
+            <button class="btn btn-primary inline" data-toggle="modal" data-target="#reschedule-date-modal">Reschedule Start Date</button>
+            <button class="btn btn-primary inline" id="start_now">Start Now Instead</button>
         </div>
 
         @include('modals._reschedule-modal')
 
     @else
-        <div class="row">
-            <div class="col-md-6">
-                <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#make-announcement-modal">Make Announcement</button>
-            </div>
-            <div class="col-md-6">
-                <button class="btn btn-primary" onclick="window.location.href='{{ url("teams/" . $team->id . "/messages/create/everyone") }}'">Send General Message</button>
-            </div>
+        <div class="row text-center">
+            <button class="btn btn-primary inline" data-toggle="modal" data-target="#make-announcement-modal">Make Announcement</button>
+            <button class="btn btn-primary inline" onclick="window.location.href='{{ url("teams/" . $team->id . "/messages/create/everyone") }}'">Send General Message</button>
         </div>
         @if ($team->user->count() > 1)
             <div class="row">

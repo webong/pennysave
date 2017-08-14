@@ -28,6 +28,7 @@ class RegisterRequest extends Request
             'phone' => 'nullable|max:30|phone:countries|unique:users',
             'countries' => 'required_with:phone',
             'password' => 'required|min:6',
+            'tos' => 'accepted',
         ];
     }
 }

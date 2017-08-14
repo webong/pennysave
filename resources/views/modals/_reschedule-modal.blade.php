@@ -1,4 +1,4 @@
-<div class="modal fade" id="rescheduleDate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="reschedule-date-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="vertical-alignment-helper">
         <div class="modal-dialog modal-sm vertical-align-center" role="document">
             <div class="modal-content">
