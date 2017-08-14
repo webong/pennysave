@@ -15,7 +15,7 @@ class RecurrenceSeeder extends Seeder
         DB::table('recurrences')->insert([
            [ 'period' => 'Daily' ],
            [ 'period' => 'Weekly' ],
-           [ 'period' => 'Fortnightly(Every Two Weeks)' ],
+           [ 'period' => 'Fortnightly (Every Two Weeks)' ],
            [ 'period' => 'Monthly' ],
         ]);
     }
