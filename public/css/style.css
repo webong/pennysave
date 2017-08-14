@@ -52,6 +52,7 @@ a.no-underline{text-decoration:none;}
 .input-group-addon{background-color:rgb(255, 255, 255);}
 .option-space option{padding-left:15px;}
 @media (max-width:767px) {
+    nav{text-align:center;}
     .left-border-no-xs{border:none;}
     .remove_current_option{font-size:35px;line-height:150px;}
     .navbar-nav>.user-menu .user-image{float:none;margin-right:0;margin-top:-8px;line-height:10px}
