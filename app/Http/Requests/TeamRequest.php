@@ -26,8 +26,7 @@ class TeamRequest extends Request
         return [
             'name' => 'required|string|unique:groups',
             'amount' => 'required|numeric|between:0,999999999999',
-            'participants' => 'required|integer|max:50',
-            'recurrence' => 'required|integer|between:1,4',
+            'recurrence' => 'required',
             'start_date' => 'required|date|after:yesterday',
         ];
     }
