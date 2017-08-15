@@ -11,7 +11,6 @@ a:hover {
     color: #000;
 }
 
-
 /* Custom default button */
 
 .btn-default,
@@ -198,4 +197,13 @@ body {
         position: absolute;
         right: 0;
     }
+}
+
+.flip span {
+    display: none
+}
+
+.flip,
+.flip span.animated {
+    display: inline-block
 }

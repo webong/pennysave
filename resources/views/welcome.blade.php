@@ -2,6 +2,7 @@
 
 @section('added_css')
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/animate.min.css') }}">
 @endsection
 
 @section('content')
@@ -28,7 +29,25 @@
                     </div>
                 </div>
                 <div class="inner cover">
-                    <h1 class="cover-heading">Welcome To <span id="etibeLanguages">Etibe</span></h1>
+                    <h1 class="cover-heading">Welcome To 
+                        <span class="flip flip1">
+                            <span class="animated flipInY">Etibe</span>
+                            <span>Etibe - <b>Ibibio</b></span>
+                            <span>Akawo - <b>Igbo</b></span>
+                            <span>Osusu - <b>Igbo</b></span>
+                            <span>Ajo - <b>Yoruba</b></span>
+                            <span>Okaligbo - <b>Delta</b></span>
+                            <span>Susu - <b>Afro-Carribean</b></span>
+                            <span>Jojuma - <b>Togo</b></span>
+                            <span>Nago - <b>Ivory Coast</b></span>
+                            <span>Esu - <b>Bahamas</b></span>
+                            <span>Esusu - <b>Unknown</b></span>
+                            <span>Onidara - <b>Unknown</b></span>
+                            <span>Adashe - <b>Unknown</b></span>
+                            <span>Chama - <b>Unknown</b></span>
+                            <span>Cundinas - <b>Unknown</b></span>
+                        </span>
+                    </h1>
                     <p class="lead">Etibe is a platform that provides a convenient way for individuals or groups to organize and manage personal or contributory savings.</p>
                     <!--<p class="lead" id="etibeLanguages"></p>-->
                     <p class="lead">
@@ -59,6 +78,11 @@
     <script src="{{ asset('js/typeit.min.js') }}"></script>
     <script>
         $(function() {
+            setInterval(function()  { 
+                var active = $(".flip1 .animated.flipInY").removeClass('animated flipInY'); 
+                if (active.next() && active.next().length) { active.next().addClass('animated flipInY'); } else { active.siblings(":first").addClass('animated flipInY'); }
+            }, 5000);
+
             $('#etibeLanguages').typeIt({
                 strings: [
                     "Etibe - <b>Ibibio</b>",
@@ -80,7 +104,8 @@
                 breakLines: false,
                 loop: true,
                 startDelete: true,
-                deleteSpeed: 150,
+                deleteSpeed: 100,
+                deleteDelay: 250
             });
         });
     </script>
