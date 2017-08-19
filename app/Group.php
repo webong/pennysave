@@ -31,6 +31,11 @@ class Group extends Model
         return $this->hasMany('\App\Contribution');
     }
 
+    public function contribution_order()
+    {
+        return $this->hasMany('\App\GroupContributionOrder', 'team_id');
+    }
+
     public function role()
     {
         return $this->belongsToMany('\App\Role', 'group_user')->withPivot(['user_id', 'role_id', 'status'])->withTimestamps();
@@ -59,5 +64,10 @@ class Group extends Model
     public function announcement()
     {
         return $this->hasManyThrough('\App\Announcement', '\App\AnnounceUser', 'team_id', 'announce_id', 'id');
+    }
+
+    public function debit_records()
+    {
+        return $this->hasMany('\App\GroupMembersDebitRecord', 'team_id');
     }
 }

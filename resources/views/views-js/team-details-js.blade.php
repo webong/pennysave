@@ -24,6 +24,10 @@
         $("#new_date_confirm").html(msg);
     };
 
+    $('#reschedule-date-modal').on('show.bs.modal', function () {
+        $(this).find('input#update_date').val($('#hidden-team-start-date').html());
+    });
+
     $('#start_now').click(function() {
         swal({
             title: 'Are you sure?',
@@ -43,11 +47,18 @@
                 url		: 	"/teams/{{ $team->id }}/start-now",
                 data	:	'start=now',
                 success	:	function(msg) {
-                    console.log(msg);
-                    
+                    // console.log(msg);
+                    $('#team-debugging').html(msg);
+                    // window.location.replace(msg);
                 },
                 error   :   function(msg) {
                     console.log('Error Starting Team' + msg);
+                    $.alert('Error Starting Etibe, Please refresh the browser and retry', {
+                        type: 'error',
+                        position: ['top-right', [0,0]],
+                        closeTime: 15000,
+                        minTop: 55
+                    });
                 }
             });
         }).catch(swal.noop);
@@ -59,6 +70,7 @@
             url		: 	"/teams/{{ $team->id }}/update-schedule",
             data	:	$('form#reschedule-update-form').serialize(),
             success	:	function(msg) {
+                $('div#reschedule-date-modal').modal('hide');
                 swal({
                     title: 'Successful',
                     titleText: 'Successful',
@@ -66,6 +78,12 @@
                     type: 'success',
                     timer: 4000
                 });
+                var dates = JSON.parse(msg);
+                console.log(dates);
+                $('p#team-start-date').html(dates.formatted);
+                $('p#hidden-team-start-date')
+                    .html($('#reschedule-date-modal input#update_date').val());
+                $('small#readable-date').html(dates.readable);
             },
             error   :   function() {
                 console.log('Error Updating Date');
@@ -105,10 +123,20 @@
             url		: 	"/teams/{{ $team->id }}/announcements/create",
             data	:	$('form#make-announcement-form').serialize(),
             success	:	function(msg) {
-                console.log(msg);
+                $.alert('Announcement Dispatched Successfully', {
+                    type: 'success',
+                    position: ['top-right', [0,0]],
+                    closeTime: 15000,
+                    minTop: 55
+                });
             },
             error   :   function() {
-                console.log('Error Updating Date');
+                $.alert('Error Dispatching Announcement', {
+                    type: 'error',
+                    position: ['top-right', [0,0]],
+                    closeTime: 15000,
+                    minTop: 55
+                });
             }
         });
     });
@@ -122,8 +150,6 @@
             url		: 	"/teams/{{ $team->id }}/announcements/update",
             data	:	'announce_id=' + $(this).data('url'),
             success	:	function(msg) {
-                console.log(msg.content);
-                console.log(msg.subject);
                 $('#view-announcement-modal .modal-title').html(msg.subject);
                 $('#view-announcement-modal .modal-body').html(msg.content);
                 $('#view-announcement-modal').modal('show');
@@ -133,5 +159,4 @@
             }
         });
     });
-
 </script>

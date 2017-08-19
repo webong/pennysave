@@ -101,4 +101,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('\App\AnnounceUser', 'user_id', 'id');
     }
+
+    public function contribution_order()
+    {
+        return $this->hasMany('\App\GroupContributionOrder');
+    }
+
 }

@@ -30,6 +30,10 @@
         ]) !!};
     </script>
 
+    <!-- Loading JQuery at Top So it is accessible to alert.min.js in notification section -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/modal-alert.min.js') }}"></script>
+
 </head>
 <body>
     <div id="app">
@@ -110,10 +114,8 @@
 
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/modernizr-custom.js') }}"></script>
-    <script src="{{ asset('js/select2.full.min.js') }}"></script>
     <script src="{{ asset('js/sweet-alert.min.js') }}"></script>
     <script src="{{ asset('js/parsley.min.js') }}"></script>
     <script type="text/javascript">

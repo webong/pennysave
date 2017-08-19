@@ -41,6 +41,8 @@
                             <span>Jojuma - <b>Togo</b></span>
                             <span>Nago - <b>Ivory Coast</b></span>
                             <span>Esu - <b>Bahamas</b></span>
+                            <span>Tanamoshi - <b>Japan</b></span>
+                            <span>Dhikuti - <b>Nepal</b></span>
                             <span>Esusu - <b>Unknown</b></span>
                             <span>Onidara - <b>Unknown</b></span>
                             <span>Adashe - <b>Unknown</b></span>

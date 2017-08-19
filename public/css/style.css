@@ -1,10 +1,12 @@
 @font-face{font-family:'FontAwesome';src:url('../fonts/fontawesome-webfont.eot?v=4.7.0');src:url('../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');font-weight:normal;font-style:normal;}
 body {background-color: #f6f6f6;padding-bottom:60px;font-family: 'Raleway', sans-serif;}
+.margin-left-xs{margin-left:3px;}.margin-right-xs{margin-right:3px;}.margin-top-xs{margin-top:3px;}.margin-bottom-xs{margin-bottom:3px;}
 .margin-left-sm{margin-left:5px;}.margin-right-sm{margin-right:5px;}.margin-top-sm{margin-top:5px;}.margin-bottom-sm{margin-bottom:5px;}
 .margin-left-md{margin-left:10px;}.margin-right-md{margin-right:10px;}.margin-top-md{margin-top:10px;}.margin-bottom-md{margin-bottom:10px;}
 .margin-left-lg{margin-left:15px;}.margin-right-lg{margin-right:15px;}.margin-top-lg{margin-top:15px;}.margin-bottom-lg{margin-bottom:15px;}
 .margin-left-xl{margin-left:20px;}.margin-right-xl{margin-right:20px;}.margin-top-xl{margin-top:20px;}.margin-bottom-xl{margin-bottom:20px;}
 .margin-left-xxl{margin-left:25px;}.margin-right-xxl{margin-right:25px;}.margin-top-xxl{margin-top:25px;}.margin-bottom-xxl{margin-bottom:25px;}
+.no-margin-top{margin-top:0;}.no-margin-bottom{margin-bottom:0;}.no-margin-top-bottom{margin-top:0;margin-bottom:0;}
 .padding-left-xs{padding-left:2px;}.padding-right-xs{padding-right:2px;}.padding-top-xs{padding-top:2px;}.padding-bottom-xs{padding-bottom:2px;}
 .padding-left-sm{padding-left:5px;}.padding-right-sm{padding-right:5px;}.padding-top-sm{padding-top:5px;}.padding-bottom-sm{padding-bottom:5px;}
 .padding-left-mmd{padding-left:7px;}.padding-right-mmd{padding-right:7px;}.padding-top-mmd{padding-top:7px;}.padding-bottom-mmd{padding-bottom:7px;}
@@ -15,7 +17,7 @@ body {background-color: #f6f6f6;padding-bottom:60px;font-family: 'Raleway', sans
 .padding-left-right-phone{padding-left:16px;padding-right:16px;}
 .padding-round-xs{padding:2px;}.padding-round-sm{padding:5px;}.padding-round-md{padding:10px;}.padding-round-lg{padding:15px;}
 .padding-round-xl{padding:20px;}.padding-round-xxl{padding:25px;}.padding-round-xxxl{padding:30px;}
-.margin-round-xs{margin:2px;}.margin-round-sm{margin:5px;}.margin-round-md{margin:10px;}.margin-round-lg{margin:15px;}
+.no-padding-top{padding-top:0;}.no-padding-bottom{padding-bottom:0;}.no-padding-top-bottom{padding-top:0;padding-bottom:0;}.margin-round-xs{margin:2px;}.margin-round-sm{margin:5px;}.margin-round-md{margin:10px;}.margin-round-lg{margin:15px;}
 .margin-round-xl{margin:20px;}.margin-round-xxl{margin:25px;}.margin-round-xxxl{margin:30px;}
 .bg-white{background-color:#ffffff;}.bg-gray{background-color:#565656;}
 .text-white{color:#fff;}.text-black{color:#000;}
@@ -113,6 +115,9 @@ ul.dropdown-menu.notifications .notifications-wrapper a.content:hover{color: #00
 /** Centralize Modals **/
 .vertical-alignment-helper{display:table;height:100%;width:100%;pointer-events:none;}
 .vertical-align-center {/* To center vertically */display:table-cell;vertical-align:middle;pointer-events:none;}
+/** Style Alert Modal - Pusher-Looking Modal**/
+.alert p{padding-left:100px!important;font-weight:bold;}
+.text-centered{text-align:center!important;}
 .modal-content{/* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
 width:inherit;height:inherit;/* To center horizontally */margin:0 auto;pointer-events:all;}
 .country-select{width:20%;height:32px;border:1px solid#CCD0D2;border-right:none;border-radius: 3px;border-top-right-radius:none;border-bottom-right-radius:none;overflow:hidden;margin-right:20px;background:96% / 20% no-repeat transparent;}
@@ -130,3 +135,4 @@ width:inherit;height:inherit;/* To center horizontally */margin:0 auto;pointer-e
 .color-waiting{background-color:#a3a3a3;}
 .relative{position:relative;}.absolute{position:absolute;}
 .inline-block{display:inline-block;}
+.half-width{width:50%;}

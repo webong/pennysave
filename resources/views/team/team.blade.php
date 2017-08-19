@@ -14,6 +14,7 @@
                 @if(! confirm_team_status($team->status, $team->start_date))<span class="text-warning">Inactive
                 @else<span class="text-success">Active
                 @endif
+                </span>
             </small>
         </div> 
         <hr />

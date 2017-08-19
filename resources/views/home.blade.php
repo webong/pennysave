@@ -25,7 +25,7 @@
                                 <div class="thumbnail">
                                     <div class="caption bg-white">
                                         <div class="{{ bg_status($group->status) }} group-caption text-center">
-                                            <p class="main-text">{{ $group->name }}</p>
+                                            <h3 class="text-center">{{ $group->name }}</h3>
                                         </div>
                                         <div class="thumbnail-footer">
                                             <div class="row">
@@ -57,7 +57,7 @@
                         Personal &nbsp;&nbsp;<small>Savings involving only You</small>
                         @if ($user->personal_save->count() > 0)
                             <div class="pull-right">
-                                <a role="button" href="{{ url('/create-personal') }}" class="btn btn-primary center-block">Create New Savings Plan</a>
+                                <a role="button" href="{{ url('/create-personal') }}" class="btn btn-primary center-block">Create New Plan</a>
                             </div>
                         @endif
                     </h2>
@@ -65,22 +65,22 @@
                 <div class="panel-body">
                     @if ($user->personal_save->count() > 0)
                         @foreach ($user->personal_save as $personal)
-                            <div class="col-sm-6 col-md-4">
+                            <div class="col-md-6">
                                 <a href="{{ url('/personal/' . $personal->id) }}" class="no-underline">
                                     <div class="thumbnail">
                                         <div class="caption bg-white">
                                             <div class="text-center">
                                                 <h3 class="text-center">{{ $personal->name }}</h3>
                                                 <div class="col-sm-5 border-right">
-                                                    <h2 class="text-center"><small><sup>Total So Far</sup></small><br />
+                                                    <h4 class="text-center"><small><sup>Total So Far</sup></small><br />
                                                         <?php $total_so_far = $personal->save_record->sum('amount'); ?>
                                                         @if ($total_so_far == 0) {{ 0.00 }}
                                                         @else {{ number_format($total_so_far) }}
                                                         @endif
-                                                    </h2>
+                                                    </h4>
                                                 </div>
                                                 <div class="col-sm-7">
-                                                    <h2 class="text-center"><small><sup>Target Amount</sup></small><br />{{ number_format($target_amount = $personal->target_amount) }}</h2>
+                                                    <h4 class="text-center"><small><sup>Target Amount</sup></small><br />{{ number_format($target_amount = $personal->target_amount) }}</h4>
                                                 </div>
                                                 <div class="{{ bg_status($personal->status) }} padding-bottom-xs">
                                                     <p class="sub-text"><sup>Percentage:</sup>&nbsp;<span class="text-warning">{{ round($total_so_far / $target_amount * 100, 2) }}<small>%</small></span></p>

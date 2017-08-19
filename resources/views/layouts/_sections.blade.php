@@ -8,7 +8,7 @@
     <li class="dropdown">
         <a href="#" id="dLabel" class="dropdown-toggle" role="button" data-toggle="dropdown">
             <span class="text-info fa fa-bell"></span>
-            <span class="badge info margin-left-sm padding-bottom-mmd">@if($notifications->count()){{ $notifications->count() }}@endif</span>
+            <span class="badge info margin-left-sm padding-bottom-mmd">@if(isset($notifications) && $notifications->count()){{ $notifications->count() }}@endif</span>
         </a>
         <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
             <div class="notification-heading">
@@ -19,7 +19,7 @@
                     </h4>
                 </a>
             </div>
-            @if ($notifications->count())
+            @if (isset($notifications) && $notifications->count())
                 @foreach ($notifications as $notification)
                     <div class="notifications-wrapper">
                         <a class="content view-notification" data-url="{{ $notification->id }}"
@@ -41,35 +41,33 @@
             @endif
         </ul>
     </li>
-    @isset($unread_messages)
-        <li class="dropdown">
-            <a href="#" id="dLabel" class="dropdown-toggle" role="button" data-toggle="dropdown">
-                <span class="text-info fa fa-envelope"></span>
-                <span class="badge info margin-left-sm padding-bottom-mmd">@if($unread_messages->count()){{ $unread_messages->count() }}@endif</span>
-            </a>
-            <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
-                <div class="notification-heading">
-                    <h4 class="menu-title dLabel">Messages</h4>
+    <li class="dropdown">
+        <a href="#" id="dLabel" class="dropdown-toggle" role="button" data-toggle="dropdown">
+            <span class="text-info fa fa-envelope"></span>
+            <span class="badge info margin-left-sm padding-bottom-mmd">@if(isset($unread_messages) && $unread_messages->count()){{ $unread_messages->count() }}@endif</span>
+        </a>
+        <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+            <div class="notification-heading">
+                <h4 class="menu-title dLabel">Messages</h4>
+            </div>
+            @if (isset($unread_messages) && $unread_messages->count())
+                <div class="notifications-wrapper">
+                    <a class="content view-message" href="#">
+                        <div class="notification-item">
+                            <h4 class="item-title">{{ $unread_messages->sender->first_name }}
+                                <small> {{ $unread_messages->created_at->diffForHumans() }}</small>
+                            </h4>
+                            <p class="item-info">{{ $unread_messages->subject }}</p>
+                        </div>  
+                    </a>
                 </div>
-                @if ($unread_messages->count())
-                    <div class="notifications-wrapper">
-                        <a class="content view-message" href="#">
-                            <div class="notification-item">
-                                <h4 class="item-title">{{ $unread_messages->sender->first_name }}
-                                    <small> {{ $unread_messages->created_at->diffForHumans() }}</small>
-                                </h4>
-                                <p class="item-info">{{ $unread_messages->subject }}</p>
-                            </div>  
-                        </a>
-                    </div>
-                @else
-                    <div class="notifications-wrapper padding-top-sm padding-bottom-sm text-center">
-                        You don't have any new messages
-                    </div>
-                @endif
-            </ul>
-        </li>
-    @endisset
+            @else
+                <div class="notifications-wrapper padding-top-sm padding-bottom-sm text-center">
+                    You don't have any new messages
+                </div>
+            @endif
+        </ul>
+    </li>
 @endsection
 
 @section('content')

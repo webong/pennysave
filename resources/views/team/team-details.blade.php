@@ -4,15 +4,18 @@
         <div class="col-md-10 col-md-offset-1 flex-center">
             <h2 class="text-center padding-bottom-xxl">
                 Your <strong class="text-info"> Etibe</strong> 
-                @if (\Carbon\Carbon::now()->gte($team->start_date)) was @else is @endif scheduled to start <br />
-                {{ $team->start_date->format('l jS F, Y') }}<br />
-                <small>({{ $team->start_date->diffForHumans() }})</small>
+                @if (\Carbon\Carbon::now()->gte($team->start_date)) was @else is @endif scheduled to start
+                <p id="team-start-date" class="no-margin-bottom">{{ $team->start_date->format('l jS F, Y') }}</p>
+                <p class="hidden" id="hidden-team-start-date">{{ $team->start_date->format('Y-m-d') }}</p>
+                <small class="no-padding-top" id="readable-date">({{ $team->start_date->diffForHumans() }})</small>
             </h2>
         </div>
         <div class="row text-center">
             <button class="btn btn-primary inline" data-toggle="modal" data-target="#reschedule-date-modal">Reschedule Start Date</button>
             <button class="btn btn-primary inline" id="start_now">Start Now Instead</button>
         </div>
+
+        <p id="team-debugging"></p>
 
         @include('modals._reschedule-modal')
 

@@ -26,7 +26,7 @@
                         <p class="text-center">It is easier to follow through on Savings with a <strong>Goal/Target</strong> than without one<hr class="hr-class" /></p>
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="control-label">Target Amount</label>
+                            <label for="name" class="control-label">Name of Plan</label>
 
                             <input id="name" type="text" class="form-control amount" placeholder="Name of Plan" name="name" value="{{ old('name') }}">
 
@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="col-md-6 form-group{{ $errors->has('instalment_amount') ? ' has-error' : '' }}">
-                                <label for="instalment_amount" class="control-label">Amount</label>
+                                <label for="instalment_amount" class="control-label">Instalment Amount</label>
 
                                 <div class="input-group">
                                     <span class="input-group-addon no-border-right">&#x20A6;</span>
@@ -77,7 +77,7 @@
                             <div class="col-md-6 form-group{{ $errors->has('recurrence') ? ' has-error' : '' }}">
                                 <label for="recurrence" class="control-label">Payment Intervals</label>
 
-                                <select name="recurrence" data-placeholder="Select Savings Interval" class="single-select form-control">
+                                <select id="recurrence" name="recurrence" data-placeholder="Select Savings Interval" class="single-select form-control">
                                     @foreach($recurrence as $current)
                                         <option></option>
                                         <option value="{{ $current->id }}"
@@ -152,11 +152,10 @@
             </div>
         </div>
     </div>
+
+    @include('modals._personal-savings-calculation-modal')
 @endsection
 
 @section('added_js')
-    <script src="{{ asset('js/selectize.min.js') }}"></script>
-    <script type="text/javascript">
-        $("select").selectize();
-    </script>
+    @include('views-js.create-personal-js')
 @endsection

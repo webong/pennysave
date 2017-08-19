@@ -118,3 +118,18 @@ if (! function_exists('confirm_team_status')) {
     }
 }
 
+if (! function_exists('schedule_date')) {
+
+    function schedule_date($start_date, $recurrence, $added_value) {
+        if ($recurrence == 1) {
+            return $start_date->addDays($added_value);
+        } elseif ($recurrence == 2) {
+            return $start_date->addWeeks($added_value);
+        } elseif ($recurrence == 3) {
+            return $start_date->addWeeks($added_value * 2);
+        } elseif ($recurrence == 4) {
+            return $start_date->addMonths($added_value);
+        }
+    }
+}
+

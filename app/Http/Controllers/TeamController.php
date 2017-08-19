@@ -14,6 +14,7 @@ use App\Services\InviteService;
 use App\Services\TeamService;
 use App\GroupInvite;
 use App\Recurrence;
+use Carbon\Carbon;
 use App\User;
 use Auth;
 
@@ -39,6 +40,7 @@ class TeamController extends Controller
 
     public function team()
     {
+        return redirect()->back()->with('message', 'Not Available');
         $data['recurrence'] = Recurrence::all();
         return view('team.create-team', $data);
     }
@@ -78,7 +80,6 @@ class TeamController extends Controller
     public function view_invites()
     {
         if ($data['allInvites'] = $this->inviteService->getAllInvites()) {
-            // dd($data['allInvites']);
             $data['notifications'] = $this->announcementService->getAllUnreadAnnouncements();
             return view('team.view-invites', $data);
         } else {
@@ -90,13 +91,13 @@ class TeamController extends Controller
     {
         if ($response = $this->inviteService->inviteResponse($request)) {
             if ($response == 'accepted'): return redirect('/dashboard')->with('message', 'Invitation Accepted');
-            elseif ($response == 'rejected'): return redirect('/dashboard')->with('messsage', 'Invitation Rejected');
+            elseif ($response == 'declined'): return redirect('/dashboard')->with('info', 'Invitation Declined');
             else: return redirect()->back()->with('error', 'Error Processing Invitation');
             endif;
         }
     }
 
-    public function inviteInList(InviteListRequest $request, $team_id)
+    public function invite_in_list(InviteListRequest $request, $team_id)
     {
         if ($sendInvites = $this->inviteService->invite($request, $team_id, Auth::user(), $list = true)) {
             return redirect()->back()->with('message', 'Invitations Sent Successfully');
@@ -127,18 +128,29 @@ class TeamController extends Controller
             'update_date' => 'required|date|after:yesterday',
         ]);
         if ($this->teamService->updateStartSchedule($team_id, $request)) {
-            echo 'updated';
+            $date = Carbon::createFromFormat('Y-m-d', $request->update_date);
+            $response['formatted'] = $date->format('l jS F, Y');
+            $response['readable'] = '(' . $date->diffForHumans() . ')';
+            echo json_encode($response);
+            exit();
         } else {
             echo 'error';
         }
     }
 
-    public function start_now($team_id, Request $request)
+    public function start_now($team_id)
     {
-        if ($this->teamService->startNow($team_id, $request)) {
-            return 'started';
+        if ($contribution_order = $this->teamService->startNow($team_id)) {
+            $started_path = '/teams/' . $team_id . '/started';
+            echo $started_path;
+            exit();
         } else {
-            return 'error';
+            echo 'error';
         }
+    }
+
+    public function started_redirect()
+    {
+        return redirect()->back()->with('message', 'Etibe Started Successfully');
     }
 }

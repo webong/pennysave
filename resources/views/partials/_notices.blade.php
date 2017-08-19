@@ -8,34 +8,66 @@
     </div>
     @endif
     @if(Session::has("message"))
-        <div class="col-md-offset-3 col-md-6 alert text-md bold alert-success text-center alert-dismissible">
-            {{ Session::get("message") }}
-        </div>
+        <script>
+            $(function () {
+                $.alert('{{ Session::get("message") }}', {
+                    type: 'success',
+                    position: ['top-right', [0,0]],
+                    closeTime: 15000,
+                    minTop: 55
+                });
+            });
+        </script>
     @endif
     @if(Session::has("error"))
-        <div class="col-md-offset-3 col-md-6 alert alert-danger text-md bold text-center alert-dismissible">
-            {{ Session::get("error") }}
-        </div>
+        <script>
+            $(function () {
+                $.alert('{{ Session::get("error") }}', {
+                    type: 'danger',
+                    position: ['top-right', [0,0]],
+                    closeTime: 15000,
+                    minTop: 55
+                });
+            });
+        </script>
     @endif
     @if(Session::has("info"))
-        <div class="col-md-offset-3 col-md-6 alert text-md bold alert-info text-center alert-dismissible">
-            {{ Session::get("info") }}
-        </div>
+        <script>
+            $(function () {
+                $.alert('{{ Session::get("info") }}', {
+                    type: 'info',
+                    position: ['top-right', [0,0]],
+                    closeTime: 15000,
+                    minTop: 55
+                });
+            });
+        </script>
     @endif
     @if(Session::has("warning"))
-        <div class="col-md-offset-3 col-md-6 alert text-md bold alert-warning text-center alert-dismissible">
-            {{ Session::get("warning") }}
-        </div>
+        <script>
+            $(function () {
+                $.alert('{{ Session::get("warning") }}', {
+                    type: 'warning',
+                    position: ['top-right', [0,0]],
+                    closeTime: 15000,
+                    minTop: 55
+                });
+            });
+        </script>
     @endif
-    <div class="col-md-offset-3 col-md-6 alert alert-danger text-md bold text-center alert-dismissible hidden" id="error-message"></div>
 
     @if (isset($checkInvites) && ($checkInvites->count()) > 0)
-        <div class="alert alert-info text-center alert-dismissible bold text-md bold col-md-6 col-md-offset-3 padding-top-md padding-bottom-md">
-            You Have {{ $checkInvites->count() }} Pending
-            <br />
-            <a class="no-underline text-xl" href="{{ url('/teams/invites') }}"><h4 class="padding-top-sm">
-                View @if($checkInvites->count() > 1) {{ 'Invites' }} @else {{ 'Invite' }} @endif
-            </h4></a>
-        </div>
+        <script>
+            $(function () {
+                $.alert('<a class="no-underline" href="{{ url('/teams/invites') }}"><span class="text-lg">View @if($checkInvites->count() > 1) {{ 'Invites' }} @else {{ 'Invite' }} @endif</span></a>', {
+                    title: "You Have {{ $checkInvites->count() }} Pending",
+                    type: 'info',
+                    position: ['top-right', [0,0]],
+                    closeTime: 15000,
+                    minTop: 55,
+                    autoClose: false
+                });
+            });
+        </script>
     @endif
 </div>

@@ -16,7 +16,7 @@
                         <div class="form-group{{ $errors->has('login') ? ' has-error' : '' }}">
                             <label for="login" class="control-label">E-Mail Address or Phone Number</label>
 
-                            <input id="login" type="text" class="form-control" name="login" value="@if(isset($emailOrPhone)){{ $emailOrPhone }}@else{{ old('email') }}@endif" placeholder="Email Address or Phone Number" required autofocus>
+                            <input id="login" type="text" class="form-control" name="login" value="@if(isset($emailOrPhone)){{ $emailOrPhone }}@else{{ old('login') }}@endif" placeholder="Email Address or Phone Number" required autofocus>
 
                             @if ($errors->has('login'))
                                 <span class="help-block">

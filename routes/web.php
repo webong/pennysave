@@ -31,7 +31,6 @@ Route::group(['middleware' => 'auth'], function() {
 	// Team Routes
 	Route::get('/create-team', 'TeamController@team');
 	Route::post('/create-team', 'TeamController@create')->name('team-create');
-		
 	Route::get('/teams/invites', 'TeamController@view_invites');
 	Route::post('/teams/invites', 'TeamController@invites_response');
 
@@ -41,6 +40,7 @@ Route::group(['middleware' => 'auth'], function() {
 		// Team Commencement management
 		Route::post('/update-schedule', 'TeamController@update_schedule');
 		Route::post('/start-now', 'TeamController@start_now');
+		Route::get('/started', 'TeamController@started_redirect');
 
 		// Announcements
 		Route::post('/announcements/create', 'AnnouncementController@create');
@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 		// Invite Members
 		Route::post('invite-members', 'TeamController@invite')->name('invite-members');
-		Route::post('invite-members-list', 'TeamController@inviteInList')->name('invite-members-list');
+		Route::post('invite-members-list', 'TeamController@invite_in_list')->name('invite-members-list');
 		
 		// Messages Routes
 		Route::get('messages', 'MessageController@index');

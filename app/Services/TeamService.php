@@ -8,6 +8,7 @@ use App\User;
 use App\UserGroup;
 use Auth;
 use Carbon\Carbon;
+use DB;
 
 class TeamService
 {
@@ -52,10 +53,15 @@ class TeamService
         return 'inactive';
     }
 
+    public function getTeamOnly($team_id)
+    {
+        return Team::findOrFail($team_id);
+    }
+
     public function getTeam($team_id)
     {
         return $this->team->where('id', $team_id)
-            ->with('role.group')
+            ->with('role.group', 'contribution_order.user', 'debit_records')
             ->first();
     }
     
@@ -76,20 +82,61 @@ class TeamService
             ->update(['start_date' => $request->update_date]);
     }
 
-    public function startNow($team_id, $request)
+    public function startNow($team_id)
     {
-        return $team = Team::where('id', $team_id)
+        $team = $this->getTeamOnly($team_id);
+        $setArrangment = $this->contributionOrder($team_id);
+        $order = $this->saveContributionOrder($setArrangment, $team);
+
+
+        if (Team::where('id', $team_id)
             ->update([
                 'status' => 'active',
                 'start_date' => Carbon::now(),
-            ]);
+        ])) {
+            $team = $this->getTeamOnly($team_id);
+            $setArrangment = $this->contributionOrder($team_id);
+            $order = $this->saveContributionOrder($setArrangment, $team);
+            return $order;
+        }
+    }
+
+    public function contributionOrder($team_id)
+    {
+        $members = $this->getAllTeamMembers($team_id);
+        foreach ($members as $member) {
+            $arrange[] = $member->id;
+        }
+        shuffle($arrange);
+        return $arrange;
     }
 
     public function getAllTeamMembers($team_id)
     {
-        return User::whereHas('team', function($query) {
+        return User::whereHas('group', function($query) use ($team_id) {
             $query->where('id', $team_id);
         })->get();
     }
 
+    public function saveContributionOrder($arranged, $team)
+    {
+        $id = $team->id;
+        $current_cycle = $team->completed_cycle + 1;
+        $start_date = $team->start_date->toDateString();
+        $recurrence = $team->recurrence;
+        foreach($arranged as $key => $value) {
+            $position = $key + 1;
+            $date = new Carbon($start_date);
+            $get_date[] = $position;
+            $get_date[] = schedule_date($date, 4, $position);
+            $list[] = [
+                'order' => $position, 'team_id' => $id, 
+                'user_id' => $value, 'current_cycle' => $current_cycle,
+                'schedule_date' => schedule_date($date, 1, $position),
+                'status' => false,
+            ];
+        }
+        DB::table('group_contribution_orders')->insert($list);
+        return $list;
+    }
 }
