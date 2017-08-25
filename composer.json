@@ -12,7 +12,8 @@
         "predis/predis": "^1.1",
         "propaganistas/laravel-intl": "^1.2",
         "propaganistas/laravel-phone": "^3.0",
-        "tymon/jwt-auth": "0.5.*"
+        "tymon/jwt-auth": "0.5.*",
+        "unicodeveloper/laravel-paystack": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^2.4",

@@ -47,9 +47,7 @@
                 url		: 	"/teams/{{ $team->id }}/start-now",
                 data	:	'start=now',
                 success	:	function(msg) {
-                    // console.log(msg);
-                    $('#team-debugging').html(msg);
-                    // window.location.replace(msg);
+                    window.location.replace(msg);
                 },
                 error   :   function(msg) {
                     console.log('Error Starting Team' + msg);

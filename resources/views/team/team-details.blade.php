@@ -15,8 +15,6 @@
             <button class="btn btn-primary inline" id="start_now">Start Now Instead</button>
         </div>
 
-        <p id="team-debugging"></p>
-
         @include('modals._reschedule-modal')
 
     @else
@@ -26,41 +24,46 @@
         </div>
         @if ($team->user->count() > 1)
             <div class="row">
+                <?php
+                    $current_cycle = 0;
+                    foreach ($team->contribution_order as $date) {
+                        if ($date->schedule_date->lt(\Carbon\Carbon::now())) {
+                            $current_cycle++;
+                        }
+                    }
+                    $current_cycle++;
+                ?>
                 <div class="col-md-10 col-md-offset-1">
                     <h3 class="text-center margin-bottom-md">You are currently in your <span class="text-info text-xxl">
                         <?php $nf = new NumberFormatter('en_US', NumberFormatter::ORDINAL);
-                        echo $nf->format($team->user->where('pivot.status', 'active')->count()); ?></span> cycle
+                        echo $nf->format($current_cycle); ?></span> cycle
                     </h3>
                 </div>
             </div>
             
-            @include('team.group-arrangements')
-            
             <?php $count = 0; ?>
-            <h3 class="text-center">Members List</h3>
-            <table class="table table-bordered table-condensed table-responsive text-center">
-                <thead>
-                    <tr>
-                        <th class="text-center">S/N</th>
-                        <th class="text-center">Name</th>
-                        <th class="text-center">Date Joined</th>
-                        <th class="text-center">Group Status</th>
-                        <th class="text-center">Payment Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($team->user as $user)
+            <div class="col-md-10 col-md-offset-1">
+                <table class="table table-striped table-condensed table-responsive text-center">
+                    <thead>
                         <tr>
-                            <td>{{ ++$count }}</td>
-                            <td class="text-left">{{ $user->full_name() }}</td>
-                            <td>{{ $user->created_at->format('jS F, Y') }} ({{ $team->created_at->diffForHumans() }})</td>
-                            <td>{{ $user->role()->wherePivot('group_id', $team->id)->first()->display_name }}</td>
-                            <td>{{ ucfirst($user->pivot->status) }}</td>
+                            <th class="text-center">S/N</th>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">Date Due To Receive</th>
+                            <th class="text-center">Payment Status</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        
+                    </thead>
+                    <tbody>
+                        @foreach ($team->contribution_order as $order)
+                            <tr>
+                                <td class="vertical-center">{{ ++$count }}</td>
+                                <td class="vertical-center">{{ $order->user->full_name() }}</td>
+                                <td class="vertical-center">{{ $order->schedule_date->format('jS F, Y') }} <br /> ({{ $order->schedule_date->diffForHumans() }})</td>
+                                <td class="vertical-center">@if ($order->status)<span class="alert-success">Paid</span>@else<span class="alert-warning">Not Paid</span>@endif</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
             @include('modals._make-announcement-modal')
 
         @else

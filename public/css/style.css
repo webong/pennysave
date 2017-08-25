@@ -136,3 +136,4 @@ width:inherit;height:inherit;/* To center horizontally */margin:0 auto;pointer-e
 .relative{position:relative;}.absolute{position:absolute;}
 .inline-block{display:inline-block;}
 .half-width{width:50%;}
+.table .vertical-center{vertical-align:middle;}

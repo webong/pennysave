@@ -84,11 +84,6 @@ class TeamService
 
     public function startNow($team_id)
     {
-        $team = $this->getTeamOnly($team_id);
-        $setArrangment = $this->contributionOrder($team_id);
-        $order = $this->saveContributionOrder($setArrangment, $team);
-
-
         if (Team::where('id', $team_id)
             ->update([
                 'status' => 'active',
@@ -126,13 +121,12 @@ class TeamService
         $recurrence = $team->recurrence;
         foreach($arranged as $key => $value) {
             $position = $key + 1;
-            $date = new Carbon($start_date);
-            $get_date[] = $position;
-            $get_date[] = schedule_date($date, 4, $position);
+            $date = schedule_date(new Carbon($start_date), $recurrence, $position);
+            $dates[] = $date;
             $list[] = [
                 'order' => $position, 'team_id' => $id, 
                 'user_id' => $value, 'current_cycle' => $current_cycle,
-                'schedule_date' => schedule_date($date, 1, $position),
+                'schedule_date' => $date,
                 'status' => false,
             ];
         }

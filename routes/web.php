@@ -34,6 +34,11 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/teams/invites', 'TeamController@view_invites');
 	Route::post('/teams/invites', 'TeamController@invites_response');
 
+	// Payment Routes
+	Route::get('/addpayment', 'PaymentController@addpayment');
+	Route::post('/addpayment', 'PaymentController@paynow')->name('pay');
+	Route::get('/payment/callback', 'PaymentController@handlecallback');
+
 	Route::group(['prefix' => '/teams/{team_id}'], function () {
 		Route::get('/', 'TeamController@index');
 

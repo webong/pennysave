@@ -180,6 +180,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Propaganistas\LaravelPhone\PhoneServiceProvider::class,
         Propaganistas\LaravelIntl\IntlServiceProvider::class,
+        Unicodeveloper\Paystack\PaystackServiceProvider::class,
     ],
 
     /*
@@ -231,6 +232,7 @@ return [
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
