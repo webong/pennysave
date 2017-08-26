@@ -24,6 +24,7 @@
 @section('main-body-section')
     <div class="tab-content">
 
+        @include('team.payment-account')
         @include('team.team-details')
         @include('team.invite-members')
         @include('team.view-members')

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('added_css')
+    <link href="{{ asset('css/dd.css') }}" rel="stylesheet">
     @include('partials._togglecheckbox')
 @endsection
 

@@ -17,6 +17,8 @@ class PaymentController extends Controller
 
     public function paynow()
     {
+        request()->reference = Paystack::genTranxRef();
+        request()->key = config('paystack.secretKey');
         return Paystack::getAuthorizationUrl()->redirectNow();
     }
 

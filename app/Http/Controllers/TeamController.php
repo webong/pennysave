@@ -16,6 +16,7 @@ use App\GroupInvite;
 use App\Recurrence;
 use Carbon\Carbon;
 use App\User;
+use App\Bank;
 use Auth;
 
 class TeamController extends Controller
@@ -59,6 +60,7 @@ class TeamController extends Controller
             $data['notifications'] = $this->announcementService->getUnreadTeamAnnouncements($team_id);
             $data['unread_messages'] = $this->messageService->getNewMessages($team_id);
             $data['countries'] = Country::all();
+            $data['banks'] = Bank::all();
             return view('team.team', $data);
         }
     }
