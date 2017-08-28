@@ -12,7 +12,8 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'token', 'four_digits', 'status'
+        'id', 'user_id', 'account_type', 'type', 'type_details',
+        'last_four_digits', 'authorization_token', 'status'
     ];
 
     public $incrementing = false;

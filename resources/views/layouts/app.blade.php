@@ -32,6 +32,7 @@
 
     <!-- Loading JQuery at Top So it is accessible to alert.min.js in notification section -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/modal-alert.min.js') }}"></script>
 
 </head>
@@ -114,7 +115,6 @@
 
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/modernizr-custom.js') }}"></script>
     <script src="{{ asset('js/sweet-alert.min.js') }}"></script>
     <script src="{{ asset('js/parsley.min.js') }}"></script>

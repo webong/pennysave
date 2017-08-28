@@ -17,6 +17,7 @@ body {background-color: #f6f6f6;padding-bottom:60px;font-family: 'Raleway', sans
 .padding-left-right-phone{padding-left:16px;padding-right:16px;}
 .padding-round-xs{padding:2px;}.padding-round-sm{padding:5px;}.padding-round-md{padding:10px;}.padding-round-lg{padding:15px;}
 .padding-round-xl{padding:20px;}.padding-round-xxl{padding:25px;}.padding-round-xxxl{padding:30px;}
+.no-padding-round{padding:0;}.no-margin-round{margin:0;}.no-margin-padding-round{margin:0;padding:0;}
 .no-padding-top{padding-top:0;}.no-padding-bottom{padding-bottom:0;}.no-padding-top-bottom{padding-top:0;padding-bottom:0;}.margin-round-xs{margin:2px;}.margin-round-sm{margin:5px;}.margin-round-md{margin:10px;}.margin-round-lg{margin:15px;}
 .margin-round-xl{margin:20px;}.margin-round-xxl{margin:25px;}.margin-round-xxxl{margin:30px;}
 .bg-white{background-color:#ffffff;}.bg-gray{background-color:#565656;}
@@ -93,7 +94,7 @@ div.ui-datepicker{font-size:15px;z-index:10000!important;}
 .team-heading{margin-bottom:3px;}.text-small{margin:0 0 10px 0;padding:0;font-size:12px;}
 .tab-pane{background-color:#fff;}
 .form-control{height:34px;}
-.modal-loading{display:none;position:fixed;z-index:1000;top:0;left:0;height:100%;width:100%;background: rgba( 255, 255, 255, .5 ) url('../images/ajax-loader.gif') 50% 50% no-repeat;}
+.modal-loading{display:none;position:fixed;z-index:10000;top:0;left:0;height:100%;width:100%;background: rgba( 255, 255, 255, .5 ) url('../images/ajax-loader.gif') 50% 50% no-repeat;}
 /* When the body has the loading class, we turn the scrollbar off with overflow:hidden */
 body.loading{overflow: hidden;}
 /* Anytime the body has the loading class, our modal element will be visible */
@@ -138,3 +139,5 @@ width:inherit;height:inherit;/* To center horizontally */margin:0 auto;pointer-e
 .block{display:block;}
 .half-width{width:50%;}
 .table .vertical-center{vertical-align:middle;}
+.to-front{z-index:1000005!important;}
+.cursor{cursor:pointer;}

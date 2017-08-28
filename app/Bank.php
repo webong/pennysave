@@ -12,7 +12,7 @@ class Bank extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'logo',
+        'code', 'name', 'logo',
     ];
 
     protected $table = 'banks';

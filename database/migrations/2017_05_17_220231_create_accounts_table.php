@@ -14,12 +14,20 @@ class CreateAccountsTable extends Migration
     public function up()
     {
         Schema::create('accounts', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+        
+            $table->string('id');
             $table->string('user_id');
-            $table->string('token');
-            $table->string('four_digits')->nullable();
-            $table->string('status')->nullable();
+            $table->string('account_type');
+            $table->string('type');
+            $table->string('type_details');
+            $table->string('last_four_digits');
+            $table->string('authorization_token')->nullable();
+            $table->string('status');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
+
+            $table->primary('id');
         });
     }
 
