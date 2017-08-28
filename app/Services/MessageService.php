@@ -41,7 +41,7 @@ class MessageService
             ->where('message_refs.team_id', $team_id)
             ->join('users as sender', 'message_refs.sender', '=', 'sender.id')
             ->orderBy('message_refs.created_at', 'desc')
-            // ->groupBy('message_refs.message_id')
+            ->groupBy('message_refs.message_id')
             ->simplePaginate($this->paginate);
         return $data;
     }
