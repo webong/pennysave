@@ -41,7 +41,6 @@ class TeamController extends Controller
 
     public function team()
     {
-        return redirect()->back()->with('message', 'Not Available');
         $data['recurrence'] = Recurrence::all();
         return view('team.create-team', $data);
     }
