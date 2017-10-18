@@ -79,8 +79,11 @@ div.ui-datepicker{font-size:15px;z-index:10000!important;}
 /*End JQuery UI */
 .panel-heading{border-bottom:none;padding-top:15px;padding-bottom:15px;}
 .help-text{color:#9a9a9a;font-size:10px;}
+.flex{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;}
+.flex-middle{align-items:center;justify-content:center;}
+.flex-middle img{align-items:center;}
 .flex-center{display:flex;justify-content:center;align-items:center;align-content:center;flex-flow:row nowrap;}
-.main-area{min-height:407px;}
+.main-area{min-height:452px;}
 .no-underline{text-decoration:none!important;}
 .countingdown{width:100%;min-width:100%;max-width:100%;}
 .countingdown{height:60px;max-height:60px;min-height:60px;}
@@ -116,28 +119,20 @@ ul.dropdown-menu.notifications .notifications-wrapper a.content:hover{color: #00
 /** Centralize Modals **/
 .vertical-alignment-helper{display:table;height:100%;width:100%;pointer-events:none;}
 .vertical-align-center {/* To center vertically */display:table-cell;vertical-align:middle;pointer-events:none;}
+.modal-content{/* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+width:inherit;height:inherit;/* To center horizontally */margin:0 auto;pointer-events:all;}
 /** Style Alert Modal - Pusher-Looking Modal**/
 .alert p{padding-left:100px!important;font-weight:bold;}
 .text-centered{text-align:center!important;}
-.modal-content{/* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
-width:inherit;height:inherit;/* To center horizontally */margin:0 auto;pointer-events:all;}
 .country-select{width:20%;height:32px;border:1px solid#CCD0D2;border-right:none;border-radius: 3px;border-top-right-radius:none;border-bottom-right-radius:none;overflow:hidden;margin-right:20px;background:96% / 20% no-repeat transparent;}
 .country-select .btn{width:140%;padding-left:2px;padding-right:0;text-align:left;background:transparent;border:none;font-size: 16px;height:32px;}
 .country-select .btn option{padding-left:10px;text-align:left;}
-.height-50{min-height:150px;width:150px;}
+.height-50{min-height:150px;width:150px;}.margin-bottom-pull-md{margin-bottom:-15px;}
 .bg-received{background-color:#7FFF7F;color:#000;}
 .bg-received .bold{position:absolute;min-width:150px;bottom:0;left:50%;margin-left:-75px;background-color:#7FFF7F;}
 .bg-current{background-color:#7FAAFF;color:#000;}
 .bg-current .bold{position:absolute;min-width:150px;bottom:0;left:50%;margin-left:-75px;background-color:#7FAAFF;}
 .bg-waiting{background-color:#d2d2d2;color:#000;}
 .bg-waiting .bold{position:absolute;min-width:150px;bottom:0;left:50%;margin-left:-75px;background-color:#d2d2d2;}
-.color-received{background-color:#7fff7f;}
-.color-current{background-color:#7FAAFF;}
-.color-waiting{background-color:#a3a3a3;}
-.relative{position:relative;}.absolute{position:absolute;}
-.inline-block{display:inline-block;}
-.block{display:block;}
-.half-width{width:50%;}
-.table .vertical-center{vertical-align:middle;}
-.to-front{z-index:1000005!important;}
-.cursor{cursor:pointer;}
+.color-received{background-color:#7fff7f;}.color-current{background-color:#7FAAFF;}.color-waiting{background-color:#a3a3a3;}.relative{position:relative;}.absolute{position:absolute;}.inline-block{display:inline-block;}.block{display:block;}.half-width{width:50%;}.table .vertical-center{vertical-align:middle;}
+.to-front{z-index:1000005!important;}.cursor{cursor:pointer;}.dotted-underline{text-decoration-style:dotted;border-bottom:1px dotted #333}

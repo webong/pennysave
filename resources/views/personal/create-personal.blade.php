@@ -2,7 +2,7 @@
 
 @section('added_css')
     <link href="{{ asset('css/selectize.bootstrap3.css') }}" rel="stylesheet">
-    @include('partials._togglecheckbox')
+    <link href="{{ asset('css/togglecheckbox.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')

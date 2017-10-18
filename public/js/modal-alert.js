@@ -132,7 +132,7 @@
         bind_event: function () {
             this.bind_show();
             this.bind_close();
-
+ 
             if ($.browser && $.browser.msie && $.browser.version == '6.0') {
                 this.bind_scroll();
             }
@@ -159,6 +159,8 @@
                 });
                 e.stopPropagation();
             });
+
+            
 
             // 自动关闭绑定
             if (this.options.autoClose) {

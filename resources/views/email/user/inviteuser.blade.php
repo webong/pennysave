@@ -1,13 +1,13 @@
 @component('mail::message')
 # Welcome To Etibe.NG
 
-@isset($invitee)){{ 'Hello ' . $invitee . ',' }}@else {{ 'Hello,' }}@endisset
+@isset($invitee){{ 'Hello ' . $invitee . ',' }}@else {{ 'Hello,' }}@endisset
 
 {{ $name }} has invited you to join
 
 **{{ $team->name }}**
 
-@if($message) __{{ $message }}__ @endif
+@isset($message) __{{ $message }}__ @endisset
 
 Please click the link below to join.
 

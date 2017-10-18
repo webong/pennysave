@@ -167,10 +167,17 @@
                             <div class="col-md-12">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="tos" {{ old('tos') ? 'checked' : '' }}> Accept Our <a href="{{ Request::root() }}/tos"> Terms & Conditions</a>
+                                        <input type="checkbox" name="tos" {{ old('tos') ? 'checked' : '' }} required> Accept Our <a href="{{ Request::root() }}/tos"> Terms of Service</a>
                                     </label>
                                 </div>
                             </div>
+                            @if ($errors->has('password'))
+                                <span class="has-error">
+                                    <span class="help-block">
+                                        <strong>You need to accept our Terms of Service</strong>
+                                    </span>
+                                </span>
+                            @endif
                         </div>
 
                         <div class="form-group col-xs-12">

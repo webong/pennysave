@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Group extends Model
 {
@@ -23,8 +24,26 @@ class Group extends Model
 
     public function user()
   	{
-  		return $this->belongsToMany('\App\User', 'group_user')->withPivot(['user_id', 'role_id', 'status'])->withTimestamps();
-  	}
+  		return $this->belongsToMany('\App\User', 'group_user')
+            ->withPivot(['user_id', 'cycle', 'role_id', 'debiting', 'crediting', 'status'])
+            ->withTimestamps();
+    }
+
+    public function credit_account()
+  	{
+  		return $this->belongsToMany('\App\Account', 'group_user', 'group_id', 'crediting')
+            ->withPivot(['user_id', 'cycle', 'role_id', 'debiting', 'crediting', 'status'])
+            ->wherePivot('user_id', Auth::user()->id)
+            ->withTimestamps();
+    }
+
+    public function debit_account()
+  	{
+  		return $this->belongsToMany('\App\Account', 'group_user', 'group_id', 'debiting')
+            ->withPivot(['user_id', 'cycle', 'role_id', 'debiting', 'crediting', 'status'])
+            ->wherePivot('user_id', Auth::user()->id)
+            ->withTimestamps();
+    }
 
     public function contribution()
     {
@@ -38,7 +57,9 @@ class Group extends Model
 
     public function role()
     {
-        return $this->belongsToMany('\App\Role', 'group_user')->withPivot(['user_id', 'role_id', 'status'])->withTimestamps();
+        return $this->belongsToMany('\App\Role', 'group_user')
+            ->withPivot(['user_id', 'cycle', 'role_id', 'debiting', 'crediting', 'status'])
+            ->withTimestamps();
     }
 
     public function message_ref()

@@ -3,18 +3,21 @@
 namespace App\Services;
 
 use App\User;
-use App\Profile;
 use App\Role;
+use App\Profile;
 use App\Services\TeamService;
+use App\Services\InviteService;
 use Propaganistas\LaravelIntl\Facades\Country;
 
 class RegisterService
 {
     protected $teamService;
+    protected $inviteService;
 
-    public function __construct(TeamService $teamService)
+    public function __construct(TeamService $teamService, InviteService $inviteService)
     {
         $this->teamService = $teamService;
+        $this->inviteService = $inviteService;
     }
 
     public function index()
@@ -39,6 +42,7 @@ class RegisterService
 
         if (isset($request['registerToTeam'])) {
             $this->teamService->registerMemberToTeam($user_id, $request['registerToTeam']);
+            $this->inviteService->updateInviteStatusOnRegister('accepted', $request['registerToTeam'], $request);
         }
 
         return $user;

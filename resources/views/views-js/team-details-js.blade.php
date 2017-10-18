@@ -42,15 +42,47 @@
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, Go Ahead!'
         }).then(function () {
+                var onStarted = "/teams/{{ $team->id }}/started";
                 $.ajax({
                 type	:	"POST",
                 url		: 	"/teams/{{ $team->id }}/start-now",
                 data	:	'start=now',
                 success	:	function(msg) {
-                    window.location.replace(msg);
+                    if (msg == onStarted) {
+                        window.location.replace(msg);
+                    } else if (msg == 'error') {
+                        swal({
+                            title: 'Error Starting Etibe!',
+                            titleText: 'Error Starting Etibe!',
+                            html: 'You cannot start Etibe alone. Please invite other team members first ' +
+                            'or you can create a ' +
+                            '<a class="text-md no-underline bold" href="{{ url('/create-personal') }}">Personal Savings Plan</a> instead',
+                            type: 'info',
+                            confirmButtonColor: '#3085d6',
+                        });
+                    } else {
+                        var involved = JSON.parse(msg);
+                        console.log(involved);
+                        var message = (involved.length > 1) ? 'See members who have not added yet' : 'See member who has not added yet'
+                        var persons = '<table class="table table-striped table-condensed text-sm margin-top-sm">';
+                        $.each(involved, function (index, value) {
+                            persons += '<tr><td>' + value + '</td></tr>';
+                        });
+                        persons += '<tr><td><a class="no-underline" href="#">Send Reminder</a></td></tr></table>';
+                        swal({
+                            title: 'Missing Debiting Accounts!',
+                            titleText: 'Missing Debiting Accounts!',
+                            html: 'All members of the team have to add their ' +
+                            ' <span class="bold dotted-underline" title="The Account that payments will be withdrawn from">DEBITING</span> ' +
+                            ' Account before Etibe can start <br />' +
+                            '<div class="text-center"><a href="#" id="show-members" class="no-underline text-sm margin-top-sm">' + message + '</a></div>' +
+                            '<div class="col-sm-8 col-md-offset-2 margin-bottom-pull-md hidden">' + persons + '</div>',
+                            type: 'info',
+                            confirmButtonColor: '#3085d6',
+                        });
+                    }
                 },
                 error   :   function(msg) {
-                    console.log('Error Starting Team' + msg);
                     $.alert('Error Starting Etibe, Please refresh the browser and retry', {
                         type: 'error',
                         position: ['top-right', [0,0]],
@@ -60,6 +92,12 @@
                 }
             });
         }).catch(swal.noop);
+    });
+
+    $(document).on("click", "#show-members", function () {
+        $(this).parent().next().removeClass('hidden');
+        $(this).addClass('hidden');
+        false;
     });
 
     $('#reschedule-confirm').click(function () {

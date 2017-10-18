@@ -39,10 +39,13 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('/addpayment', 'PaymentController@paynow')->name('pay');
 	Route::get('/payment/callback', 'PaymentController@handlecallback');
 	Route::post('/payment/resolve-account-number', 'PaymentController@resolve_account_number');
-	Route::post('/payment/save-account-number', 'PaymentController@save_account_number');
 
 	Route::group(['prefix' => '/teams/{team_id}'], function () {
 		Route::get('/', 'TeamController@index');
+
+		// Payment Route in Team
+		Route::post('/save-account-number', 'PaymentController@save_account_number');
+		Route::post('/set-payment', 'TeamController@set_payment_now');
 
 		// Team Commencement management
 		Route::post('/update-schedule', 'TeamController@update_schedule');

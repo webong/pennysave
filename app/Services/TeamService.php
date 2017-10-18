@@ -2,23 +2,27 @@
 
 namespace App\Services;
 
-use App\Group as Team;
 use App\Services\RoleService;
-use App\User;
+use App\Group as Team;
 use App\UserGroup;
-use Auth;
 use Carbon\Carbon;
+use App\User;
+use Auth;
 use DB;
 
 class TeamService
 {
+    protected $team;
+    protected $user;
+    protected $userGroup;
     protected $roleService;
 
-    public function __construct(RoleService $roleService, UserGroup $userGroup, Team $team)
+    public function __construct(RoleService $roleService, UserGroup $userGroup, User $user, Team $team)
     {
         $this->team = $team;
         $this->roleService = $roleService;
         $this->userGroup = $userGroup;
+        $this->user = $user;
     }
 
     public function create($request) {
@@ -61,7 +65,8 @@ class TeamService
     public function getTeam($team_id)
     {
         return $this->team->where('id', $team_id)
-            ->with('role.group', 'contribution_order.user', 'debit_records')
+            ->with('role.group', 'contribution_order.user',
+            'debit_records', 'credit_account', 'debit_account')
             ->first();
     }
     
@@ -84,16 +89,43 @@ class TeamService
 
     public function startNow($team_id)
     {
-        if (Team::where('id', $team_id)
-            ->update([
-                'status' => 'active',
-                'start_date' => Carbon::now(),
-        ])) {
-            $team = $this->getTeamOnly($team_id);
-            $setArrangment = $this->contributionOrder($team_id);
-            $order = $this->saveContributionOrder($setArrangment, $team);
-            return $order;
+        $checkTeam = $this->confirmMembers($team_id);
+        if ($checkTeam == 'success') {
+            if (Team::where('id', $team_id)
+                ->update([
+                    'status' => 'active',
+                    'start_date' => Carbon::now(),
+            ])) {
+                $team = $this->getTeamOnly($team_id);
+                $setArrangment = $this->contributionOrder($team_id);
+                $order = $this->saveContributionOrder($setArrangment, $team);
+                return 'success';
+            }
+        } else {
+            return $checkTeam;
         }
+    }
+
+    public function confirmMembers($team_id)
+    {
+        $team = $this->teamWithMembers($team_id);
+        if ($team->user->count() > 1) {
+            $members = $this->user::whereHas('group', function ($query) use($team) {
+                $query->where('group_id', $team->id)
+                ->where('cycle', $team->completed_cycle + 1)
+                ->where('debiting', null);
+            })->get();
+            foreach ($members as $member) {
+                if (is_null($member->crediting) || is_null($member->debiting)) {
+                    $accountsNotSet[] = $member->full_name();
+                }
+            }
+            if (! isset($accountsNotSet)) {
+                return 'success';
+            }
+            return json_encode($accountsNotSet);
+        }
+        return 'error';
     }
 
     public function contributionOrder($team_id)
@@ -111,6 +143,18 @@ class TeamService
         return User::whereHas('group', function($query) use ($team_id) {
             $query->where('id', $team_id);
         })->get();
+    }
+
+    public function countTeamMembers($team_id)
+    {
+        return User::whereHas('group', function($query) use ($team_id) {
+            $query->where('id', $team_id);
+        })->count();
+    }
+
+    public function teamWithMembers($team_id)
+    {
+        return Team::find($team_id)->with('user')->first();
     }
 
     public function saveContributionOrder($arranged, $team)

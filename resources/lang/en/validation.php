@@ -101,6 +101,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'account_number' => [
+            'numeric' => 'The :attribute must be numeric',
+        ],
     ],
 
     /*

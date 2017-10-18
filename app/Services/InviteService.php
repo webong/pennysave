@@ -119,7 +119,7 @@ class InviteService
 
     public function skipSendersEmailOrPhone($emailOrPhone) {
         if ($emailOrPhone == Auth::user()->email || $emailOrPhone == Auth::user()->phone) {
-            $this->message = 'You can\'t send an invitation to yourself <br />';
+            $this->message = "You can't send an invitation to yourself";
             return true;
         }
         return false;
@@ -342,6 +342,22 @@ class InviteService
             ->where('inviter_id', $inviter_id)
             ->where('email', User::find(Auth::user()->id)->email)
             ->orWhere('phone', User::find(Auth::user()->id)->phone)
+            ->where('status', 'waiting')
+            ->update(['status' => $responseType]);
+        return $responseType;
+    }
+
+    public function updateInviteStatusOnRegister($responseType, $team_id, $request)
+    {
+        if (isset($request['email']) && $request['email'] != '') {
+            $column = 'email';
+            $value = $request['email'];
+        } else {
+            $column = 'phone';
+            $value = $request['phone'];
+        }
+        GroupInvite::where('team_id', $team_id)
+            ->where($column, $value)
             ->where('status', 'waiting')
             ->update(['status' => $responseType]);
         return $responseType;

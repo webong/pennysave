@@ -31,6 +31,11 @@
         ]) !!};
     </script>
 
+    <!-- Loading JQuery at Top So it is accessible to alert.min.js in notification section -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/modal-alert.min.js') }}"></script>
+
 </head>
 <body>
     <div id="app">
@@ -102,14 +107,14 @@
         </nav>
         <div class="container">
 
+            @include('partials._notices')
+
             @yield('content')
 
         </div>
         
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/modernizr-custom.js') }}"></script>
     <script src="{{ asset('js/politespace.js') }}"></script>
     <script src="{{ asset('js/sweet-alert.min.js') }}"></script>

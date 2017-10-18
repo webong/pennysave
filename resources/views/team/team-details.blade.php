@@ -1,4 +1,4 @@
-<div class="section tab-pane" id="team-statusboard">
+<div class="section tab-pane @if($payment_account) active @endif" id="team-statusboard">
 
     @if (! confirm_team_status($team->status, $team->start_date))
         <div class="col-md-10 col-md-offset-1 flex-center">

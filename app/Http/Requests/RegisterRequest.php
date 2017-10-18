@@ -27,7 +27,7 @@ class RegisterRequest extends Request
             'email' => 'nullable|email|max:255|unique:users',
             'phone' => 'nullable|max:30|phone:countries|unique:users',
             'countries' => 'required_with:phone',
-            'password' => 'required|min:6',
+            'password' => 'required|min:8',
             'tos' => 'accepted',
         ];
     }

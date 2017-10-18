@@ -45,11 +45,11 @@ class PaymentController extends Controller
         if ($paymentDetails['data']['status'] == 'success') {
             if ($this->paymentService->addDebitingAccount($paymentDetails)) {
                 return redirect($paymentDetails['data']['metadata']['referrer'])
-                    ->with('success', 'Debiting Account Added Successfully');            
+                    ->with('message', 'Debiting Account Added Successfully');            
             }
         }
         return redirect($paymentDetails['data']['metadata']['referrer'])
-            ->with('error', 'Debiting Account Added Successfully');
+            ->with('error', 'Error Processing Payment');
     }
 
     public function resolve_account_number(ValidateAccountNumberRequest $request)
@@ -75,9 +75,9 @@ class PaymentController extends Controller
         echo $response->getBody()->getContents();
     }
 
-    public function save_account_number(ValidateAccountNumberRequest $request) {
-        if ($added = $this->paymentService->addCreditingAccount($request)) {
-            return redirect()->back()->with('success', 'Crediting Account Added Successfully');
+    public function save_account_number(ValidateAccountNumberRequest $request, $team_id) {
+        if ($added = $this->paymentService->addCreditingAccount($request, $team_id)) {
+            return redirect()->back()->with('message', 'Crediting Account Added Successfully');
         }
         return redirect()->back()->with('error', 'Error Adding Crediting Account');
     }

@@ -9,10 +9,10 @@
                     <h4 class="modal-title text-center bold" id="myModalLabel">Add Account</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="add-crediting-account-form" method="post" action="/payment/save-account-number">
+                    <form id="add-crediting-account-form" method="post" action="/teams/{{ $team->id }}/save-account-number">
                         {{ csrf_field() }}
 
-                        <div class="bold text-center" id="account-validate-msg"></div>
+                        <div class="bold text-center alert padding-round-sm margin-bottom-md margin-top-xs hidden" id="account-validate-msg"></div>
                         
                         <div class="form-group">
                             <label for="select-bank" class="control-label">Select Bank</label>

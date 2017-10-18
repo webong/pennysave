@@ -38,13 +38,15 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsToMany('\App\Role', 'group_user')
-            ->withPivot(['group_id', 'role_id', 'status'])->withTimestamps();
+            ->withPivot(['group_id', 'cycle', 'role_id', 'debiting', 'crediting', 'status'])
+            ->withTimestamps();
     }
 
 	public function group()
 	{
 		return $this->belongsToMany('\App\Group', 'group_user')
-            ->withPivot(['role_id', 'group_id', 'status'])->withTimestamps();
+            ->withPivot(['role_id', 'cycle', 'group_id', 'debiting', 'crediting', 'status'])
+            ->withTimestamps();
 	}
 
 	public function payment()

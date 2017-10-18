@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ValidateAccountNumberRequest extends FormRequest
+class SavePaymentAccountRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class ValidateAccountNumberRequest extends FormRequest
     public function rules()
     {
         return [
-            'account_number' => 'required|numeric|digits:10',
-            'bank_code' => 'required|digits:3',
-            'account_name' => 'sometimes|nullable|string',
-         ];
+            'save_account' => 'required|string|max:15',
+            'bank_code' => 'required|string|size:36',
+        ];
     }
 }

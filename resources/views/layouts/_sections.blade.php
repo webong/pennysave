@@ -2,7 +2,7 @@
 
 @section('added_css')
     <link href="{{ asset('css/dd.css') }}" rel="stylesheet">
-    @include('partials._togglecheckbox')
+    <link href="{{ asset('css/togglecheckbox.css') }}" rel="stylesheet">
 @endsection
 
 @section('added_nav')

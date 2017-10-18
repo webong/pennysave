@@ -2,9 +2,11 @@
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
-use Illuminate\Http\Request;
 use App\MessageAttachment as Attachment;
+use Illuminate\Support\HtmlString;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Bank;
 
 if (! function_exists('message')) {
     /**
@@ -130,6 +132,61 @@ if (! function_exists('schedule_date')) {
         } elseif ($recurrence == 4) {
             return $start_date->addMonths($added_value);
         }
+    }
+}
+
+if (! function_exists('get_card_details')) {
+
+    function get_card_details($logo_type, $last_four_digits) {
+        if ($logo_type == 'visa DEBIT') {
+            $img[] = new HtmlString('<img src="' . asset(urldecode('images%2Fbank%2Fvisa.png')) . '" class="img-rounded img-responsive" />');
+            $img[] = 'XXXX XXXX XXXX ' . $last_four_digits;
+        } elseif ($logo_type == 'mastercard') {
+            $img[] = new HtmlString('<img src="' . asset(urldecode('images%2Fbank%2Fmastercard.png')) . '" class="img-rounded img-responsive" />');
+            $img[] = 'XXXX XXXX XXXX ' . $last_four_digits;
+        } elseif ($logo_type == 'verve') {
+            $img[] = new HtmlString('<img src="' . asset(urldecode('images%2Fbank%2Fverve.png')) . '" class="img-rounded img-responsive" />');
+            $img[] = 'XXXXX XXXXX XXXXX ' . $last_four_digits;
+        }
+        return $img;
+    }
+}
+
+if (! function_exists('logo_link')) {
+
+    function logo_link($account) {
+        if ($account->account_type == 'card') {
+            if ($account->type_details == 'visa DEBIT') {
+                $img = asset(urldecode('images%2Fbank%2Fvisa.png'));
+            } elseif ($account->type_details == 'mastercard') {
+                $img = asset(urldecode('images%2Fbank%2Fmastercard.png'));
+            } elseif ($account->type_details == 'verve') {
+                $img = asset(urldecode('images%2Fbank%2Fverve.png'));
+            }
+        } else {
+            $img = asset(urldecode(Bank::where('code', $account->type_details)->first()->logo));
+        }
+        return $img;
+    }
+}
+
+if (! function_exists('account_desc')) {
+
+    function account_desc($account) {
+        if ($account->account_type == "bank") {
+            $bank = Bank::where('code', $account->type_details)->first();
+            $desc = 'Bank Account in ' . $bank->name . ' added ' . $account->created_at->format('l jS F, Y');
+        } else {
+            $desc = ucwords($account->type_details) . ' ATM card added ' . $account->created_at->format('l jS F, Y');
+        }
+        return $desc;
+    }
+}
+
+if (! function_exists('get_bank_name')) {
+
+    function get_bank_name($bank_code) {
+        return $bank = Bank::where('code', $bank_code)->first()->name;
     }
 }
 

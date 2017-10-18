@@ -10,7 +10,7 @@
                         {{ csrf_field() }}
 
                         @if (isset($emailOrPhone))
-                            <div class="alert alert-info text-center col-md-10 col-md-offset-1 bold">You Need To Login To Accept This Request</div>
+                            <div class="alert alert-info text-center col-md-10 col-md-offset-1 bold">You Need To Login To Accept This Invitation</div>
                         @endif
                         
                         <div class="form-group{{ $errors->has('login') ? ' has-error' : '' }}">

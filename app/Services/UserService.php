@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use App\User;
 use App\Role;
+use Auth;
 use DB;
-use Carbon\Carbon;
 
 class UserService
 {
@@ -59,5 +60,8 @@ class UserService
             ->get();
     }
 
-
+    public function getNamebyId($user_id)
+    {
+        return User::find($user_id)->full_name();
+    }
 }

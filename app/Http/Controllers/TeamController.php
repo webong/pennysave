@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\TeamRequest;
-use App\Http\Requests\InviteSinglyRequest;
+use App\Http\Requests\SavePaymentAccountRequest;
 use Propaganistas\LaravelIntl\Facades\Country;
+use App\Http\Requests\InviteSinglyRequest;
 use App\Http\Requests\InviteListRequest;
 use App\Services\AnnouncementService;
 use Illuminate\Support\HtmlString;
+use App\Http\Requests\TeamRequest;
 use App\Services\MessageService;
+use App\Services\AccountService;
+use App\Services\PaymentService;
 use App\Services\InviteService;
 use App\Services\TeamService;
+use App\Services\UserService;
+use Illuminate\Http\Request;
 use App\GroupInvite;
 use App\Recurrence;
 use Carbon\Carbon;
@@ -25,18 +29,24 @@ class TeamController extends Controller
     protected $inviteService;
     protected $announcementService;
     protected $messageService;
+    protected $accountService;
+    protected $paymentService;
 
     public function __construct(
         TeamService $teamService,
         InviteService $inviteService,
         AnnouncementService $announcementService,
-        MessageService $messageService
+        MessageService $messageService,
+        AccountService $accountService,
+        PaymentService $paymentService
     )
     {
         $this->teamService = $teamService;
         $this->inviteService = $inviteService;
         $this->announcementService = $announcementService;
         $this->messageService = $messageService;
+        $this->accountService = $accountService;
+        $this->paymentService = $paymentService;
     }
 
     public function team()
@@ -60,6 +70,12 @@ class TeamController extends Controller
             $data['unread_messages'] = $this->messageService->getNewMessages($team_id);
             $data['countries'] = Country::all();
             $data['banks'] = Bank::all();
+            $data['card_account'] = $this->accountService->card_account();
+            $data['bank_account'] = $this->accountService->bank_account();
+            $metadata = ['custom_fields' => ['team' => $team_id]];
+            $data['metadata'] = $metadata;
+            $data['payment_account'] = ($data['team']->debit_account->count() && $data['team']->credit_account->count())
+            ? true : false;
             return view('team.team', $data);
         }
     }
@@ -68,7 +84,8 @@ class TeamController extends Controller
     {
         $sendInvitesResponse = $this->inviteService->invite($request, $team_id, Auth::user());
         if ($sendInvitesResponse) {
-            return redirect()->back()->with('message', new HtmlString($sendInvitesResponse));
+            // return redirect()->back()->with('message', new HtmlString($sendInvitesResponse));
+            return redirect()->back()->with('message', $sendInvitesResponse);
         } else {
             if (is_bool($sendInvitesResponse)) {
                 return redirect()->back()->with('error', 'Error Sending Invitations');
@@ -119,6 +136,7 @@ class TeamController extends Controller
             return redirect('/register')->with('info', 'The Invitation has expired');
         } else {
             $data['emailOrPhone'] = $confirmInvite;
+            session()->put('url.intended', url('/teams/invites'));
             return view('auth.login', $data);
         }
     }
@@ -141,17 +159,29 @@ class TeamController extends Controller
 
     public function start_now($team_id)
     {
-        if ($contribution_order = $this->teamService->startNow($team_id)) {
+        $startStatus = $this->teamService->startNow($team_id);
+        if ($startStatus == 'success') {
             $started_path = '/teams/' . $team_id . '/started';
             echo $started_path;
             exit();
         } else {
-            echo 'error';
+            echo $startStatus;
+            exit();
         }
     }
 
     public function started_redirect()
     {
         return redirect()->back()->with('message', 'Etibe Started Successfully');
+    }
+
+    public function set_payment_now(SavePaymentAccountRequest $request, $team_id)
+    {
+        if ($this->paymentService->addPaymentAccount($request, $team_id)) {
+            echo 'success';
+            exit();
+        }
+        echo 'failed';
+        exit();
     }
 }

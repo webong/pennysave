@@ -41,8 +41,11 @@ class MessageService
             ->where('message_refs.team_id', $team_id)
             ->join('users as sender', 'message_refs.sender', '=', 'sender.id')
             ->orderBy('message_refs.created_at', 'desc')
-            ->groupBy('message_refs.message_id')
-            ->simplePaginate($this->paginate);
+            ->distinct()
+            // ->groupBy('message_refs.message_id')
+            ->simplePaginate($this->paginate, ['messages.*']); 
+            // The second value is to ensure paginate returns correct total value as found here:
+            // https://stackoverflow.com/questions/41283083/distinct-with-pagination-in-laravel-5-2-not-working
         return $data;
     }
 

@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
 
 class Handler extends ExceptionHandler
 {
@@ -44,6 +45,16 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof TokenMismatchException) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'message' => 'TokenMismatchException'
+                ]);
+            }
+            return redirect()->back()
+                ->withInput($request->except('password', '_token'))
+                ->with('error', 'You waited a little too long... Please try again');
+        }
         return parent::render($request, $exception);
     }
 
@@ -60,6 +71,6 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
-        return redirect()->guest(route('login'));
+        return redirect()->guest(route('login'))->with('error', 'Your Session Expired! Please Login again');
     }
 }
