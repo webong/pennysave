@@ -45,7 +45,7 @@ class PaymentService
     {
         $account_type = $payment_details['data']['channel'];
         $type = 'debiting';
-        $team_id = $paymentDetails['data']['metadata']['custom_fields']['team'];
+        $team_id = $payment_details['data']['metadata']['custom_fields']['team'];
         $type_details = $payment_details['data']['authorization']['card_type'];
         $last_four_digit = $payment_details['data']['authorization']['last4'];
         $auth_token = NULL;
