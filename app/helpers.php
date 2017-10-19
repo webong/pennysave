@@ -110,7 +110,7 @@ if (! function_exists('confirm_team_status')) {
         // Return true if active, false if not active
         if ($value == 'inactive'): return false;
         elseif ($value == 'active'): return true;
-        elseif ($status == 'auto'):
+        elseif ($value == 'auto'):
             if (Carbon::now()->diffInDays($start_date) < 1):
                 return true;
             else: return false;
