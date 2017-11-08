@@ -36,6 +36,8 @@
 @endsection
 
 @section('added_js')
+    
+    @include('views-js.payment-account-js')
     @include('views-js.team-details-js')
     @include('views-js.invite-members-js')
 @endsection

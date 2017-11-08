@@ -1,3 +1,4 @@
+<script src="{{ asset('js/ddslick.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         var validation_message = $('#account-validate-msg');
@@ -207,6 +208,30 @@
         $('#add-account').click(function () {
             $('#add-crediting-account-form').submit();
         });
+
+
+        $('#select-bank').ddslick({
+            height: "150px",
+            selectText: "Select Your Bank",
+            showSelectedHTML: true,
+        });
+
+        var divWidth = $('.choose-account').parents('.col-sm-6').width;
+        var varyWidth = $('.choose-account').parents('.col-sm-6').width();
+
+        $('.choose-account-debit').ddslick({
+            selectText: "Choose An Account",
+            defaultSelectedIndex: null,
+            width: ($(window).width() < 768) ? varyWidth : divWidth,
+            showSelectedHTML: true,
+        });
+
+        $('.choose-account-credit').ddslick({
+            selectText: "Choose An Account",
+            width: ($(window).width() < 768) ? varyWidth : divWidth,
+            showSelectedHTML: true,
+        });
+
     });
 
 </script>

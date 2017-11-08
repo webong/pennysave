@@ -62,12 +62,7 @@
             <hr >
             <form method="POST" action="{{ route('pay') }}" accept-charset="UTF-8" role="form">
                 {{ csrf_field() }}
-                <input type="hidden" name="email" value="{{ Auth::user()->email }}"> {{-- required --}}
-                <input type="hidden" name="orderID" value="448">
-                <input type="hidden" name="metadata" value="{{ json_encode($metadata) }}">
-                <input type="hidden" name="amount" value="10000"> {{-- required in kobo --}}
-                <input type="hidden" name="quantity" value="1">
-
+                <input type="hidden" name="team" value="{{ $team->id }}">
                 <button class="btn btn-success btn-lg center-block" type="submit" value="Add Another!">
                     <i class="fa fa-plus-circle fa-lg"></i> Add Another!
                 </button>
@@ -79,11 +74,7 @@
             <hr class="hr-sm">
             <form method="POST" action="{{ route('pay') }}" accept-charset="UTF-8" role="form">
                 {{ csrf_field() }}
-                <input type="hidden" name="email" value="{{ Auth::user()->email }}"> {{-- required --}}
-                <input type="hidden" name="orderID" value="448">
-                <input type="hidden" name="amount" value="10000"> {{-- required in kobo --}}
-                <input type="hidden" name="quantity" value="1">
-
+                <input type="hidden" name="team" value="{{ $team->id }}">
                 <button class="btn btn-success btn-lg center-block" type="submit" value="Pay Now!">
                     <i class="fa fa-plus-circle fa-lg"></i> Add Now!
                 </button>
@@ -177,33 +168,3 @@
 </div>
 
 @include('modals._add-crediting-account-modal')
-
-@include('views-js.payment-account-js')
-
-<script src="{{ asset('js/ddslick.js') }}"></script>
-<script>
-    $(function () {
-        $('#select-bank').ddslick({
-            height: "150px",
-            selectText: "Select Your Bank",
-            showSelectedHTML: true,
-        });
-
-        var divWidth = $('.choose-account').parents('.col-sm-6').width;
-        var varyWidth = $('.choose-account').parents('.col-sm-6').width();
-
-        $('.choose-account-debit').ddslick({
-            selectText: "Choose An Account",
-            defaultSelectedIndex: null,
-            width: ($(window).width() < 768) ? varyWidth : divWidth,
-            showSelectedHTML: true,
-        });
-
-        $('.choose-account-credit').ddslick({
-            selectText: "Choose An Account",
-            width: ($(window).width() < 768) ? varyWidth : divWidth,
-            showSelectedHTML: true,
-        });
-
-    });
-</script>

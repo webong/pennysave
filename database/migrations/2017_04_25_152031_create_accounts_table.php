@@ -19,6 +19,7 @@ class CreateAccountsTable extends Migration
             $table->string('id');
             $table->string('user_id');
             $table->string('account_type');
+            $table->string('type');
             $table->string('type_details');
             $table->string('last_four_digits');
             $table->string('authorization_token')->nullable();

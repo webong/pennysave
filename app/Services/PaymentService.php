@@ -2,13 +2,76 @@
 
 namespace App\Services;
 
+use Unicodeveloper\Paystack\Exceptions\PaymentVerificationFailedException;
+use GuzzleHttp\Exception\TransferException;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7;
 use App\UserGroup;
 use App\Account;
+use Paystack;
+use stdClass;
 use App\Bank;
 use Auth;
 
 class PaymentService
 {
+
+    public function pay_now()
+    {
+        $user = Auth::user();
+        request()->email = $user->email;
+        request()->first_name = $user->first_name;
+        request()->last_name = $user->last_name;
+        request()->amount = 10000; // Convert to Kobo
+        request()->metadata = new stdClass();
+        request()->metadata->team = request()->team;
+        request()->metadata->cancel_action = config('app.url') . '/' . request()->team . '/payment/cancelled';;
+        request()->callback_url = config('app.url') . '/payment/callback';
+        request()->reference = Paystack::genTranxRef();
+        request()->key = config('paystack.secretKey');
+        return Paystack::getAuthorizationUrl()->redirectNow();
+    }
+
+    public function handlecallback()
+    {
+        try {
+            $paymentDetails = Paystack::getPaymentData();
+        } catch (PaymentVerificationFailedException $e) {
+            return redirect('/dashboard')
+                ->with('error', 'Error Processing Payment');
+        }
+        if ($paymentDetails['data']['status'] == 'success') {
+            if ($this->addDebitingAccount($paymentDetails)) {
+                return redirect($paymentDetails['data']['metadata']['referrer'])
+                    ->with('message', 'Debiting Account Added Successfully');            
+            }
+        }
+        return redirect($paymentDetails['data']['metadata']['referrer'])
+            ->with('error', 'Error Processing Payment');
+    }
+
+    public function resolve_account_number($request)
+    {
+        $url = "https://api.paystack.co/bank/resolve";
+        $client = new Client([
+            'headers' => [
+                'Content-Type'  => 'application/json',
+                'Accept'        => 'application/json'
+            ]
+        ]);
+        $data = [
+            "account_number" => $request->account_number,
+            "bank_code" => $request->bank_code
+        ];
+        try {
+            $response = $client->get($url, ["query" => $data]);
+        } catch (TransferException $e) {
+            if ($e->hasResponse()) {
+                $response = $e->getResponse();
+            }
+        }
+    }
+
     public function addAccount($account_type, $type, $type_details, $last_four_digit, $auth_token, $status)
     {
         $uuid = gen_uuid();
@@ -45,7 +108,7 @@ class PaymentService
     {
         $account_type = $payment_details['data']['channel'];
         $type = 'debiting';
-        $team_id = $payment_details['data']['metadata']['custom_fields']['team'];
+        $team_id = $payment_details['data']['metadata']['team'];
         $type_details = $payment_details['data']['authorization']['card_type'];
         $last_four_digit = $payment_details['data']['authorization']['last4'];
         $auth_token = NULL;

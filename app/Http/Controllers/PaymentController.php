@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Paystack;
-use GuzzleHttp\Psr7;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Services\PaymentService;
 use App\Http\Controllers\Controller;
-use GuzzleHttp\Exception\TransferException;
 use App\Http\Requests\ValidateAccountNumberRequest;
-use Unicodeveloper\Paystack\Exceptions\PaymentVerificationFailedException;
 
 class PaymentController extends Controller
 {
@@ -29,49 +24,23 @@ class PaymentController extends Controller
 
     public function paynow()
     {
-        request()->reference = Paystack::genTranxRef();
-        request()->key = config('paystack.secretKey');
-        return Paystack::getAuthorizationUrl()->redirectNow();
+        return $this->paymentService->pay_now();
     }
 
     public function handlecallback()
     {
-        try {
-            $paymentDetails = Paystack::getPaymentData();
-        } catch (PaymentVerificationFailedException $e) {
-            return redirect('/dashboard')
-                ->with('error', 'Error Processing Payment');
-        }
-        if ($paymentDetails['data']['status'] == 'success') {
-            if ($this->paymentService->addDebitingAccount($paymentDetails)) {
-                return redirect($paymentDetails['data']['metadata']['referrer'])
-                    ->with('message', 'Debiting Account Added Successfully');            
-            }
-        }
-        return redirect($paymentDetails['data']['metadata']['referrer'])
-            ->with('error', 'Error Processing Payment');
+        return $this->paymentService->handlecallback();
+    }
+
+    public function handlecancelled($team)
+    {
+        $redirect = config('app.url') . '/teams/' . $team;
+        return redirect($redirect)->with('error', 'You Cancelled the Payment');
     }
 
     public function resolve_account_number(ValidateAccountNumberRequest $request)
     {
-        $url = "https://api.paystack.co/bank/resolve";
-        $client = new Client([
-            'headers' => [
-                'Content-Type'  => 'application/json',
-                'Accept'        => 'application/json'
-            ]
-        ]);
-        $data = [
-            "account_number" => $request->account_number,
-            "bank_code" => $request->bank_code
-        ];
-        try {
-            $response = $client->get($url, ["query" => $data]);
-        } catch (TransferException $e) {
-            if ($e->hasResponse()) {
-                $response = $e->getResponse();
-            }
-        }
+        $response = $this->paymentService->resolve_account_number($request);
         echo $response->getBody()->getContents();
     }
 

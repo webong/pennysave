@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/addpayment', 'PaymentController@addpayment');
 	Route::post('/addpayment', 'PaymentController@paynow')->name('pay');
 	Route::get('/payment/callback', 'PaymentController@handlecallback');
+	Route::get('/{team}/payment/cancelled', 'PaymentController@handlecancelled');
 	Route::post('/payment/resolve-account-number', 'PaymentController@resolve_account_number');
 
 	Route::group(['prefix' => '/teams/{team_id}'], function () {
