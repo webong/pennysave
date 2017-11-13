@@ -2,6 +2,7 @@
 
 @section('added_css')
     <link href="{{ asset('css/selectize.bootstrap3.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/password.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -171,7 +172,7 @@
                                     </label>
                                 </div>
                             </div>
-                            @if ($errors->has('password'))
+                            @if ($errors->has('tos'))
                                 <span class="has-error">
                                     <span class="help-block">
                                         <strong>You need to accept our Terms of Service</strong>
@@ -193,6 +194,10 @@
 @endsection
 
 @section('added_js')
+    <script src="{{ asset('js/password.min.js') }}"></script>
+    <script type="text/javascript">
+        $('#password').password();
+    </script>
     @if (! isset($invitationEmail) && ! isset($invitationPhone))
         <script>
             $(document).ready(function () {

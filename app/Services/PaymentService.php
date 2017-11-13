@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Unicodeveloper\Paystack\Exceptions\PaymentVerificationFailedException;
 use GuzzleHttp\Exception\TransferException;
+use App\Services\UserService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use App\UserGroup;
@@ -16,8 +17,19 @@ use Auth;
 class PaymentService
 {
 
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function pay_now()
     {
+        // Confirm that User has set email address
+        if ($this->userService->confirmEmailPresent()) {
+            return redirect('/profile')->with('message', 'Your Email Needs To Be Set!');
+        }
         $user = Auth::user();
         request()->email = $user->email;
         request()->first_name = $user->first_name;

@@ -64,4 +64,12 @@ class UserService
     {
         return User::find($user_id)->full_name();
     }
+
+    public function confirmEmailPresent()
+    {
+        if (! Auth::user()->email == '') {
+            return false;
+        }
+        return true;
+    }
 }
