@@ -65,9 +65,11 @@ class UserService
         return User::find($user_id)->full_name();
     }
 
-    public function confirmEmailPresent()
+    public function confirmEmailNotSet()
     {
-        if (! Auth::user()->email == '') {
+        $email = trim(Auth::user()->email);
+        if (! $email == '') {
+            // Email is set (not blank)
             return false;
         }
         return true;

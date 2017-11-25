@@ -27,7 +27,7 @@ class PaymentService
     public function pay_now()
     {
         // Confirm that User has set email address
-        if ($this->userService->confirmEmailPresent()) {
+        if ($this->userService->confirmEmailNotSet()) {
             return redirect('/profile')->with('message', 'Your Email Needs To Be Set!');
         }
         $user = Auth::user();
